@@ -63,9 +63,13 @@ namespace math
 		};
 
 		complex();
-		complex(double _real, double _imaginary);
+		complex(const double _real, const double _imaginary);
+		complex(const struct polar p);
+		complex(const double _abs, const angle _phi);
 		
 		complex& fromPolar(const struct polar p);
+		complex& fromPolar(const double _abs, const double _phi_d);
+		complex& fromPolar(const double _abs, const angle _phi);
 		complex& fromRectangle(const double _r, const double _i);
 
 		double norm();
@@ -78,13 +82,13 @@ namespace math
 		angle phi();
 		angle phase();
 
-		polar& polar();
+		struct polar polar();
 
 		complex conjugate();
 
 		double projection();
 		double projectionOn(const complex base);
-		double projectionOn(const polar base);
+		double projectionOn(const struct polar base);
 
 		complex& operator+=(const complex rhs);
 		complex& operator-=(const complex rhs);

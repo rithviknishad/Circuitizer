@@ -124,15 +124,38 @@ math::complex::complex()
 	fromRectangle(0.0, 0.0);
 }
 
-math::complex::complex(double _real, double _imaginary)
+math::complex::complex(const double _real, const double _imaginary)
 {
 	fromRectangle(_real, _imaginary);
 }
 
-complex& math::complex::fromPolar(const polar p)
+math::complex::complex(struct polar p)
+{
+	fromPolar(p);
+}
+
+math::complex::complex(const double _abs, const angle _phi)
+{
+	fromPolar(_abs, _phi);
+}
+
+complex& math::complex::fromPolar(const struct polar p)
 {
 	real = p.real();
 	imaginary = p.imaginary();
+	return *this;
+}
+
+complex& math::complex::fromPolar(const double _abs, const double _phi_d)
+{
+	r = _abs * std::cos(_phi_d);
+	i = _abs * std::sin(_phi_d);
+	return *this;
+}
+
+complex& math::complex::fromPolar(const double _abs, const angle _phi)
+{
+	fromPolar(_abs, _phi.rad);
 	return *this;
 }
 
@@ -178,9 +201,9 @@ angle math::complex::phase()
 	return angle(std::atan2(i, r)).absolute();
 }
 
-polar& math::complex::polar()
+struct polar math::complex::polar()
 {
-	return struct polar(abs, phi);
+	return struct polar().fromRectangle(r, i);
 }
 
 complex math::complex::conjugate()
@@ -198,7 +221,7 @@ double math::complex::projectionOn(const complex base)
 	return complex::polar().projectionOn(polar().fromRectangle(base.r, base.i));
 }
 
-double math::complex::projectionOn(const polar base)
+double math::complex::projectionOn(const struct polar base)
 {
 	return complex::polar().projectionOn(base);
 }

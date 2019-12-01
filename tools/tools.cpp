@@ -3,26 +3,21 @@
 
 #include <iostream>
 
-#include "math/complex.h"
+#include "edef/power.h"
 
 void printPolar(math::polar polar)
 {
 	std::cout << "{" << polar.abs << ", " << PHI << " = " << polar.phi_d / pi << PI << "}" << std::endl;
 }
 
+void printPower(e::power pwr)
+{
+	std::cout << "{" << pwr.value.abs() << " = " << pwr.P << " j" << pwr.Q << "}" << std::endl;
+}
+
 int main()
 {
-	math::complex p = { 2.0, 0.0 };
-	math::complex q = math::complex().fromRectangle(5, 3);
-
-	std::cout << "start\n";
-
-	for (double i = 0; i < 100000000; ++i)
-	{
-		math::complex a = p * q;
-	}
-
-	std::cout << "end\n";
-
+	e::power p = e::power().fromComplex(10, 20);
+	printPower(p);
 	return 0;
 }
