@@ -17,7 +17,7 @@ namespace math
 		double value;
 
 		angle();
-		angle(const double val);
+		angle(const double radian);
 
 		angle& operator+=(const angle& rhs);
 		angle& operator-=(const angle& rhs);
@@ -47,6 +47,7 @@ namespace math
 		};
 
 		polar();
+		polar(const double _absolute, const double phase_angle);
 
 		polar& fromPolar(const double _absolute, const angle _phase);
 		polar& fromRectangle(const double r, const double i);

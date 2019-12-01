@@ -10,9 +10,9 @@ angle::angle()
 	value = 0.0;
 }
 
-angle::angle(const double val)
+angle::angle(const double rad)
 {
-	value = val;
+	value = rad;
 	absolute();
 }
 
@@ -150,6 +150,12 @@ math::polar::polar()
 {
 	phase = angle();
 	abs = theta_d = 0.0;
+}
+
+math::polar::polar(const double _absolute, const double phase_angle)
+{
+	abs = _absolute;
+	phase = angle(phase_angle).absolute();
 }
 
 polar& polar::fromPolar(const double _absolute, const angle _phase)
