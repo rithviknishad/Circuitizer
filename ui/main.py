@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
 import sys
+import ctypes
 import tkinter as tk
+import tkinter.ttk as ttk
 
 BG_COLOR = "white"
 
@@ -11,6 +13,7 @@ class Circuitizer:
         self.root.title("Circuitizer")
         self.root.configure(background=BG_COLOR)
         self.menu_bar(root)
+        self.tool_bar(root)
         self.status_bar(root)
 
     def menu_bar(self, root):
@@ -56,6 +59,16 @@ class Circuitizer:
     
             self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
+    def tool_bar(self, root):
+        self.frame = tk.Frame(root)
+        self.frame.configure(background=BG_COLOR)
+
+        self.open = tk.Button(self.frame, text="HI")
+        self.open.configure(background=BG_COLOR)
+        self.open.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        self.frame.pack(fill=tk.X, side=tk.TOP)
+
     def properties_panel(self, root):
         pass
 
@@ -73,6 +86,10 @@ class Circuitizer:
         self.frame.pack(fill=tk.X, side=tk.BOTTOM)
 
 if __name__ == "__main__":
+    # Fix text blurry issue in windows 10 due to text scale settings
+    if 'win' in sys.platform:
+        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+    # init the tkinter GUI process
     root = tk.Tk()
     Circuitizer(root)
     root.mainloop()
