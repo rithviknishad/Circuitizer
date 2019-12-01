@@ -5,7 +5,7 @@ import ctypes
 import tkinter as tk
 import tkinter.ttk as ttk
 
-BG_COLOR = "white"
+from config import *
 
 class Circuitizer:
     def __init__(self, root):
@@ -15,6 +15,9 @@ class Circuitizer:
         self.menu_bar(root)
         self.tool_bar(root)
         self.status_bar(root)
+        self.properties_panel(root)
+        self.side_tool_bar(root)
+        self.project_panel(root)
 
     def menu_bar(self, root):
         self.menubar = tk.Menu(root)
@@ -61,26 +64,60 @@ class Circuitizer:
 
     def tool_bar(self, root):
         self.frame = tk.Frame(root)
-        self.frame.configure(background=BG_COLOR)
+        self.frame.configure(background=TOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
-        self.open = tk.Button(self.frame, text="HI")
-        self.open.configure(background=BG_COLOR)
-        self.open.pack(side=tk.LEFT, fill=tk.BOTH)
+        for _ in range(10):
+            self.open = tk.Button(self.frame, text="FOO", relief=tk.FLAT)
+            self.open.configure(background=TOOL_COLOR)
+            self.open.configure(foreground=FG_COLOR)
+            self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=2, ipady=2)
 
         self.frame.pack(fill=tk.X, side=tk.TOP)
 
     def properties_panel(self, root):
-        pass
+        self.frame = tk.Frame(root)
+        self.frame.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+
+        for _ in range(10):
+            self.open = tk.Label(self.frame, text="Dummy Properties")
+            self.open.configure(background=PANEL_COLOR)
+            self.open.configure(foreground=FG_COLOR)
+            self.open.pack(side=tk.TOP, fill=tk.BOTH)
+
+        self.frame.pack(fill=tk.Y, side=tk.RIGHT, ipadx=10, ipady=3)
+
+    def side_tool_bar(self, root):
+        self.frame = tk.Frame(root)
+        self.frame.configure(background=SIDETOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+
+        for _ in range(10):
+            self.open = tk.Label(self.frame, text="FOO")
+            self.open.configure(background=SIDETOOL_COLOR)
+            self.open.configure(foreground=FG_COLOR)
+            self.open.pack(side=tk.TOP, fill=tk.BOTH)
+
+        self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
 
     def project_panel(self, root):
-        pass
+        self.frame = tk.Frame(root)
+        self.frame.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+
+        for _ in range(10):
+            self.open = tk.Label(self.frame, text="Project Dummy")
+            self.open.configure(background=PANEL_COLOR)
+            self.open.configure(foreground=FG_COLOR)
+            self.open.pack(side=tk.TOP, fill=tk.BOTH)
+
+        self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
 
     def status_bar(self, root):
         self.frame = tk.Frame(root)
-        self.frame.configure(background=BG_COLOR)
+        # self.frame.configure(background=STATUS_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+        self.frame.configure(background=STATUS_COLOR)
 
         self.txt = tk.Label(self.frame, text="Ready")
-        self.txt.configure(background=BG_COLOR)
+        self.txt.configure(background=STATUS_COLOR)
+        self.txt.configure(foreground='white')
         self.txt.pack(side=tk.LEFT)
 
         self.frame.pack(fill=tk.X, side=tk.BOTTOM)
