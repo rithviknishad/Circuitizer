@@ -3,18 +3,22 @@
 
 #include <iostream>
 
-int main()
+#include "complex.h"
+
+void printPolar(math::polar polar)
 {
-    std::cout << "Hello World!\n";
+	std::cout << polar.abs << " <" << polar.phi_d << std::endl;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main()
+{
+	math::polar p = math::polar().fromPolar(10, 1);
+	math::polar q = math::polar().fromPolar(5, 2);
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	std::cout << "p = "; printPolar(p);
+	std::cout << "q = "; printPolar(q);
+
+	std::cout << "p * q = "; printPolar(p * q);
+
+	return 0;
+}
