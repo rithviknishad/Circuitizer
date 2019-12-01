@@ -74,10 +74,19 @@ namespace math
 		double projectionOn(const complex base);
 		double projectionOn(const polar base);
 
+		complex& operator+=(const complex rhs);
+		complex& operator-=(const complex rhs);
+		complex& operator*=(const complex rhs);
+		complex& operator/=(const complex rhs);
+
 	} complex;
 
-#pragma endregion
+	complex operator+(const complex lhs, const complex rhs);
+	complex operator-(const complex lhs, const complex rhs);
+	complex operator*(const complex lhs, const complex rhs);
+	complex operator/(const complex lhs, const complex rhs);
 
+#pragma endregion
 
 }
 

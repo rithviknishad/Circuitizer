@@ -12,8 +12,11 @@ void printPolar(math::polar polar)
 
 int main()
 {
-	math::polar p = { 2.0, 0 };
+	math::polar p = { 2.0, 0.0 };
 	math::polar q = math::polar().fromPolar(5, -piby2);
+
+	math::complex a = { 1.0, 1.0 };
+	q = a.getPolar();
 
 	std::cout << "p = "; printPolar(p);
 	std::cout << "q = "; printPolar(q);

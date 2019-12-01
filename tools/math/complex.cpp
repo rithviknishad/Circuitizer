@@ -198,6 +198,7 @@ complex& math::complex::fromPolar(const polar p)
 {
 	real = p.real();
 	imaginary = p.imaginary();
+	return *this;
 }
 
 complex& math::complex::fromRectangle(const double _r, const double _i)
@@ -219,12 +220,60 @@ double math::complex::projection()
 
 double math::complex::projectionOn(const complex base)
 {
-	return getPolar().projection(polar().fromRectangle(base.r, base.i));
+	return getPolar().projectionOn(polar().fromRectangle(base.r, base.i));
 }
 
 double math::complex::projectionOn(const polar base)
 {
-	return getPolar().projectionOn(polar);
+	return getPolar().projectionOn(base);
+}
+
+complex& math::complex::operator+=(const complex rhs)
+{
+	real += rhs.real;
+	imaginary += rhs.imaginary;
+	return *this;
+}
+
+complex& math::complex::operator-=(const complex rhs)
+{
+	real -= rhs.real;
+	imaginary -= rhs.imaginary;
+	return *this;
+}
+
+complex& math::complex::operator*=(const complex rhs)
+{
+	r = (r * rhs.r) - (i * rhs.i);
+	i = (r * rhs.i) + (i * rhs.r);
+	return *this;
+}
+
+complex& math::complex::operator/=(const complex rhs)
+{
+	r = ((r * rhs.r) + (i * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i));
+	i = ((i * rhs.r) - (r * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i));
+	return *this;
+}
+
+complex math::operator+(const complex lhs, const complex rhs)
+{
+	return complex(lhs.r + rhs.r, lhs.i + rhs.i);
+}
+
+complex math::operator-(const complex lhs, const complex rhs)
+{
+	return complex(lhs.r - rhs.r, lhs.i - rhs.i);
+}
+
+complex math::operator*(const complex lhs, const complex rhs)
+{
+	return complex((lhs.r * rhs.r) - (lhs.i * rhs.i), (lhs.r * rhs.i) + (lhs.i * rhs.r));
+}
+
+complex math::operator/(const complex lhs, const complex rhs)
+{
+	return complex(((lhs.r * rhs.r) + (lhs.i * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i)), ((lhs.i * rhs.r) - (lhs.r * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i)));
 }
 
 #pragma endregion
