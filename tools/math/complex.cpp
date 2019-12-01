@@ -124,6 +124,16 @@ polar polar::conjugate() const
 	return polar(abs, -phi);
 }
 
+double math::polar::projection()
+{
+	return real();
+}
+
+double math::polar::projectionOn(polar base)
+{
+	return polar().fromPolar(abs, phi.absolute() - base.phi.absolute()).real();
+}
+
 
 
 polar& math::polar::operator+=(const polar rhs)
@@ -168,6 +178,53 @@ polar math::operator*(const polar lhs, const polar rhs)
 polar math::operator/(const polar lhs, const polar rhs)
 {
 	return polar().fromPolar(lhs.abs / rhs.abs, lhs.phi - rhs.phi);
+}
+
+#pragma endregion
+
+#pragma region complex
+
+math::complex::complex()
+{
+	fromRectangle(0.0, 0.0);
+}
+
+math::complex::complex(double _real, double _imaginary)
+{
+	fromRectangle(_real, _imaginary);
+}
+
+complex& math::complex::fromPolar(const polar p)
+{
+	real = p.real();
+	imaginary = p.imaginary();
+}
+
+complex& math::complex::fromRectangle(const double _r, const double _i)
+{
+	real = _r;
+	imaginary = _i;
+	return *this;
+}
+
+polar& math::complex::getPolar()
+{
+	return polar().fromRectangle(r, i);
+}
+
+double math::complex::projection()
+{
+	return r;
+}
+
+double math::complex::projectionOn(const complex base)
+{
+	return getPolar().projection(polar().fromRectangle(base.r, base.i));
+}
+
+double math::complex::projectionOn(const polar base)
+{
+	return getPolar().projectionOn(polar);
 }
 
 #pragma endregion

@@ -32,6 +32,9 @@ namespace math
 		double norm() const;
 		polar conjugate() const;
 
+		double projection();
+		double projectionOn(polar base);
+
 		polar& operator+=(const polar rhs);
 		polar& operator-=(const polar rhs);
 		polar& operator*=(const polar rhs);
@@ -62,12 +65,14 @@ namespace math
 		complex();
 		complex(double _real, double _imaginary);
 		
-		complex& fromPolar(const double _absolute, const angle _phase);
+		complex& fromPolar(const struct polar p);
 		complex& fromRectangle(const double _r, const double _i);
 
-		polar& polar();
+		polar& getPolar();
 
-
+		double projection();
+		double projectionOn(const complex base);
+		double projectionOn(const polar base);
 
 	} complex;
 
