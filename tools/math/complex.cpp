@@ -5,71 +5,6 @@
 
 using namespace math;
 
-//#pragma region complex
-//
-//::complex::complex()
-//{
-//	r = i = 0;
-//}
-//
-//::complex::complex(const double _r, const double _i)
-//{
-//	r = _r;
-//	i = _i;
-//}
-//
-//::complex::complex(const double mag, const angle dir)
-//{
-//	r = mag * cos(dir.value);
-//	i = mag * sin(dir.value);
-//}
-//
-//complex& complex::operator+=(const complex& rhs)
-//{
-//	r += rhs.r;
-//	i = rhs.i;
-//}
-//
-//complex& complex::operator-=(const complex& rhs)
-//{
-//	r -= rhs.r;
-//	i -= rhs.i;
-//}
-//
-//complex& complex::operator*=(const complex& rhs)
-//{
-//	r = (r * rhs.r) - (i * rhs.i);
-//	i = (r * rhs.i) + (i * rhs.r);
-//}
-//
-//complex& complex::operator/=(const complex& rhs)
-//{
-//	r = ((r * rhs.r) + (i * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i));
-//	i = ((i * rhs.r) - (r * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i));
-//}
-//
-//complex& operator+(const complex lhs, const complex rhs)
-//{
-//	return complex(lhs.r + rhs.r, lhs.i + rhs.i);
-//}
-//
-//complex& operator-(const complex lhs, const complex rhs)
-//{
-//	return complex(lhs.r - rhs.r, lhs.i - rhs.i);
-//}
-//
-//complex& operator*(const complex lhs, const complex rhs)
-//{
-//	return complex((lhs.r * rhs.r) - (lhs.i * rhs.i), (lhs.r * rhs.i) + (lhs.i * rhs.r));
-//}
-//
-//complex& operator/(const complex lhs, const complex rhs)
-//{
-//	return complex(((lhs.r * rhs.r) + (lhs.i * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i)), ((lhs.i * rhs.r) - (lhs.r * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i)));
-//}
-//
-//#pragma endregion
-
 #pragma region polar
 
 math::polar::polar()
@@ -208,24 +143,64 @@ complex& math::complex::fromRectangle(const double _r, const double _i)
 	return *this;
 }
 
-polar& math::complex::getPolar()
+double math::complex::norm()
 {
-	return polar().fromRectangle(r, i);
+	return ((x * x) + (y * y));
+}
+
+double math::complex::absolute()
+{
+	return std::sqrt(norm());
+}
+
+double math::complex::abs()
+{
+	return std::sqrt(norm());
+}
+
+angle math::complex::argument()
+{
+	return angle(std::atan2(i, r)).absolute();
+}
+
+angle math::complex::arg()
+{
+	return angle(std::atan2(i, r)).absolute();
+}
+
+angle math::complex::phi()
+{
+	return angle(std::atan2(i, r)).absolute();
+}
+
+angle math::complex::phase()
+{
+	return angle(std::atan2(i, r)).absolute();
+}
+
+polar& math::complex::polar()
+{
+	return struct polar(abs, phi);
+}
+
+complex math::complex::conjugate()
+{
+	return complex().fromRectangle(real, -imaginary);
 }
 
 double math::complex::projection()
 {
-	return r;
+	return x;
 }
 
 double math::complex::projectionOn(const complex base)
 {
-	return getPolar().projectionOn(polar().fromRectangle(base.r, base.i));
+	return complex::polar().projectionOn(polar().fromRectangle(base.r, base.i));
 }
 
 double math::complex::projectionOn(const polar base)
 {
-	return getPolar().projectionOn(base);
+	return complex::polar().projectionOn(base);
 }
 
 complex& math::complex::operator+=(const complex rhs)

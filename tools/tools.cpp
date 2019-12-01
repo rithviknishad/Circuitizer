@@ -12,16 +12,17 @@ void printPolar(math::polar polar)
 
 int main()
 {
-	math::polar p = { 2.0, 0.0 };
-	math::polar q = math::polar().fromPolar(5, -piby2);
+	math::complex p = { 2.0, 0.0 };
+	math::complex q = math::complex().fromRectangle(5, 3);
 
-	math::complex a = { 1.0, 1.0 };
-	q = a.getPolar();
+	std::cout << "start\n";
 
-	std::cout << "p = "; printPolar(p);
-	std::cout << "q = "; printPolar(q);
+	for (double i = 0; i < 100000000; ++i)
+	{
+		math::complex a = p * q;
+	}
 
-	std::cout << "p * q = "; printPolar(q.conjugate());
+	std::cout << "end\n";
 
 	return 0;
 }

@@ -68,7 +68,19 @@ namespace math
 		complex& fromPolar(const struct polar p);
 		complex& fromRectangle(const double _r, const double _i);
 
-		polar& getPolar();
+		double norm();
+		
+		double absolute();
+		double abs();
+		
+		angle argument();
+		angle arg();
+		angle phi();
+		angle phase();
+
+		polar& polar();
+
+		complex conjugate();
 
 		double projection();
 		double projectionOn(const complex base);
