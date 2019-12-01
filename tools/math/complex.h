@@ -2,48 +2,10 @@
 #ifndef COMPLEX_H
 #define COMPLEX_H
 
+#include "angle.h"
+
 namespace math
 {
-
-// MATHEMATICAL CONSTANTS
-#define pi 3.14159265358979
-#define pi2 6.2831853071795
-#define piby2 1.5707963267949
-#define pi3by2 4.71238898038468
-
-// MATHEMATICAL SYMBOLS
-#define PHI char(237)
-#define PI char(227)
-
-#pragma region Angle
-
-	typedef struct angle
-	{
-		union
-		{
-			double value, rad, radian;
-		};
-
-		angle();
-		angle(const double radian);
-
-		angle& operator+=(const angle& rhs);
-		angle& operator-=(const angle& rhs);
-		angle& operator*=(const double factor);
-		angle& operator/=(const double factor);
-
-		angle absolute();
-	} angle;
-
-	angle operator+(const angle lhs, const angle rhs);
-	angle operator-(const angle lhs, const angle rhs);
-	angle operator-(const angle rhs);
-	angle operator*(const angle lhs, const double factor);
-	angle operator/(const angle lhs, const double factor);
-	angle operator*(const double factor, const angle& lhs);
-
-#pragma endregion
-
 #pragma region polar
 
 	typedef struct polar
