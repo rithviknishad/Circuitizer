@@ -7,18 +7,18 @@
 
 void printPolar(math::polar polar)
 {
-	std::cout << polar.abs << " <" << polar.phi_d << std::endl;
+	std::cout << "{" << polar.abs << ", " << PHI << " = " << polar.phi_d / pi << PI << "}" << std::endl;
 }
 
 int main()
 {
-	math::polar p = math::polar().fromPolar(10, 1);
-	math::polar q = math::polar().fromPolar(5, 2);
+	math::polar p = { 2.0, 0 };
+	math::polar q = math::polar().fromPolar(5, -piby2);
 
 	std::cout << "p = "; printPolar(p);
 	std::cout << "q = "; printPolar(q);
 
-	std::cout << "p * q = "; printPolar(p * q);
+	std::cout << "p * q = "; printPolar(q.conjugate());
 
 	return 0;
 }

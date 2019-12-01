@@ -44,9 +44,9 @@ angle& angle::operator/=(const double factor)
 angle angle::absolute()
 {
 	if (value < 0.0)
-		value += ((int)(-value / PI2) + 1.0) * PI2;
-	else if (value >= PI2)
-		value -= ((int)(value / PI2)) * PI2;
+		value += ((int)(-value / pi2) + 1.0) * pi2;
+	else if (value >= pi2)
+		value -= ((int)(value / pi2)) * pi2;
 
 	return *this;
 }
@@ -60,6 +60,11 @@ angle math::operator+(const angle lhs, const angle rhs)
 angle math::operator-(const angle lhs, const angle rhs)
 {
 	return angle(lhs.value - rhs.value);
+}
+
+angle math::operator-(const angle rhs)
+{
+	return angle(-rhs.value).absolute();
 }
 
 angle math::operator*(const angle lhs, const double factor)
@@ -158,6 +163,12 @@ math::polar::polar(const double _absolute, const double phase_angle)
 	phase = angle(phase_angle).absolute();
 }
 
+math::polar::polar(const double _absolute, const angle phase_angle)
+{
+	abs = _absolute;
+	phase = angle(phase_angle).absolute();
+}
+
 polar& polar::fromPolar(const double _absolute, const angle _phase)
 {
 	abs = _absolute;
@@ -168,7 +179,7 @@ polar& polar::fromPolar(const double _absolute, const angle _phase)
 polar& polar::fromRectangle(const double r, const double i)
 {
 	abs = std::sqrt((r * r) + (i * i));
-	phase = angle(std::atan2(i, r));
+	phase = angle(std::atan2(i, r)).absolute();
 	return *this;
 }
 
@@ -187,9 +198,9 @@ double polar::norm() const
 	return abs * abs;
 }
 
-polar& polar::conjugate() const 
+polar polar::conjugate() const 
 {
-	return (polar().fromRectangle(real(), -imaginary()));
+	return polar(abs, -phi);
 }
 
 
