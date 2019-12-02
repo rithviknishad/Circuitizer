@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "edef/power.h"
+#include "math/complex.h"
 
 void printPolar(math::polar polar)
 {
@@ -19,6 +20,11 @@ int main()
 {
 	e::power p = e::power().fromComplex(10, 20);
 	printPower(p);
-	std::cout << math::acos(math::cos(math::asin(math::sin(angle().from_atan2(8.0, 0.0))))).rad / pi << PI;
+
+	double a = 0.0;
+
+	std::cout << std::acos(10.0);
+
+	//std::cout << math::acos(math::cos(math::asin(math::sin(angle().from_atan2(0.0, 8.0))))).rad / pi << PI;
 	return 0;
 }
