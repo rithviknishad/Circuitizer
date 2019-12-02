@@ -18,7 +18,7 @@ void printPower(e::power pwr)
 int main()
 {
 	e::power p = e::power().fromComplex(10, 20);
-	//printPower(p);
+	printPower(p);
 	std::cout << math::acos(math::cos(math::asin(math::sin(angle().from_atan2(8.0, 0.0))))).rad / pi << PI;
 	return 0;
 }
