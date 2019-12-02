@@ -11,7 +11,7 @@ uppercase for literal symbols
 ```
 #define pi	3.14159265358979	// double Pi
 #define PI	char(227)		// 'π' symbol
-#define PHI		char(237)			// 'φ' symbol
+#define PHI	char(237)			// 'φ' symbol
 ```
 
 ### Prefixes and suffixes
