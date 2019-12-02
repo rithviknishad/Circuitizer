@@ -1,3 +1,6 @@
+#ifndef CIRCUITIZER_MATH_H
+#define CIRCUITIZER_MATH_H
+
 namespace math
 {
 
@@ -12,3 +15,5 @@ namespace math
 #define PI char(227)
 
 }
+
+#endif // !MATH_H

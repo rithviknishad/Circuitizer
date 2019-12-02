@@ -18,6 +18,7 @@ void printPower(e::power pwr)
 int main()
 {
 	e::power p = e::power().fromComplex(10, 20);
-	printPower(p);
+	//printPower(p);
+	std::cout << cos(2.0);
 	return 0;
 }

@@ -95,10 +95,10 @@ namespace math
 		complex& operator*=(const complex rhs);
 		complex& operator/=(const complex rhs);
 
-		complex& operator+=(const polar rhs);
-		complex& operator-=(const polar rhs);
-		complex& operator*=(const polar rhs);
-		complex& operator/=(const polar rhs);
+		complex& operator+=(const struct polar rhs);
+		complex& operator-=(const struct polar rhs);
+		complex& operator*=(const struct polar rhs);
+		complex& operator/=(const struct polar rhs);
 
 	} complex;
 

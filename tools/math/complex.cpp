@@ -254,26 +254,26 @@ complex& math::complex::operator/=(const complex rhs)
 	return *this;
 }
 
-complex& math::complex::operator+=(const polar rhs)
+complex& math::complex::operator+=(const struct polar rhs)
 {
 	r += rhs.real();
 	i += rhs.imaginary();
 	return *this;
 }
 
-complex& math::complex::operator-=(const polar rhs)
+complex& math::complex::operator-=(const struct polar rhs)
 {
 	r -= rhs.real();
 	i -= rhs.imaginary();
 	return *this;
 }
 
-complex&  math::complex::operator*=(const polar rhs)
+complex&  math::complex::operator*=(const struct polar rhs)
 {
 	return (*this) *= complex(rhs);
 }
 
-complex& math::complex::operator /=(const polar rhs)
+complex& math::complex::operator /=(const struct polar rhs)
 {
 	return (*this) /= complex(rhs);
 }
