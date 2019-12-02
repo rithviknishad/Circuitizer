@@ -1,6 +1,9 @@
 ## Additional Ignores:
 *.code-workspace
 *.sln
+*.vcxproj
+*.vcxproj.filters
+
 .vscode/
 
 
