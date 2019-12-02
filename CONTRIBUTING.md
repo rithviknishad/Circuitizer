@@ -10,25 +10,25 @@ uppercase for literal symbols
 **Example:**
 ```
 #define pi	3.14159265358979	// double Pi
-#define PI	char(227)			// 'π' symbol
-#define PHI char(237)			// 'φ' symbol
+#define PI	char(227)		// 'π' symbol
+#define PHI		char(237)			// 'φ' symbol
 ```
 
 ### Prefixes and suffixes
 
-* When prefixed with *_d* it refers to a double value symbol. Otherwise it refers to an object.
+* When symbol prefixed with **'_d' it refers to a **double type**. Otherwise it refers to an object.
 
 **Example:**
 ```
-math::angle *phi* = math::angle();
-double *phi_d* = phi.radian;
+math::angle phi = math::angle();
+double phi_d = phi.radian;
 ```
 
 
 
 ## Standards in units:
-__All measurement units by default is in SI units__
-_Except the ones which are in *bold* below_
+__All measurement units by default is in SI units.__
+Except the ones which are in *bold* below.
 
 ### Unit reference:
 	- Angle			Radians
