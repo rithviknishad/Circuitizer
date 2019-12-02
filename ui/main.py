@@ -5,6 +5,7 @@ import os
 import sys
 import glob
 import ctypes
+import turtle
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -120,11 +121,6 @@ class Circuitizer:
         self.open = tk.Label(self.frame, text="Project Files                          ")
         self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR)
         self.open.pack(side=tk.TOP, fill=tk.BOTH, ipadx=3, ipady=3)
-
-        # def list_project_files(self, name):
-        #     self.open = tk.Label(self.frame, text=name)
-        #     self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR)
-        #     self.open.pack(side=tk.TOP, fill=tk.BOTH, ipadx=10, ipady=3)
         
         for file in glob.glob('*'):
             if os.path.isdir(file):
@@ -138,15 +134,30 @@ class Circuitizer:
 
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
     
-    def main_content(self, root):   
+    def main_content(self, root):
+        global self_pointer
+        self_pointer = self 
+
         self.frame = tk.Frame(root)
         self.frame.configure(background=BG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
-        
-        for _ in range(10):
-            self.open = tk.Label(self.frame, text="Content")
-            self.open.configure(background=BG_COLOR, foreground=FG_COLOR)
-            self.open.pack(side=tk.TOP, fill=tk.BOTH)
-
+        self.canvas = turtle.ScrolledCanvas(root, canvwidth=2000, canvheight=2000)
+        # Pen configuration
+        self.pen = turtle.RawTurtle(self.canvas)
+        self.pen.color(PEN_COLOR)
+        self.pen.shapesize(1.5)
+        self.pen.shape('circle')
+        self.pen.up()
+        # left button of mouse to drag the cursor of the canvas
+        self.pen.ondrag(self.pen.goto)
+        def scroll_start(event):
+            self_pointer.canvas.scan_mark(event.x, event.y)
+        def scroll_move(event):
+            self_pointer.canvas.scan_dragto(event.x, event.y, gain=1)
+        # middle button of mouse to drag canvas
+        self.canvas.bind("<ButtonPress-2>", scroll_start)
+        self.canvas.bind("<B2-Motion>", scroll_move)
+        self.canvas.pack(fill=tk.BOTH, expand=True)
+        # self.canvas.destroy()
         self.frame.pack(fill=tk.BOTH, side=tk.LEFT, ipadx=10, ipady=3)
 
     def status_bar(self, root):
