@@ -16,7 +16,7 @@ uppercase for literal symbols
 
 ### Prefixes and suffixes
 
-* When symbol prefixed with **'_d' it refers to a **double type**. Otherwise it refers to an object.
+* When symbol prefixed with **'_d'** it refers to a **double type**. Otherwise it refers to an object.
 
 **Example:**
 ```cpp
@@ -31,5 +31,5 @@ __All measurement units by default is in SI units.__
 Except the ones which are in *bold* below.
 
 ### Unit reference:
-	- Angle			Radians
-	- Distance		Meters
+- Angle			Radians
+- Distance		Meters
