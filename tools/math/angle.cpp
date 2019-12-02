@@ -93,17 +93,17 @@ double math::angle::tan() const
 
 double math::angle::sinh() const
 {
-	return sinh(rad);
+	return std::sinh(rad);
 }
 
 double math::angle::cosh() const
 {
-	return cosh(rad);
+	return std::cosh(rad);
 }
 
 double math::angle::tanh() const
 {
-	return tanh(rad);
+	return std::tanh(rad);
 }
 
 
