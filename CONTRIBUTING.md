@@ -8,10 +8,10 @@ lowercase for numerical constants
 uppercase for literal symbols
 
 **Example:**
-```
+```cpp
 #define pi	3.14159265358979	// double Pi
 #define PI	char(227)		// 'π' symbol
-#define PHI	char(237)			// 'φ' symbol
+#define PHI	char(237)		// 'φ' symbol
 ```
 
 ### Prefixes and suffixes
@@ -19,8 +19,8 @@ uppercase for literal symbols
 * When symbol prefixed with **'_d' it refers to a **double type**. Otherwise it refers to an object.
 
 **Example:**
-```
-math::angle phi = math::angle();
+```cpp
+angle phi = angle();
 double phi_d = phi.radian;
 ```
 
