@@ -83,7 +83,7 @@ class Circuitizer:
             self.open.image = self.image
             self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5, ipady=5)
 
-        for icon in glob.glob(os.getcwd() + '/res/*.png'):
+        for icon in glob.glob(os.getcwd() + '/res/tool/*.png'):
             generate_tools(self, icon, None)
 
         self.frame.pack(fill=tk.X, side=tk.TOP)
@@ -104,13 +104,21 @@ class Circuitizer:
         self.frame = tk.Frame(root)
         self.frame.configure(background=SIDETOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
-        for _ in range(10):
-            self.open = tk.Label(self.frame, text=chr(_ + 64))
-            self.open.configure(background=SIDETOOL_COLOR)
+        def generate_tools(self, icon, command):
+            self.image = tk.PhotoImage(file=icon)
+            self.open = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT)
+            self.open.configure(background=TOOL_COLOR)
             self.open.configure(foreground=FG_COLOR)
-            self.open.pack(side=tk.TOP, fill=tk.BOTH)
+            # reference of this image is required otherwise this image is garbage collected
+            self.open.image = self.image
+            self.open.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
+
+        for icon in glob.glob(os.getcwd() + '/res/side/*.png'):
+            generate_tools(self, icon, None)
 
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
+
+        
 
     def project_panel(self, root):
         self.frame = tk.Frame(root)
