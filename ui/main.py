@@ -1,6 +1,12 @@
 #!/usr/bin/python3
+# Circuitizer UI
 
+import os
 import sys
+import glob
+
+sys.dont_write_bytecode = True
+
 import ctypes
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -68,11 +74,17 @@ class Circuitizer:
         self.frame = tk.Frame(root)
         self.frame.configure(background=TOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
-        for _ in range(10):
-            self.open = tk.Button(self.frame, text="FOO", relief=tk.FLAT)
+        def generate_tools(self, icon, command):
+            self.image = tk.PhotoImage(file=icon)
+            self.open = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT)
             self.open.configure(background=TOOL_COLOR)
             self.open.configure(foreground=FG_COLOR)
-            self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=2, ipady=2)
+            # reference of this image is required otherwise this image is garbage collected
+            self.open.image = self.image
+            self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5, ipady=5)
+
+        for icon in glob.glob(os.getcwd() + '/res/*.png'):
+            generate_tools(self, icon, None)
 
         self.frame.pack(fill=tk.X, side=tk.TOP)
 
@@ -93,7 +105,7 @@ class Circuitizer:
         self.frame.configure(background=SIDETOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
         for _ in range(10):
-            self.open = tk.Label(self.frame, text="FOO")
+            self.open = tk.Label(self.frame, text=chr(_ + 64))
             self.open.configure(background=SIDETOOL_COLOR)
             self.open.configure(foreground=FG_COLOR)
             self.open.pack(side=tk.TOP, fill=tk.BOTH)
@@ -112,12 +124,12 @@ class Circuitizer:
 
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
     
-    def main_content(self, root):
+    def main_content(self, root):   
         self.frame = tk.Frame(root)
         self.frame.configure(background=BG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         
         for _ in range(10):
-            self.open = tk.Label(self.frame, text="Project Dummy")
+            self.open = tk.Label(self.frame, text="Content")
             self.open.configure(background=BG_COLOR)
             self.open.configure(foreground=FG_COLOR)
             self.open.pack(side=tk.TOP, fill=tk.BOTH)
@@ -135,7 +147,7 @@ class Circuitizer:
 
         self.frame.pack(fill=tk.X, side=tk.BOTTOM)
 
-if __name__ == "__main__":
+def main():
     # Fix text blurry issue in windows 10 due to text scale settings
     if 'win' in sys.platform:
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
@@ -143,3 +155,6 @@ if __name__ == "__main__":
     root = tk.Tk()
     Circuitizer(root)
     root.mainloop()
+
+if __name__ == "__main__":
+    main()
