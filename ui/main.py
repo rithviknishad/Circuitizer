@@ -10,6 +10,7 @@ from config import *
 class Circuitizer:
     def __init__(self, root):
         self.root = root
+        self.root.geometry("1200x700")
         self.root.title("Circuitizer")
         self.root.configure(background=BG_COLOR)
         self.menu_bar(root)
@@ -18,6 +19,7 @@ class Circuitizer:
         self.properties_panel(root)
         self.side_tool_bar(root)
         self.project_panel(root)
+        self.main_content(root)
 
     def menu_bar(self, root):
         self.menubar = tk.Menu(root)
@@ -75,7 +77,7 @@ class Circuitizer:
         self.frame.pack(fill=tk.X, side=tk.TOP)
 
     def properties_panel(self, root):
-        self.frame = tk.Frame(root)
+        self.frame = tk.Frame(root, width=200)
         self.frame.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
         for _ in range(10):
@@ -109,10 +111,21 @@ class Circuitizer:
             self.open.pack(side=tk.TOP, fill=tk.BOTH)
 
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
+    
+    def main_content(self, root):
+        self.frame = tk.Frame(root)
+        self.frame.configure(background=BG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+        
+        for _ in range(10):
+            self.open = tk.Label(self.frame, text="Project Dummy")
+            self.open.configure(background=BG_COLOR)
+            self.open.configure(foreground=FG_COLOR)
+            self.open.pack(side=tk.TOP, fill=tk.BOTH)
+
+        self.frame.pack(fill=tk.BOTH, side=tk.LEFT, ipadx=10, ipady=3)
 
     def status_bar(self, root):
         self.frame = tk.Frame(root)
-        # self.frame.configure(background=STATUS_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         self.frame.configure(background=STATUS_COLOR)
 
         self.txt = tk.Label(self.frame, text="Ready")
