@@ -3,22 +3,22 @@
 
 #include <iostream>
 
-#include "complex.h"
+#include "edef/power.h"
 
 void printPolar(math::polar polar)
 {
 	std::cout << "{" << polar.abs << ", " << PHI << " = " << polar.phi_d / pi << PI << "}" << std::endl;
 }
 
+void printPower(e::power pwr)
+{
+	std::cout << "{" << pwr.value.abs() << " = " << pwr.P << " j" << pwr.Q << "}" << std::endl;
+}
+
 int main()
 {
-	math::polar p = { 2.0, 0 };
-	math::polar q = math::polar().fromPolar(5, -piby2);
-
-	std::cout << "p = "; printPolar(p);
-	std::cout << "q = "; printPolar(q);
-
-	std::cout << "p * q = "; printPolar(q.conjugate());
-
+	e::power p = e::power().fromComplex(10, 20);
+	printPower(p);
+	std::cout << math::acos(math::cos(math::asin(math::sin(angle().from_atan2(8.0, 0.0))))).rad / pi << PI;
 	return 0;
 }
