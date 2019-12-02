@@ -166,62 +166,62 @@ complex& math::complex::fromRectangle(const double _r, const double _i)
 	return *this;
 }
 
-double math::complex::norm()
+double math::complex::norm() const
 {
 	return ((x * x) + (y * y));
 }
 
-double math::complex::absolute()
+double math::complex::absolute() const
 {
 	return std::sqrt(norm());
 }
 
-double math::complex::abs()
+double math::complex::abs() const
 {
 	return std::sqrt(norm());
 }
 
-angle math::complex::argument()
+angle math::complex::argument() const
 {
 	return angle(std::atan2(i, r)).absolute();
 }
 
-angle math::complex::arg()
+angle math::complex::arg() const
 {
 	return angle(std::atan2(i, r)).absolute();
 }
 
-angle math::complex::phi()
+angle math::complex::phi() const
 {
 	return angle(std::atan2(i, r)).absolute();
 }
 
-angle math::complex::phase()
+angle math::complex::phase() const
 {
 	return angle(std::atan2(i, r)).absolute();
 }
 
-struct polar math::complex::polar()
+struct polar math::complex::polar() const
 {
 	return struct polar().fromRectangle(r, i);
 }
 
-complex math::complex::conjugate()
+complex math::complex::conjugate() const
 {
 	return complex().fromRectangle(real, -imaginary);
 }
 
-double math::complex::projection()
+double math::complex::projection() const
 {
 	return x;
 }
 
-double math::complex::projectionOn(const complex base)
+double math::complex::projectionOn(const complex base) const
 {
 	return complex::polar().projectionOn(polar().fromRectangle(base.r, base.i));
 }
 
-double math::complex::projectionOn(const struct polar base)
+double math::complex::projectionOn(const struct polar base) const
 {
 	return complex::polar().projectionOn(base);
 }
@@ -254,6 +254,30 @@ complex& math::complex::operator/=(const complex rhs)
 	return *this;
 }
 
+complex& math::complex::operator+=(const polar rhs)
+{
+	r += rhs.real();
+	i += rhs.imaginary();
+	return *this;
+}
+
+complex& math::complex::operator-=(const polar rhs)
+{
+	r -= rhs.real();
+	i -= rhs.imaginary();
+	return *this;
+}
+
+complex&  math::complex::operator*=(const polar rhs)
+{
+	return (*this) *= complex(rhs);
+}
+
+complex& math::complex::operator /=(const polar rhs)
+{
+	return (*this) /= complex(rhs);
+}
+
 complex math::operator+(const complex lhs, const complex rhs)
 {
 	return complex(lhs.r + rhs.r, lhs.i + rhs.i);
@@ -272,6 +296,46 @@ complex math::operator*(const complex lhs, const complex rhs)
 complex math::operator/(const complex lhs, const complex rhs)
 {
 	return complex(((lhs.r * rhs.r) + (lhs.i * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i)), ((lhs.i * rhs.r) - (lhs.r * rhs.i)) / ((rhs.r * rhs.r) + (rhs.i * rhs.i)));
+}
+
+complex math::operator+(const polar lhs, const complex rhs)
+{
+	return complex(lhs) + rhs;
+}
+
+complex math::operator-(const polar lhs, const complex rhs)
+{
+	return complex(lhs) - rhs;
+}
+
+complex math::operator*(const polar lhs, const complex rhs)
+{
+	return complex(lhs) * rhs;
+}
+
+complex math::operator/(const polar lhs, const complex rhs)
+{
+	return complex(lhs) / rhs;
+}
+
+complex math::operator+(const complex lhs, const polar rhs)
+{
+	return lhs + complex(rhs);
+}
+
+complex math::operator-(const complex lhs, const polar rhs)
+{
+	return lhs - complex(rhs);
+}
+
+complex math::operator*(const complex lhs, const polar rhs)
+{
+	return lhs * complex(rhs);
+}
+
+complex math::operator/(const complex lhs, const polar rhs)
+{
+	return lhs / complex(rhs);
 }
 
 #pragma endregion

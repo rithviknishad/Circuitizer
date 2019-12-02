@@ -72,28 +72,33 @@ namespace math
 		complex& fromPolar(const double _abs, const angle _phi);
 		complex& fromRectangle(const double _r, const double _i);
 
-		double norm();
+		double norm() const;
 		
-		double absolute();
-		double abs();
+		double absolute() const;
+		double abs() const;
 		
-		angle argument();
-		angle arg();
-		angle phi();
-		angle phase();
+		angle argument() const;
+		angle arg() const;
+		angle phi() const;
+		angle phase() const;
 
-		struct polar polar();
+		struct polar polar() const;
 
-		complex conjugate();
+		complex conjugate() const;
 
-		double projection();
-		double projectionOn(const complex base);
-		double projectionOn(const struct polar base);
+		double projection() const;
+		double projectionOn(const complex base) const;
+		double projectionOn(const struct polar base) const;
 
 		complex& operator+=(const complex rhs);
 		complex& operator-=(const complex rhs);
 		complex& operator*=(const complex rhs);
 		complex& operator/=(const complex rhs);
+
+		complex& operator+=(const polar rhs);
+		complex& operator-=(const polar rhs);
+		complex& operator*=(const polar rhs);
+		complex& operator/=(const polar rhs);
 
 	} complex;
 
@@ -101,6 +106,16 @@ namespace math
 	complex operator-(const complex lhs, const complex rhs);
 	complex operator*(const complex lhs, const complex rhs);
 	complex operator/(const complex lhs, const complex rhs);
+
+	complex operator+(const polar lhs, const complex rhs);
+	complex operator-(const polar lhs, const complex rhs);
+	complex operator*(const polar lhs, const complex rhs);
+	complex operator/(const polar lhs, const complex rhs);
+
+	complex operator+(const complex lhs, const polar rhs);
+	complex operator-(const complex lhs, const polar rhs);
+	complex operator*(const complex lhs, const polar rhs);
+	complex operator/(const complex lhs, const polar rhs);
 
 #pragma endregion
 
