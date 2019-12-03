@@ -45,5 +45,5 @@ nuitka, PyInstaller
 
 C compilers that can be used in this project are
 ```
-msvc=MSVC, mingw64(recommended), gcc
+msvc=MSVC, mingw64(recommended), gcc, clang
 ```
