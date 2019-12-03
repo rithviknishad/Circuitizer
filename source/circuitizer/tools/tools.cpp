@@ -3,9 +3,23 @@
 
 #include "tools.h"
 
+#include "angle.h"
+
+void print(angle t)
+{
+	std::cout << t / pi << PI << std::endl;
+}
+
 int main()
 {
-	std::cout << "Hello CMake. @ rithviknishad" << std::endl;
-	std::cout << "Test 123." << std::endl;
+	std::cout << "$ tools.exe has started" << std::endl;
+	
+	angle theta = angle(piby2);
+
+	print(theta);
+	print(math::abs_rad(theta + pi2));
+	print(atan2(8, 0));
+
+	std::cin.get();
 	return 0;
 }
