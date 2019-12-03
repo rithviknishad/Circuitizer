@@ -14,7 +14,7 @@ int main()
 {
 	std::cout << "$ tools.exe has started" << std::endl;
 	
-	angle theta = angle(piby2);
+	angle theta = piby2;
 
 	print(theta);
 	print(math::abs_rad(theta + pi2));
