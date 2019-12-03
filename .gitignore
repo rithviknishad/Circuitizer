@@ -2,9 +2,14 @@
 *.code-workspace
 *.sln
 *.vcxproj
-
 .vscode/
 
+# Ignore Circuitizer UI builds
+/source/circuitizer/devenv/build
+/source/circuitizer/devenv/dist
+/source/circuitizer/devenv/main.build
+/source/circuitizer/devenv/main.dist
+*.spec
 
 ## C and C++ .gitignore
 
