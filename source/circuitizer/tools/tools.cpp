@@ -3,10 +3,9 @@
 
 #include "tools.h"
 
-using namespace std;
-
 int main()
 {
-	cout << "Hello CMake." << endl;
+	std::cout << "Hello CMake. @ rithviknishad" << std::endl;
+	std::cout << "Test 123." << std::endl;
 	return 0;
 }
