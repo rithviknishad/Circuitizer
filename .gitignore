@@ -3,6 +3,11 @@
 *.sln
 *.vcxproj
 
+dump/
+tests/
+out/
+*out/
+
 .vscode/
 
 
