@@ -2,13 +2,22 @@
 *.code-workspace
 *.sln
 *.vcxproj
+<<<<<<< HEAD
+=======
 
 dump/
 out/
 *out/
 
+>>>>>>> 69558bb0b889bc0de0c8598e1d5e4ff32a703c23
 .vscode/
 
+# Ignore Circuitizer UI builds
+/source/circuitizer/devenv/build
+/source/circuitizer/devenv/dist
+/source/circuitizer/devenv/main.build
+/source/circuitizer/devenv/main.dist
+*.spec
 
 ## C and C++ .gitignore
 

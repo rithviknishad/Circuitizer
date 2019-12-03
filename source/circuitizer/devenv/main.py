@@ -11,7 +11,7 @@ import tkinter.ttk as ttk
 
 sys.dont_write_bytecode = True
 
-from config import *
+from cfg import *
 
 class Circuitizer:
     def __init__(self, root):

@@ -6,7 +6,7 @@ import ctypes
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from config import *
+from cfg import *
 
 class ComponentEditor:
     def __init__(self, root):
