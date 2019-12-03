@@ -51,10 +51,6 @@ namespace math
 	double cosh(const angle theta);
 	double tanh(const angle theta);
 
-	angle asin(const double x);
-	angle acos(const double x);
-	angle atan(const double x);
-
 #pragma endregion
 }
 

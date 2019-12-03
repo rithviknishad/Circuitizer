@@ -1,6 +1,5 @@
-#include "angle.h"
-
 #include "math.h"
+#include <math.h>
 
 using namespace math;
 
@@ -166,21 +165,5 @@ double math::tanh(const angle theta)
 {
 	return theta.tanh();
 }
-
-angle math::asin(const double x)
-{
-	return angle().from_asin(x);
-}
-
-angle math::acos(const double x)
-{
-	return angle().from_acos(x);
-}
-
-angle math::atan(const double x)
-{
-	return angle().from_atan(x);
-}
-
 
 #pragma endregion
