@@ -13,7 +13,6 @@ out/
 .vscode/
 
 # Ignore Circuitizer UI builds
-/source/circuitizer/devenv/build
 /source/circuitizer/devenv/dist
 /source/circuitizer/devenv/mainUI.build
 /source/circuitizer/devenv/mainUI.dist
