@@ -41,26 +41,27 @@ namespace math
 
 		complex& operator=(const complex rhs);
 
-		complex& operator+=(complex& lhs, const complex rhs);
-		complex& operator-=(complex& lhs, const complex rhs);
-		complex& operator*=(complex& lhs, const complex rhs);
-		complex& operator/=(complex& lhs, const complex rhs);
+		complex& operator+=(const complex rhs);
+		complex& operator-=(const complex rhs);
+		complex& operator*=(const complex rhs);
+		complex& operator/=(const complex rhs);
 
-		complex& operator+=(complex& lhs, const double rhs);
-		complex& operator-=(complex& lhs, const double rhs);
-		complex& operator*=(complex& lhs, const double rhs);
-		complex& operator/=(complex& lhs, const double rhs);
+		complex& operator+=(const double rhs);
+		complex& operator-=(const double rhs);
+		complex& operator*=(const double rhs);
+		complex& operator/=(const double rhs);
 
-		complex& operator+=(complex& lhs, const polar rhs);
-		complex& operator-=(complex& lhs, const polar rhs);
-		complex& operator*=(complex& lhs, const polar rhs);
-		complex& operator/=(complex& lhs, const polar rhs);
+		complex& operator+=(const polar rhs);
+		complex& operator-=(const polar rhs);
+		complex& operator*=(const polar rhs);
+		complex& operator/=(const polar rhs);
 
 	} complex;
 
 	// operations
 
 	complex operator+(const complex lhs, const complex rhs);
+	complex operator-(const complex lhs);
 	complex operator-(const complex lhs, const complex rhs);
 	complex operator*(const complex lhs, const complex rhs);
 	complex operator/(const complex lhs, const complex rhs);
@@ -81,6 +82,7 @@ namespace math
 	complex operator/(const complex lhs, const polar rhs);
 
 	polar operator+(const polar lhs, const polar rhs);
+	polar operator-(const polar lhs);
 	polar operator-(const polar lhs, const polar rhs);
 	polar operator*(const polar lhs, const polar rhs);
 	polar operator/(const polar lhs, const polar rhs);
