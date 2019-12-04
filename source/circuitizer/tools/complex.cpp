@@ -5,13 +5,13 @@ using namespace math;
 math::polar::polar(const double _abs, const angle _phi)
 {
 	abs = _abs;
-	phi = _phi;
+	phi = abs_rad(_phi);
 }
 
 math::polar::polar(const complex c)
 {
 	abs = math::abs(c);
-	phi = math::arg(c);
+	phi = abs_rad(math::arg(c));
 }
 
 polar& math::polar::operator=(const polar rhs)
@@ -23,12 +23,12 @@ polar& math::polar::operator=(const polar rhs)
 
 polar& math::polar::operator+=(const polar rhs)
 {
-	// TODO: insert return statement here
+	return (*this) = polar(complex(*this) + complex(rhs));
 }
 
 polar& math::polar::operator-=(const polar rhs)
 {
-	// TODO: insert return statement here
+	return (*this) = polar(complex(*this) - complex(rhs));
 }
 
 polar& math::polar::operator*=(const polar rhs)
@@ -45,45 +45,45 @@ polar& math::polar::operator/=(const polar rhs)
 	return *this;
 }
 
-polar& math::polar::operator+=(const double rhs)
-{
-	// TODO: insert return statement here
-}
-
-polar& math::polar::operator-=(const double rhs)
-{
-	// TODO: insert return statement here
-}
-
-polar& math::polar::operator*=(const double rhs)
-{
-	// TODO: insert return statement here
-}
-
-polar& math::polar::operator/=(const double rhs)
-{
-	// TODO: insert return statement here
-}
-
-polar& math::polar::operator+=(const complex rhs)
-{
-	// TODO: insert return statement here
-}
-
-polar& math::polar::operator-=(const complex rhs)
-{
-	// TODO: insert return statement here
-}
-
-polar& math::polar::operator*=(const complex rhs)
-{
-	// TODO: insert return statement here
-}
-
-polar& math::polar::operator/=(const complex rhs)
-{
-	// TODO: insert return statement here
-}
+//polar& math::polar::operator+=(const double rhs)
+//{
+//	// TODO: insert return statement here
+//}
+//
+//polar& math::polar::operator-=(const double rhs)
+//{
+//	// TODO: insert return statement here
+//}
+//
+//polar& math::polar::operator*=(const double rhs)
+//{
+//	// TODO: insert return statement here
+//}
+//
+//polar& math::polar::operator/=(const double rhs)
+//{
+//	// TODO: insert return statement here
+//}
+//
+//polar& math::polar::operator+=(const complex rhs)
+//{
+//	// TODO: insert return statement here
+//}
+//
+//polar& math::polar::operator-=(const complex rhs)
+//{
+//	// TODO: insert return statement here
+//}
+//
+//polar& math::polar::operator*=(const complex rhs)
+//{
+//	// TODO: insert return statement here
+//}
+//
+//polar& math::polar::operator/=(const complex rhs)
+//{
+//	// TODO: insert return statement here
+//}
 
 math::complex::complex(const double _real, const double _i)
 {
@@ -136,13 +136,13 @@ complex& math::complex::operator/=(const complex rhs)
 
 complex& math::complex::operator+=(const double rhs)
 {
-	x += rhs.x;
+	x += rhs;
 	return *this;
 }
 
 complex& math::complex::operator-=(const double rhs)
 {
-	x -= rhs.x;
+	x -= rhs;
 	return *this;
 }
 
@@ -162,22 +162,22 @@ complex& math::complex::operator/=(const double rhs)
 
 complex& math::complex::operator+=(const polar rhs)
 {
-	// TODO: insert return statement here
+	return operator+=(complex(rhs));
 }
 
 complex& math::complex::operator-=(const polar rhs)
 {
-	// TODO: insert return statement here
+	return operator-=(complex(rhs));
 }
 
 complex& math::complex::operator*=(const polar rhs)
 {
-	// TODO: insert return statement here
+	return operator*=(complex(rhs));
 }
 
 complex& math::complex::operator/=(const polar rhs)
 {
-	// TODO: insert return statement here
+	return operator/=(complex(rhs));
 }
 
 complex math::operator+(const complex lhs, const complex rhs)
@@ -208,12 +208,12 @@ complex math::operator/(const complex lhs, const complex rhs)
 
 complex math::operator+(const complex lhs, const double rhs)
 {
-	return complex(lhs.x + rhs.x, lhs.y);
+	return complex(lhs.x + rhs, lhs.y);
 }
 
 complex math::operator-(const complex lhs, const double rhs)
 {
-	return complex(lhs.x - rhs.x, lhs.y);
+	return complex(lhs.x - rhs, lhs.y);
 }
 
 complex math::operator*(const complex lhs, const double rhs)
@@ -248,22 +248,22 @@ complex math::operator/(const double lhs, const complex rhs)
 
 complex math::operator+(const complex lhs, const polar rhs)
 {
-	return complex();
+	return lhs + complex(rhs);
 }
 
 complex math::operator-(const complex lhs, const polar rhs)
 {
-	return complex();
+	return lhs - complex(rhs);;
 }
 
 complex math::operator*(const complex lhs, const polar rhs)
 {
-	return complex();
+	return lhs * complex(rhs);
 }
 
 complex math::operator/(const complex lhs, const polar rhs)
 {
-	return complex();
+	return lhs / complex(rhs);
 }
 
 polar math::operator+(const polar lhs, const polar rhs)
@@ -273,7 +273,7 @@ polar math::operator+(const polar lhs, const polar rhs)
 
 polar math::operator-(const polar lhs)
 {
-	return polar();
+	return polar(lhs.abs, lhs.phi + pi);
 }
 
 polar math::operator-(const polar lhs, const polar rhs)
@@ -283,73 +283,73 @@ polar math::operator-(const polar lhs, const polar rhs)
 
 polar math::operator*(const polar lhs, const polar rhs)
 {
-	return polar();
+	return polar(lhs.abs * rhs.abs, lhs.phi + rhs.phi);
 }
 
 polar math::operator/(const polar lhs, const polar rhs)
 {
-	return polar();
+	return polar(lhs.abs / rhs.abs, lhs.phi - rhs.phi);
 }
 
-polar math::operator+(const polar lhs, const double rhs)
-{
-	return polar();
-}
-
-polar math::operator-(const polar lhs, const double rhs)
-{
-	return polar();
-}
-
-polar math::operator*(const polar lhs, const double rhs)
-{
-	return polar();
-}
-
-polar math::operator/(const polar lhs, const double rhs)
-{
-	return polar();
-}
-
-polar math::operator+(const double lhs, const polar rhs)
-{
-	return polar();
-}
-
-polar math::operator-(const double lhs, const polar rhs)
-{
-	return polar();
-}
-
-polar math::operator*(const double lhs, const polar rhs)
-{
-	return polar();
-}
-
-polar math::operator/(const double lhs, const polar rhs)
-{
-	return polar();
-}
-
-polar math::operator+(const polar lhs, const complex rhs)
-{
-	return polar();
-}
-
-polar math::operator-(const polar lhs, const complex rhs)
-{
-	return polar();
-}
-
-polar math::operator*(const polar lhs, const complex rhs)
-{
-	return polar();
-}
-
-polar math::operator/(const polar lhs, const complex rhs)
-{
-	return polar();
-}
+//polar math::operator+(const polar lhs, const double rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator-(const polar lhs, const double rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator*(const polar lhs, const double rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator/(const polar lhs, const double rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator+(const double lhs, const polar rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator-(const double lhs, const polar rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator*(const double lhs, const polar rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator/(const double lhs, const polar rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator+(const polar lhs, const complex rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator-(const polar lhs, const complex rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator*(const polar lhs, const complex rhs)
+//{
+//	return polar();
+//}
+//
+//polar math::operator/(const polar lhs, const complex rhs)
+//{
+//	return polar();
+//}
 
 double math::real(const polar p)
 {
@@ -373,12 +373,12 @@ double math::imaginary(const complex c)
 
 polar math::conj(const polar p)
 {
-	return polar();
+	return polar(p.abs, -p.phi);
 }
 
 complex math::conj(const complex c)
 {
-	return complex(c.x, -c.i);
+	return complex(c.x, -c.y);
 }
 
 polar math::conjugate(const polar p)
@@ -399,16 +399,6 @@ double math::projection(const polar p)
 double math::projection(const complex c)
 {
 	return c.x;
-}
-
-double math::projectionOn(const polar p)
-{
-	return 0.0;
-}
-
-double math::projectionOn(const complex c)
-{
-	return 0.0;
 }
 
 double math::norm(const polar p)
