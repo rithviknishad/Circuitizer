@@ -1,3 +1,6 @@
+![Circuitizer Logo]
+(https://raw.githubusercontent.com/rithviknishad/Circuitizer/master/docs/logo/logo0.png)
+
 # Circuitizer
 Circuitizer is the free and open source electric circuit development suit.
 
