@@ -15,24 +15,11 @@ __In development stage__
 ### Setup
 
 In linux you need the ```python3-pip``` package to install python modules
-for our project. You can install it in ubuntu using the command
-
-```sh
-    $ sudo apt-get install python3-pip
-```
-
-*Use the python version which you want the project to
-setup with using python launcher command*
-
-```sh
-    $ python -m pip install -r pip -U --no-cache-dir
-```
-
-In linux you need the ```python3-tk``` or ```python3-tkinter``` package to run application
+for our project. Also you need the ```python3-tk``` package to run application
 that use Tcl/Tk as GUI Toolkit. You can install it in ubuntu using the command
 
 ```sh
-    $ sudo apt-get install python3-tk
+    $ bash build.make.linux.ubuntu.sh
 ```
 
 ### Build
@@ -47,15 +34,5 @@ Should work in other version but not tested.
 the script to configure the build information*
 
 ```sh
-    $ python build.py
-```
-
-Python compilers that can be used in this project are
-```
-nuitka, PyInstaller
-```
-
-C compilers that can be used in this project are
-```
-msvc=MSVC, mingw64(recommended), gcc, clang
+    $ python build.make.all.py
 ```
