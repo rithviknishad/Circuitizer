@@ -82,7 +82,7 @@ class Circuitizer:
             self.open.image = self.image
             self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5, ipady=5)
 
-        for icon in glob.glob(os.getcwd() + '/res/tool/*.png'):
+        for icon in glob.glob(os.getcwd() + '/resource/tool/*.png'):
             generate_tools(self, icon, None)
 
         self.frame.pack(fill=tk.X, side=tk.TOP)
@@ -109,7 +109,7 @@ class Circuitizer:
             self.open.image = self.image
             self.open.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
 
-        for icon in glob.glob(os.getcwd() + '/res/side/*.png'):
+        for icon in glob.glob(os.getcwd() + '/resource/side/*.png'):
             generate_tools(self, icon, None)
 
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
@@ -124,9 +124,9 @@ class Circuitizer:
         
         for file in glob.glob('*'):
             if os.path.isdir(file):
-                self.image = tk.PhotoImage(file=os.getcwd() + '/res/tool/open.png').subsample(2, 2)
+                self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/open.png').subsample(2, 2)
             else:
-                self.image = tk.PhotoImage(file=os.getcwd() + '/res/tool/file.png').subsample(2, 2)
+                self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/file.png').subsample(2, 2)
             self.open = tk.Button(self.frame, image=self.image, text="      " + file, anchor=tk.W, font=("Arial", 10), compound=tk.LEFT)
             self.open.image = self.image
             self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR, bd=0)
