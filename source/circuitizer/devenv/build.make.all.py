@@ -10,7 +10,7 @@ import tarfile
 import ntpath
 
 # import build configurations for the project
-from build_config import *
+exec(open('build.config').read())
 
 # Generate build
 if __name__ == "__main__":
