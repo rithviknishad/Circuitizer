@@ -3,7 +3,7 @@
 
 #include "tools.h"
 
-#include "angle.h"
+#include "complex.h"
 
 void print(angle t)
 {
@@ -14,11 +14,12 @@ int main()
 {
 	std::cout << "$ tools.exe has started" << std::endl;
 	
-	angle theta = piby2;
+	using namespace math;
 
-	print(theta);
-	print(math::abs_rad(theta + pi2));
-	print(atan2(8, 0));
+	complex a = { 1, 'c' };
+
+	polar t = a;
+
 
 	std::cin.get();
 	return 0;
