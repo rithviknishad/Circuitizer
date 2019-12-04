@@ -30,8 +30,8 @@ if __name__ == "__main__":
         for dir in [
             TARGET_MAIN_FILE[:-3] + '.build/',
             TARGET_MAIN_FILE[:-3] + '.dist/',
-            RUNTIME_FILE[:-3] + '.build/',
-            RUNTIME_FILE[:-3] + '.dist/'
+            ntpath.basename(RUNTIME_FILE[:-3]) + '.build/',
+            ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/'
         ]:
             try:
                 shutil.rmtree(dir)
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         os.system(PYTHON_POINTER + ' -' + str(PYTHON_VERSION) + ' -m ' + BUILD_PROVIDER + ' ' + RUNTIME_FILE + ' ' + ' --'.join(BUILD_ARGS))
         # copy UI binaries
         for file in glob.glob('*.pyd'):
-            shutil.copy(file, RUNTIME_FILE[:-3] + '.dist/')
+            shutil.copy(file, ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/')
             os.remove(file)
         # clean build junk
         for file in glob.glob('*.a'):
@@ -58,7 +58,7 @@ if __name__ == "__main__":
             os.remove(file)
     # Enable file-based optimization
     if OPTIMISE: 
-        for file in glob.glob(os.getcwd() + '/' + RUNTIME_FILE[:-3] + '.dist/*'):
+        for file in glob.glob(os.getcwd() + '/' + ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/*'):
             for garbage_file in open(OPTIMISE_SIZE_LIST).readlines():
                 if os.path.split(file)[1] == garbage_file[:-1]:
                     try:
@@ -67,15 +67,15 @@ if __name__ == "__main__":
                         print("Failed to optimize file : " + file)
     # Copy Application Resources
     if COPY_ASSETS:
-        shutil.copytree('res/', RUNTIME_FILE[:-3] + '.dist/res/')
+        shutil.copytree('resource/', ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/resource/')
     # Tar file compression to reduce size of the application
     if REDUCE_SIZE:
-        tar = tarfile.open(RUNTIME_FILE[:-3] + '.dist/lib.tar.xz', "w:xz")
+        tar = tarfile.open(ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/lib.tar.xz', "w:xz")
         def path_leaf(path):
             head, tail = ntpath.split(path)
             return tail or ntpath.basename(head)
         for name in open(OPTIMISE_TAR_LIST).readlines():
-            file = RUNTIME_FILE[:-3] + '.dist/' + name[:-1]
+            file = ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/' + name[:-1]
             tar.add(file, arcname=path_leaf(file))
             try:
                 os.remove(file)
