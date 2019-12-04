@@ -18,6 +18,9 @@ int main()
 
 	complex a = { 1, 'c' };
 
+	polar t = a;
+
+
 	std::cin.get();
 	return 0;
 }
