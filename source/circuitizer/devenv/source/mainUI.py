@@ -13,6 +13,8 @@ sys.dont_write_bytecode = True
 
 from cfg import *
 
+import libUI
+
 class Circuitizer:
     def __init__(self, root):
         self.root = root
@@ -101,16 +103,13 @@ class Circuitizer:
         self.frame = tk.Frame(root)
         self.frame.configure(background=SIDETOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
-        def generate_tools(self, icon, command):
-            self.image = tk.PhotoImage(file=icon)
-            self.open = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT)
-            self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+        class ADD_BUTTON:
+            self.image = tk.PhotoImage(file=ADD)
+            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: libUI.ComponentEditor(tk.Toplevel()))
+            self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of this image is required otherwise this image is garbage collected
-            self.open.image = self.image
-            self.open.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
-
-        for icon in glob.glob(os.getcwd() + '/resource/side/*.png'):
-            generate_tools(self, icon, None)
+            self.add.image = self.image
+            self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
 
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
 

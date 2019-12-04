@@ -30,8 +30,7 @@ class ComponentEditor:
             self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5, ipady=5)
 
         for icon in [ADD, CARD, CLOUD]:
-            generate_tools(self, tk.PhotoImage(file=os.getcwd() + icon), None)
-
+            generate_tools(self, icon, None)
         self.frame.pack(fill=tk.X, side=tk.TOP)
     
     def status_bar(self, root):
