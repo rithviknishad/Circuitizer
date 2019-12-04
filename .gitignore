@@ -15,9 +15,14 @@ out/
 # Ignore Circuitizer UI builds
 /source/circuitizer/devenv/build
 /source/circuitizer/devenv/dist
-/source/circuitizer/devenv/main.build
-/source/circuitizer/devenv/main.dist
+/source/circuitizer/devenv/mainUI.build
+/source/circuitizer/devenv/mainUI.dist
+/source/circuitizer/devenv/boot.build
+/source/circuitizer/devenv/boot.dist
 *.spec
+*.pyi
+*.pyd
+libmainUI.a
 
 ## C and C++ .gitignore
 
