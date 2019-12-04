@@ -1,0 +1,140 @@
+#pragma once
+
+#include "angle.h"
+
+namespace math
+{
+	typedef struct polar
+	{
+		union { double abs, absolute; };
+		union { angle phi, phase; };
+
+		polar(const double _abs = 0.0, const angle _phi = 0.0) { abs = _abs; phi = _phi; }
+	} polar;
+
+	typedef struct complex
+	{
+		union { double x, real; };
+		union { double y, imaginary, imag; };
+
+		complex(const double _real, const double _i) { real = _real; imag = _i; }
+	} complex;
+
+	// operations
+
+	complex& operator=(complex &lhs, const complex rhs);
+	complex& operator=(complex &lhs, const polar rhs);
+
+	complex operator+(const complex lhs, const complex rhs);
+	complex operator-(const complex lhs, const complex rhs);
+	complex operator*(const complex lhs, const complex rhs);
+	complex operator/(const complex lhs, const complex rhs);
+
+	complex operator+(const complex lhs, const double rhs);
+	complex operator-(const complex lhs, const double rhs);
+	complex operator*(const complex lhs, const double rhs);
+	complex operator/(const complex lhs, const double rhs);
+
+	complex operator+(const double lhs, const complex rhs);
+	complex operator-(const double lhs, const complex rhs);
+	complex operator*(const double lhs, const complex rhs);
+	complex operator/(const double lhs, const complex rhs);
+
+	complex operator+(const complex lhs, const polar rhs);
+	complex operator-(const complex lhs, const polar rhs);
+	complex operator*(const complex lhs, const polar rhs);
+	complex operator/(const complex lhs, const polar rhs);
+
+	complex& operator+=(complex &lhs, const complex rhs);
+	complex& operator-=(complex &lhs, const complex rhs);
+	complex& operator*=(complex &lhs, const complex rhs);
+	complex& operator/=(complex &lhs, const complex rhs);
+
+	complex& operator+=(complex &lhs, const double rhs);
+	complex& operator-=(complex &lhs, const double rhs);
+	complex& operator*=(complex &lhs, const double rhs);
+	complex& operator/=(complex &lhs, const double rhs);
+
+	complex& operator+=(complex &lhs, const polar rhs);
+	complex& operator-=(complex &lhs, const polar rhs);
+	complex& operator*=(complex &lhs, const polar rhs);
+	complex& operator/=(complex &lhs, const polar rhs);
+
+
+	polar& operator=(polar& lhs, const polar rhs);
+	polar& operator=(polar& lhs, const complex rhs);
+
+	polar operator+(const polar lhs, const polar rhs);
+	polar operator-(const polar lhs, const polar rhs);
+	polar operator*(const polar lhs, const polar rhs);
+	polar operator/(const polar lhs, const polar rhs);
+
+	polar operator+(const polar lhs, const double rhs);
+	polar operator-(const polar lhs, const double rhs);
+	polar operator*(const polar lhs, const double rhs);
+	polar operator/(const polar lhs, const double rhs);
+
+	polar operator+(const double lhs, const polar rhs);
+	polar operator-(const double lhs, const polar rhs);
+	polar operator*(const double lhs, const polar rhs);
+	polar operator/(const double lhs, const polar rhs);
+
+	polar operator+(const polar lhs, const complex rhs);
+	polar operator-(const polar lhs, const complex rhs);
+	polar operator*(const polar lhs, const complex rhs);
+	polar operator/(const polar lhs, const complex rhs);
+
+	polar& operator+=(polar &lhs, const polar rhs);
+	polar& operator-=(polar &lhs, const polar rhs);
+	polar& operator*=(polar &lhs, const polar rhs);
+	polar& operator/=(polar &lhs, const polar rhs);
+
+	polar& operator+=(polar &lhs, const double rhs);
+	polar& operator-=(polar &lhs, const double rhs);
+	polar& operator*=(polar &lhs, const double rhs);
+	polar& operator/=(polar &lhs, const double rhs);
+
+	polar& operator+=(polar& lhs, const complex rhs);
+	polar& operator-=(polar& lhs, const complex rhs);
+	polar& operator*=(polar& lhs, const complex rhs);
+	polar& operator/=(polar& lhs, const complex rhs);
+
+
+	// fuctions
+	double real(const polar p);
+	double real(const complex c);
+
+	double imaginary(const polar p);
+	double imaginary(const complex c);
+
+	polar conj(const polar p);
+	complex conj(const complex c);
+
+	double projection(const polar p);
+	double projection(const complex c);
+
+	double projectionOn(const polar p);
+	double projectionOn(const complex c);
+
+	double norm(const polar p);
+	double norm(const complex c);
+
+	double abs(const polar p);
+	double abs(const complex c);
+
+	double absolute(const polar p);
+	double absolute(const complex c);
+
+	angle arg(const polar p);
+	angle arg(const complex c);
+	angle argument(const polar p);
+	angle argument(const complex c);
+	angle phi(const polar p);
+	angle phi(const complex c);
+	angle phase(const polar p);
+	angle phase(const complex c);
+
+	polar ConvertToPolar(complex c);
+	complex ConvertToComplex(polar p);
+
+}

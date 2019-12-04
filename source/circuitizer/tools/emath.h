@@ -20,5 +20,3 @@ AUTHOR(s):	https://github.com/rithviknishad
 
 const char PHI = char(237);
 const char PI  = char(227);
-
-#include "angle.h"
