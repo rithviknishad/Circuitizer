@@ -4,6 +4,10 @@
 
 namespace math
 {
+
+	struct polar;
+	struct complex;
+
 	typedef struct polar
 	{
 		union { double abs, absolute; };
@@ -19,7 +23,7 @@ namespace math
 		polar& operator*=(const polar rhs);
 		polar& operator/=(const polar rhs);
 
-		polar& operator+=(const double rhs);
+		/*polar& operator+=(const double rhs);
 		polar& operator-=(const double rhs);
 		polar& operator*=(const double rhs);
 		polar& operator/=(const double rhs);
@@ -27,7 +31,7 @@ namespace math
 		polar& operator+=(const complex rhs);
 		polar& operator-=(const complex rhs);
 		polar& operator*=(const complex rhs);
-		polar& operator/=(const complex rhs);
+		polar& operator/=(const complex rhs);*/
 
 	} polar;
 
@@ -41,26 +45,27 @@ namespace math
 
 		complex& operator=(const complex rhs);
 
-		complex& operator+=(complex& lhs, const complex rhs);
-		complex& operator-=(complex& lhs, const complex rhs);
-		complex& operator*=(complex& lhs, const complex rhs);
-		complex& operator/=(complex& lhs, const complex rhs);
+		complex& operator+=(const complex rhs);
+		complex& operator-=(const complex rhs);
+		complex& operator*=(const complex rhs);
+		complex& operator/=(const complex rhs);
 
-		complex& operator+=(complex& lhs, const double rhs);
-		complex& operator-=(complex& lhs, const double rhs);
-		complex& operator*=(complex& lhs, const double rhs);
-		complex& operator/=(complex& lhs, const double rhs);
+		complex& operator+=(const double rhs);
+		complex& operator-=(const double rhs);
+		complex& operator*=(const double rhs);
+		complex& operator/=(const double rhs);
 
-		complex& operator+=(complex& lhs, const polar rhs);
-		complex& operator-=(complex& lhs, const polar rhs);
-		complex& operator*=(complex& lhs, const polar rhs);
-		complex& operator/=(complex& lhs, const polar rhs);
+		complex& operator+=(const polar rhs);
+		complex& operator-=(const polar rhs);
+		complex& operator*=(const polar rhs);
+		complex& operator/=(const polar rhs);
 
 	} complex;
 
 	// operations
 
 	complex operator+(const complex lhs, const complex rhs);
+	complex operator-(const complex lhs);
 	complex operator-(const complex lhs, const complex rhs);
 	complex operator*(const complex lhs, const complex rhs);
 	complex operator/(const complex lhs, const complex rhs);
@@ -81,11 +86,12 @@ namespace math
 	complex operator/(const complex lhs, const polar rhs);
 
 	polar operator+(const polar lhs, const polar rhs);
+	polar operator-(const polar lhs);
 	polar operator-(const polar lhs, const polar rhs);
 	polar operator*(const polar lhs, const polar rhs);
 	polar operator/(const polar lhs, const polar rhs);
 
-	polar operator+(const polar lhs, const double rhs);
+	/*polar operator+(const polar lhs, const double rhs);
 	polar operator-(const polar lhs, const double rhs);
 	polar operator*(const polar lhs, const double rhs);
 	polar operator/(const polar lhs, const double rhs);
@@ -98,7 +104,7 @@ namespace math
 	polar operator+(const polar lhs, const complex rhs);
 	polar operator-(const polar lhs, const complex rhs);
 	polar operator*(const polar lhs, const complex rhs);
-	polar operator/(const polar lhs, const complex rhs);
+	polar operator/(const polar lhs, const complex rhs);*/
 
 
 	// fuctions
@@ -116,9 +122,6 @@ namespace math
 
 	double projection(const polar p);
 	double projection(const complex c);
-
-	double projectionOn(const polar p);
-	double projectionOn(const complex c);
 
 	double norm(const polar p);
 	double norm(const complex c);

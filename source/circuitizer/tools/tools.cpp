@@ -4,6 +4,7 @@
 #include "tools.h"
 
 #include "complex.h"
+#include "complex.cpp"
 
 void print(angle t)
 {
