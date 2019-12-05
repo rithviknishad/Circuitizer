@@ -2,6 +2,7 @@
 # Circuitizer UI
 
 import os
+import gc
 import sys
 import glob
 import ctypes
@@ -17,10 +18,15 @@ import libUI
 
 class Circuitizer:
     def __init__(self, root):
+        # The root reference
         self.root = root
+        # The toggle counter for the pen in the circuit canvaas
+        self.toggle_pen = True
+        # Basic Application Meta Data
         self.root.geometry("1200x700")
         self.root.title("Circuitizer")
         self.root.configure(background=BG_COLOR)
+        # The GUI components
         self.menu_bar(root)
         self.tool_bar(root)
         self.status_bar(root)
@@ -98,6 +104,15 @@ class Circuitizer:
         self.open.pack(side=tk.TOP, fill=tk.BOTH, ipady=4)
 
         self.frame.pack(fill=tk.Y, side=tk.RIGHT, ipadx=10, ipady=3)
+    
+    class Events:
+        def draw_button_event(self):
+            if self.toggle_pen:
+                self.pen.down()
+                self.toggle_pen = False
+            else:
+                self.pen.up()
+                self.toggle_pen = True
 
     def side_tool_bar(self, root):
         self.frame = tk.Frame(root)
@@ -106,6 +121,23 @@ class Circuitizer:
         class ADD_BUTTON:
             self.image = tk.PhotoImage(file=ADD)
             self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: libUI.ComponentEditor(tk.Toplevel()))
+            self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+            # reference of this image is required otherwise this image is garbage collected
+            self.add.image = self.image
+            self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
+        
+
+        class DRAW_BUTTON:
+            self.image = tk.PhotoImage(file=ADD)
+            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: exec("self_pointer.Events.draw_button_event(self_pointer)"))
+            self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+            # reference of this image is required otherwise this image is garbage collected
+            self.add.image = self.image
+            self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
+        
+        class STAMP_SYMBOL_BUTTON:
+            self.image = tk.PhotoImage(file=ADD)
+            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: exec("self_pointer.pen.stamp()"))
             self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of this image is required otherwise this image is garbage collected
             self.add.image = self.image
@@ -134,6 +166,7 @@ class Circuitizer:
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
     
     def main_content(self, root):
+        # A global pointer to self for accessing everywhere in the application
         global self_pointer
         self_pointer = self 
 
@@ -148,13 +181,9 @@ class Circuitizer:
         self.pen.up()
         # left button of mouse to drag the cursor of the canvas
         self.pen.ondrag(self.pen.goto)
-        def scroll_start(event):
-            self_pointer.canvas.scan_mark(event.x, event.y)
-        def scroll_move(event):
-            self_pointer.canvas.scan_dragto(event.x, event.y, gain=1)
         # middle button of mouse to drag canvas
-        self.canvas.bind("<ButtonPress-2>", scroll_start)
-        self.canvas.bind("<B2-Motion>", scroll_move)
+        self.canvas.bind("<ButtonPress-2>", lambda event: self.canvas.scan_mark(event.x, event.y))
+        self.canvas.bind("<B2-Motion>", lambda event: self.canvas.scan_dragto(event.x, event.y, gain=1))
         self.canvas.pack(fill=tk.BOTH, expand=True)
         # self.canvas.destroy()
         self.frame.pack(fill=tk.BOTH, side=tk.LEFT, ipadx=10, ipady=3)
@@ -173,7 +202,11 @@ def main():
     # Fix text blurry issue in windows 10 due to text scale settings
     if 'win' in sys.platform:
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
-    # init the tkinter GUI process
+    # The turtle drag and drop function rescursion is more than python's standard limit
+    sys.setrecursionlimit(10000)
+    # Disable garbage collector for better performance
+    gc.disable()
+    # Init the tkinter GUI process
     root = tk.Tk()
     Circuitizer(root)
     root.mainloop()
