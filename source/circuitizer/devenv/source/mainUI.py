@@ -128,7 +128,7 @@ class Circuitizer:
 
         class ADD_BUTTON:
             self.image = tk.PhotoImage(file=ADD)
-            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: pass)
+            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=None)
             self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of this image is required otherwise this image is garbage collected
             self.add.image = self.image

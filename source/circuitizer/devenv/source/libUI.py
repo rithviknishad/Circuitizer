@@ -27,22 +27,39 @@ class ComponentEditor:
         self.img = tk.Label(self.img_frame, width=300, height=415, image=self.image, relief=tk.FLAT, compound=tk.LEFT, background=BG_COLOR)
         self.img.pack(fill=tk.BOTH)
         self.img_frame.pack(side=tk.LEFT)
+    
         # The definitions of components
-        self.detail_frame = tk.Frame(self.frame, background=BG_COLOR)
+        self.detail_frame = tk.Frame(self.frame, background=BORDER_COLOR)
+
+        # Properties of the components are give below after this label
+        self.tmp_frame = tk.Frame(self.detail_frame, background=BORDER_COLOR)
+        self.temp = tk.Label(self.tmp_frame, text="    Properties Panel \t\t\t\t\t\t\n", background=BORDER_COLOR, foreground=FG_COLOR)
+        self.temp.pack(side=tk.LEFT)
+        self.tmp_frame.pack(side=tk.TOP)
+
         # Name of the symbols
         self.name_frame = tk.Frame(self.detail_frame, background=BORDER_COLOR)
-        self.temp = tk.Label(self.name_frame, text="   Component \t\t", background=BORDER_COLOR, foreground='white')
+        self.temp = tk.Label(self.name_frame, text="    Component \t\t", background=BORDER_COLOR, foreground='white')
         self.temp.pack(side=tk.LEFT)
-        self.name = tk.Entry(self.name_frame)
+        self.name = tk.Entry(self.name_frame, width=30)
         self.name.pack(side=tk.RIGHT)
-        self.name_frame.pack(side=tk.TOP)
+        self.name_frame.pack(side=tk.TOP, pady=4)
+
         # Placeholder of the symbols
-        self.placeholder_frame = tk.Frame(self.detail_frame)
-        self.temp = tk.Label(self.placeholder_frame, text="   Placeholder\t\t", background=BORDER_COLOR, foreground='white')
+        self.placeholder_frame = tk.Frame(self.detail_frame, background=BORDER_COLOR)
+        self.temp = tk.Label(self.placeholder_frame, text="    Placeholder\t\t", background=BORDER_COLOR, foreground='white')
         self.temp.pack(side=tk.LEFT)
-        self.placeholder = tk.Entry(self.placeholder_frame)
+        self.placeholder = tk.Entry(self.placeholder_frame, width=30)
         self.placeholder.pack(side=tk.RIGHT)
-        self.placeholder_frame.pack(side=tk.BOTTOM)
+        self.placeholder_frame.pack(side=tk.BOTTOM, pady=4)
+
+        # Max Volt of the symbols
+        self.max_volt_frame = tk.Frame(self.detail_frame, background=BORDER_COLOR)
+        self.temp = tk.Label(self.max_volt_frame, text="    Max Volt\t\t", background=BORDER_COLOR, foreground='white')
+        self.temp.pack(side=tk.LEFT)
+        self.max_volt = tk.Entry(self.max_volt_frame, width=30)
+        self.max_volt.pack(side=tk.RIGHT)
+        self.max_volt_frame.pack(side=tk.BOTTOM, pady=4)
 
         self.detail_frame.pack(side=tk.LEFT)
         self.frame.configure(background=BORDER_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
