@@ -2,8 +2,9 @@
 //
 
 #include "tools.h"
+#include "complex.h"
 
-#include "complex.cpp"
+using namespace math;
 
 void print(angle t)
 {
@@ -23,8 +24,6 @@ void print(polar p)
 int main()
 {
 	std::cout << "$ tools.exe has started" << std::endl;
-	
-	using namespace math;
 
 	complex a = complex(1, pi);
 	complex b = complex(2, piby2);
