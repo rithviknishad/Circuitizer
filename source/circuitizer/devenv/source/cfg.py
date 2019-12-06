@@ -21,3 +21,5 @@ MONEY = 'resource/tool/money.png'
 REFRESH = 'resource/tool/refresh.png'
 SAVE = 'resource/tool/save.png'
 SETTINGS = 'resource/tool/settings.png'
+
+COMPONENT_PATH = 'component/'
