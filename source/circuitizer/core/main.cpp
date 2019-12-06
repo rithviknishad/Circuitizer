@@ -2,5 +2,8 @@
 
 int main()
 {
-	std::cout << "Hello" << std::endl;
+	std::cout << "$ Core Initiated" << std::endl;
+
+	std::cin.get();
+	return 0;
 }

@@ -26,16 +26,15 @@ int main()
 	
 	using namespace math;
 
-	for (double i = 0; i < pi2; i += pi2 / 360)
+	complex a = complex(1, pi);
+	complex b = complex(2, piby2);
+
+	for (double i = 0; i < 100000000; i ++)
 	{
-		complex c = { cos(i), sin(i) };
-		polar p = polar(c);
-		print(conj(c));
-		std::cout << "\t";
-		print(conj(p));
-		std::cout << "\n";
+		complex c = complex(polar(complex(a + b)));
 	}
 
+	std::cout << "Finsihed";
 
 	std::cin.get();
 	return 0;

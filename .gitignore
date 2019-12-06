@@ -1,8 +1,14 @@
 ## Additional Ignores:
 *.code-workspace
 .vscode/
+test/
 *.vcxproj.user
 *.vcxproj.filters
+
+
+# Circuitizer Test Folder Ignores
+tests/
+dump/
 
 # Ignore Circuitizer UI builds
 /source/circuitizer/devenv/dist

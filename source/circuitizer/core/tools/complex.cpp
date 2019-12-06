@@ -1,3 +1,4 @@
+#pragma once
 #include "complex.h"
 
 using namespace math;
