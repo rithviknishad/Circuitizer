@@ -21,10 +21,30 @@ class ComponentEditor:
     
     def content(self, root):
         self.frame = tk.Frame(root)
+        # The image preview canvas
         self.img_frame = tk.Frame(self.frame)
-        self.img = tk.Label(self.img_frame, width=300, height=415, image=self.image, relief=tk.FLAT, compound=tk.LEFT)
+        self.img_frame.configure(background=BG_COLOR)
+        self.img = tk.Label(self.img_frame, width=300, height=415, image=self.image, relief=tk.FLAT, compound=tk.LEFT, background=BG_COLOR)
         self.img.pack(fill=tk.BOTH)
-        self.img_frame.grid(row=0, column=1)
+        self.img_frame.pack(side=tk.LEFT)
+        # The definitions of components
+        self.detail_frame = tk.Frame(self.frame, background=BG_COLOR)
+        # Name of the symbols
+        self.name_frame = tk.Frame(self.detail_frame, background=BORDER_COLOR)
+        self.temp = tk.Label(self.name_frame, text="   Component \t\t", background=BORDER_COLOR, foreground='white')
+        self.temp.pack(side=tk.LEFT)
+        self.name = tk.Entry(self.name_frame)
+        self.name.pack(side=tk.RIGHT)
+        self.name_frame.pack(side=tk.TOP)
+        # Placeholder of the symbols
+        self.placeholder_frame = tk.Frame(self.detail_frame)
+        self.temp = tk.Label(self.placeholder_frame, text="   Placeholder\t\t", background=BORDER_COLOR, foreground='white')
+        self.temp.pack(side=tk.LEFT)
+        self.placeholder = tk.Entry(self.placeholder_frame)
+        self.placeholder.pack(side=tk.RIGHT)
+        self.placeholder_frame.pack(side=tk.BOTTOM)
+
+        self.detail_frame.pack(side=tk.LEFT)
         self.frame.configure(background=BORDER_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         self.frame.pack(side=tk.TOP, fill=tk.BOTH)
 
@@ -41,14 +61,17 @@ class ComponentEditor:
             self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5, ipady=5)
 
         def add_component(self):
-            file = tkdialog.askopenfilename(filetypes=(
-                        ("Gif files", "*.gif"),
+            img_file = tkdialog.askopenfilename(filetypes=(
+                        ("GIF files", "*.gif"),
+                        ("PNG files", "*.png"),
                         ("All files", "*.*")
                     )
                 )
-            if file is not None:
-                self.img_frame.image = file
-                print(file)
+            if img_file is not None:
+                self.image = tk.PhotoImage(file=img_file)
+                self.img.config(image=self.image)
+                self.img.image = self.image
+                print(img_file)
         generate_tools(self, ADD, lambda: add_component(self))
         generate_tools(self, CARD, None)
         generate_tools(self, CLOUD, None)
