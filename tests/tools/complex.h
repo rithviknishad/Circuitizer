@@ -37,8 +37,8 @@ namespace math
 
 	typedef struct complex
 	{
-		union { double x, real, Re; };
-		union { double y, imaginary, imag, Im; };
+		union { double x, real; };
+		union { double y, imaginary, imag; };
 
 		complex(const double _real, const double _i);
 		complex(const polar p);

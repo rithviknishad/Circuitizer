@@ -1,30 +1,42 @@
-// tools.cpp : This file contains the 'main' function. Program execution begins and ends there.
+﻿// tools.cpp : Defines the entry point for the application.
 //
 
-#include <iostream>
+#include "tools.h"
 
-#include "edef/power.h"
-#include "math/complex.h"
+#include "complex.cpp"
 
-void printPolar(math::polar polar)
+void print(angle t)
 {
-	std::cout << "{" << polar.abs << ", " << PHI << " = " << polar.phi_d / pi << PI << "}" << std::endl;
+	std::cout << t / pi << PI << std::endl;
 }
 
-void printPower(e::power pwr)
+void print(complex c)
 {
-	std::cout << "{" << pwr.value.abs() << " = " << pwr.P << " j" << pwr.Q << "}" << std::endl;
+	std::cout << c.real << " + " << c.imaginary << "i";
+}
+
+void print(polar p)
+{
+	std::cout << p.abs << " " << PHI << "=" << p.phi / pi << PI;
 }
 
 int main()
 {
-	e::power p = e::power().fromComplex(10, 20);
-	printPower(p);
+	std::cout << "$ tools.exe has started" << std::endl;
+	
+	using namespace math;
 
-	double a = 0.0;
+	for (double i = 0; i < pi2; i += pi2 / 360)
+	{
+		complex c = { cos(i), sin(i) };
+		polar p = polar(c);
+		print(conj(c));
+		std::cout << "\t";
+		print(conj(p));
+		std::cout << "\n";
+	}
 
-	std::cout << std::acos(10.0);
 
-	//std::cout << math::acos(math::cos(math::asin(math::sin(angle().from_atan2(0.0, 8.0))))).rad / pi << PI;
+	std::cin.get();
 	return 0;
 }
