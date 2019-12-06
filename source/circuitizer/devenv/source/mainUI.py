@@ -7,21 +7,29 @@ import sys
 import glob
 import ctypes
 import turtle
+
 import tkinter as tk
 import tkinter.ttk as ttk
+import tkinter.filedialog as tkdialog
 
 sys.dont_write_bytecode = True
 
 from cfg import *
 
+import crt
 import libUI
 
 class Circuitizer:
+    """Circuitizer UI Object"""
     def __init__(self, root):
         # The root reference
         self.root = root
         # The toggle counter for the pen in the circuit canvaas
         self.toggle_pen = True
+        self.filename = None
+        self.temp_filename = 'working.circuit'
+        # Clean the working circuit file
+        # self.clean_realtime_crt()
         # Basic Application Meta Data
         self.root.geometry("1200x700")
         self.root.title("Circuitizer")
@@ -120,13 +128,12 @@ class Circuitizer:
 
         class ADD_BUTTON:
             self.image = tk.PhotoImage(file=ADD)
-            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: libUI.ComponentEditor(tk.Toplevel()))
+            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: pass)
             self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of this image is required otherwise this image is garbage collected
             self.add.image = self.image
             self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
-        
-
+    
         class DRAW_BUTTON:
             self.image = tk.PhotoImage(file=ADD)
             self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: exec("self_pointer.Events.draw_button_event(self_pointer)"))
@@ -134,16 +141,53 @@ class Circuitizer:
             # reference of this image is required otherwise this image is garbage collected
             self.add.image = self.image
             self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
-        
-        class STAMP_SYMBOL_BUTTON:
+
+        class NEW_BUTTON:
+            global new_action
+            def new_action(self):
+                libUI.ComponentEditor(tk.Toplevel())
+                crt_handler.realtime(self.pen.xcor(), self.pen.ycor(), 'and.gif')
             self.image = tk.PhotoImage(file=ADD)
-            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: exec("self_pointer.pen.stamp()"))
+            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: new_action(self))
             self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of this image is required otherwise this image is garbage collected
             self.add.image = self.image
             self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
+        
+        class LOAD_BUTTON:
+            global load_action
+            def load_action(self):
+                file = tkdialog.askopenfilename(filetypes=(
+                        ("Circuit files", "*.circuit"),
+                        ("Schematic files", "*.schematic"),
+                        ("Definition files", "*.definition"),
+                        ("Realtime Circuit File", "working.circuit"),
+                        ("All files", "*.*")
+                    )
+                )
+                if file is not None:
+                    exec(''.join(crt_handler.load(crt_handler.work)[0]))
+            self.image = tk.PhotoImage(file=FILE)
+            self.load = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: load_action(self))
+            self.load.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+            # reference of this image is required otherwise this image is garbage collected
+            self.load.image = self.image
+            self.load.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
 
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
+    
+    def clean_realtime_crt(self):
+        file = open(self.temp_filename, 'w')
+        file.write('')
+        file.close()
+
+    def realtime_save_crt(self, x, y):
+        self.pen.stamp()
+        self.pen.goto(x - 10, y - 10)
+        file = open(self.temp_filename, 'a')
+        file.write('\nself.pen.goto(' + str(x) + ',' + str(y) + ')')
+        file.write('\nself.pen.stamp()')
+        file.close()
 
     def project_panel(self, root):
         self.frame = tk.Frame(root)
@@ -169,18 +213,21 @@ class Circuitizer:
         # A global pointer to self for accessing everywhere in the application
         global self_pointer
         self_pointer = self 
-
+        # The main frame where the circuit canvas is rendered
         self.frame = tk.Frame(root)
         self.frame.configure(background=BG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         self.canvas = turtle.ScrolledCanvas(root, canvwidth=2000, canvheight=2000)
         # Pen configuration
         self.pen = turtle.RawTurtle(self.canvas)
         self.pen.color(PEN_COLOR)
+        self.pen.speed(5)
         self.pen.shapesize(1.5)
         self.pen.shape('circle')
+        self.pen.setundobuffer(1000)
         self.pen.up()
         # left button of mouse to drag the cursor of the canvas
         self.pen.ondrag(self.pen.goto)
+        self.canvas.config(background=BG_COLOR, highlightthickness=0, highlightbackground=BORDER_COLOR)
         # middle button of mouse to drag canvas
         self.canvas.bind("<ButtonPress-2>", lambda event: self.canvas.scan_mark(event.x, event.y))
         self.canvas.bind("<B2-Motion>", lambda event: self.canvas.scan_dragto(event.x, event.y, gain=1))
@@ -189,16 +236,18 @@ class Circuitizer:
         self.frame.pack(fill=tk.BOTH, side=tk.LEFT, ipadx=10, ipady=3)
 
     def status_bar(self, root):
+        # render the frame for the status bar
         self.frame = tk.Frame(root)
         self.frame.configure(background=STATUS_COLOR)
-
+        # the status text with some status information
         self.txt = tk.Label(self.frame, text="Ready")
         self.txt.configure(background=STATUS_COLOR, foreground='white')
         self.txt.pack(side=tk.LEFT)
-
         self.frame.pack(fill=tk.X, side=tk.BOTTOM)
 
+
 def main():
+    global crt_handler
     # Fix text blurry issue in windows 10 due to text scale settings
     if 'win' in sys.platform:
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
@@ -206,6 +255,8 @@ def main():
     sys.setrecursionlimit(10000)
     # Disable garbage collector for better performance
     gc.disable()
+    # Circuit handler which will be used to do I/O in .circuit files
+    crt_handler = crt.Circuit()
     # Init the tkinter GUI process
     root = tk.Tk()
     Circuitizer(root)

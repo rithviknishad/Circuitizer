@@ -18,6 +18,8 @@ out/
 /source/circuitizer/devenv/mainUI.dist
 /source/circuitizer/devenv/boot.build
 /source/circuitizer/devenv/boot.dist
+/source/circuitizer/devenv/working.build
+/source/circuitizer/devenv/untitled.build
 *.spec
 *.pyi
 *.pyd

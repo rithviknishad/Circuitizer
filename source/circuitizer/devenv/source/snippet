@@ -1,0 +1,6 @@
+        # self.canvas.bind("<ButtonPress-1>", lambda event: self.pen.goto(event.x, event.y))
+        # self.canvas.bind("<ButtonPress-1>", lambda event: self.pen.goto(event.x - 645, 445 - event.y))
+        # self.canvas.bind("<ButtonPress-1>", lambda event: self.pen.goto(event.x, event.y))
+
+                # self.canvas._canvas.se
+        # print(self.pen.setheading(90))# .setworldcoordinates(-1, -1, 20, 20)
