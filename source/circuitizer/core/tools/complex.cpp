@@ -374,7 +374,7 @@ double math::imaginary(const complex c)
 
 polar math::conj(const polar p)
 {
-	return polar(p.abs, -p.phi);
+	return polar(p.abs, -(p.phi));
 }
 
 complex math::conj(const complex c)
