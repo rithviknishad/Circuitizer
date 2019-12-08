@@ -4,7 +4,8 @@
 test/
 *.vcxproj.user
 *.vcxproj.filters
-
+*.tlog
+*.tlog/
 
 # Circuitizer Test Folder Ignores
 tests/
