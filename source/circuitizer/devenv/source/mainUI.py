@@ -94,17 +94,16 @@ class Circuitizer:
 
         def generate_tools(self, txt, icon=None, command=None):
             if icon is not None:
-                self.image = tk.PhotoImage(file=icon).subsample(2, 2)
-                self.open = tk.Button(self.frame, relief=tk.FLAT, compound=tk.LEFT)
+                self.image = tk.PhotoImage(file=icon)
+                self.open = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT)
                 # reference of this image is required otherwise this image is garbage collected
                 self.open.image = self.image
-                self.idontknowthisisjustareference = self.image
             else:
                 self.open = tk.Button(self.frame, text=txt, relief=tk.FLAT, compound=tk.LEFT)
             self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5)
 
-        generate_tools(self, 'Hi', RESOURCE_PATH + 'icon.png')
+        # generate_tools(self, 'Hi', RESOURCE_PATH + 'icon.png')
         for txt in ['File', 'Edit', 'Debug', 'Tools']:
             generate_tools(self, txt)
 
