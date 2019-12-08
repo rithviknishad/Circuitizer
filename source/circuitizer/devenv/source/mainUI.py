@@ -12,12 +12,13 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import tkinter.filedialog as tkdialog
 
-sys.dont_write_bytecode = True
-
-from cfg import *
+# custom imports
 
 import crt
 import libUI
+
+from cfg import *
+
 
 class Circuitizer:
     """Circuitizer UI Object"""
@@ -27,15 +28,8 @@ class Circuitizer:
         # The toggle counter for the pen in the circuit canvaas
         self.toggle_pen = True
 
-        # The filename for the working circuit
-        self.filename = None
-        self.temp_filename = 'working.circuit'
-
-        # Clean the working circuit file
-        # self.clean_realtime_crt()
-
         # Basic Application Meta Data
-        self.root.geometry("1200x700")
+        self.root.geometry(GEOMETERY)
         self.root.title("Circuitizer")
         self.root.configure(background=BG_COLOR)
         self.root.iconbitmap(RESOURCE_PATH + 'logo.ico')
@@ -50,24 +44,29 @@ class Circuitizer:
         self.main_content(root)
 
     def modern_menu_bar(self, root):
+        """The menu div UI code"""
         self.frame = tk.Frame(root)
         self.frame.configure(background=TOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
-        def generate_tools(self, txt, icon=None, command=None):
+        def generate_ui(self, txt, icon=None, command=None):
+            """Generate the UI with the custom theme"""
             self.open = tk.Button(self.frame, text=txt, relief=tk.FLAT, compound=tk.LEFT)
             self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5)
 
+        # structure the ui
         for txt in ['File', 'Edit', 'Debug', 'Tools']:
-            generate_tools(self, txt)
+            generate_ui(self, txt)
 
         self.frame.pack(fill=tk.X, side=tk.TOP)
 
     def tool_bar(self, root):
+        """The tool bar UI code"""
         self.frame = tk.Frame(root)
         self.frame.configure(background=TOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
-        def generate_tools(self, icon, command):
+        def generate_ui(self, icon, command=None):
+            """Generate the UI with the custom theme"""
             self.image = tk.PhotoImage(file=icon)
             self.open = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT)
             self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
@@ -75,105 +74,82 @@ class Circuitizer:
             self.open.image = self.image
             self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5, ipady=5)
 
+        # structure the ui
         for icon in glob.glob(os.getcwd() + '/resource/tool/*.png'):
-            generate_tools(self, icon, None)
+            generate_ui(self, icon)
 
         self.frame.pack(fill=tk.X, side=tk.TOP)
 
     def properties_panel(self, root):
+        """The properties panel div UI code"""
         self.frame = tk.Frame(root, width=200)
         self.frame.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
+        # The heading of the properties panel
         self.open = tk.Label(self.frame, text="Properties Panel                                                     ")
         self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR)
         self.open.pack(side=tk.TOP, fill=tk.BOTH, ipady=4)
 
         self.frame.pack(fill=tk.Y, side=tk.RIGHT, ipadx=10, ipady=3)
     
-    class Events:
-        def draw_button_event(self):
-            if self.toggle_pen:
-                self.pen.down()
-                self.toggle_pen = False
-            else:
-                self.pen.up()
-                self.toggle_pen = True
-
     def side_tool_bar(self, root):
+        """The side tool bar div UI code"""
         self.frame = tk.Frame(root)
         self.frame.configure(background=SIDETOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
-        class ADD_BUTTON:
-            self.image = tk.PhotoImage(file=ADD)
-            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=None)
+        # The new button action
+        def new_action(self):
+            libUI.ComponentEditor(tk.Toplevel())
+            crt_handler.realtime(self.pen.xcor(), self.pen.ycor(), 'and.gif')
+
+        # The load button action
+        def load_action(self):
+            file = tkdialog.askopenfilename(filetypes=(
+                    ("Circuit files", "*.circuit"),
+                    ("Schematic files", "*.schematic"),
+                    ("Definition files", "*.definition"),
+                    ("Realtime Circuit File", "working.circuit"),
+                    ("All files", "*.*")
+                )
+            )
+            if file is not None:
+                exec(''.join(crt_handler.load(crt_handler.work)[0]))
+
+        def generate_ui(self, root, icon, command=None):
+            """Generate the UI with the custom theme"""
+            self.image = tk.PhotoImage(file=icon)
+            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=command)
             self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
-            # reference of this image is required otherwise this image is garbage collected
-            self.add.image = self.image
-            self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
-    
-        class DRAW_BUTTON:
-            self.image = tk.PhotoImage(file=ADD)
-            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: exec("self_pointer.Events.draw_button_event(self_pointer)"))
-            self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
-            # reference of this image is required otherwise this image is garbage collected
+            # reference of image is required otherwise this image is garbage collected
             self.add.image = self.image
             self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
 
-        class NEW_BUTTON:
-            global new_action
-            def new_action(self):
-                libUI.ComponentEditor(tk.Toplevel())
-                crt_handler.realtime(self.pen.xcor(), self.pen.ycor(), 'and.gif')
-            self.image = tk.PhotoImage(file=ADD)
-            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: new_action(self))
-            self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
-            # reference of this image is required otherwise this image is garbage collected
-            self.add.image = self.image
-            self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
-        
-        class LOAD_BUTTON:
-            global load_action
-            def load_action(self):
-                file = tkdialog.askopenfilename(filetypes=(
-                        ("Circuit files", "*.circuit"),
-                        ("Schematic files", "*.schematic"),
-                        ("Definition files", "*.definition"),
-                        ("Realtime Circuit File", "working.circuit"),
-                        ("All files", "*.*")
-                    )
-                )
-                if file is not None:
-                    exec(''.join(crt_handler.load(crt_handler.work)[0]))
-            self.image = tk.PhotoImage(file=FILE)
-            self.load = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=lambda: load_action(self))
-            self.load.configure(background=TOOL_COLOR, foreground=FG_COLOR)
-            # reference of this image is required otherwise this image is garbage collected
-            self.load.image = self.image
-            self.load.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
+        # structure the ui
+        for widget in [
+            # The add button which can be used to add a new component to the schematic builder
+            (ADD, None),
+            # The draw button which can be used to draw the schematics in the schematic builder
+            (ADD, None),
+            # The new button can be used to build a new custom component for the schematic
+            (ADD, lambda: new_action(self)),
+            # The file button can be used to open a new schematic file to the editor
+            (FILE, lambda: load_action(self)),
+        ]:
+            generate_ui(self, root, icon=widget[0], command=widget[1])
 
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
     
-    def clean_realtime_crt(self):
-        file = open(self.temp_filename, 'w')
-        file.write('')
-        file.close()
-
-    def realtime_save_crt(self, x, y):
-        self.pen.stamp()
-        self.pen.goto(x - 10, y - 10)
-        file = open(self.temp_filename, 'a')
-        file.write('\nself.pen.goto(' + str(x) + ',' + str(y) + ')')
-        file.write('\nself.pen.stamp()')
-        file.close()
-
     def project_panel(self, root):
+        """The project panel div UI code"""
         self.frame = tk.Frame(root)
         self.frame.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
+        # the heading of the project panel
         self.open = tk.Label(self.frame, text="Project Files                          ")
         self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR)
         self.open.pack(side=tk.TOP, fill=tk.BOTH, ipadx=3, ipady=3)
-        
+
+        # load the current project working directory
         for file in glob.glob('*'):
             if os.path.isdir(file):
                 self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/open.png').subsample(2, 2)
@@ -187,6 +163,7 @@ class Circuitizer:
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
     
     def main_content(self, root):
+        """The main div UI code"""
         # A global pointer to self for accessing everywhere in the application
         global self_pointer
         self_pointer = self 
@@ -213,11 +190,13 @@ class Circuitizer:
         self.canvas.bind("<ButtonPress-2>", lambda event: self.canvas.scan_mark(event.x, event.y))
         self.canvas.bind("<B2-Motion>", lambda event: self.canvas.scan_dragto(event.x, event.y, gain=1))
         self.canvas.pack(fill=tk.BOTH, expand=True)
+
+        # Hide the canvas for now
         self.canvas.pack_forget()
-        # self.canvas.destroy()
         self.frame.pack(fill=tk.BOTH, side=tk.LEFT, ipadx=10, ipady=3)
 
     def status_bar(self, root):
+        """The status bar UI code"""
         # render the frame for the status bar
         self.frame = tk.Frame(root)
         self.frame.configure(background=STATUS_COLOR)
@@ -242,8 +221,11 @@ def main():
     crt_handler = crt.Circuit()
     # Init the tkinter GUI process
     root = tk.Tk()
+    # Hide the windows before loading fully to prevent loading white flash in UI
     root.withdraw()
+    # Circuitizer UI class bind to the root
     Circuitizer(root)
+    # Unhide the window after it's fully loaded to show the window
     root.update()
     root.deiconify()
     root.mainloop()
