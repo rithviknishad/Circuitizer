@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+GEOMETERY = '1200x700'
+
 BG_COLOR = '#1E1E1E'
 FG_COLOR = '#969393'
 
