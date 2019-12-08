@@ -283,7 +283,10 @@ def main():
     crt_handler = crt.Circuit()
     # Init the tkinter GUI process
     root = tk.Tk()
+    root.withdraw()
     Circuitizer(root)
+    root.update()
+    root.deiconify()
     root.mainloop()
 
 if __name__ == "__main__":
