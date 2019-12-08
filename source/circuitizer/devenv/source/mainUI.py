@@ -26,17 +26,21 @@ class Circuitizer:
         self.root = root
         # The toggle counter for the pen in the circuit canvaas
         self.toggle_pen = True
+
+        # The filename for the working circuit
         self.filename = None
         self.temp_filename = 'working.circuit'
+
         # Clean the working circuit file
         # self.clean_realtime_crt()
+
         # Basic Application Meta Data
         self.root.geometry("1200x700")
         self.root.title("Circuitizer")
         self.root.configure(background=BG_COLOR)
         self.root.iconbitmap(RESOURCE_PATH + 'logo.ico')
+
         # The GUI components
-        # self.menu_bar(root)
         self.modern_menu_bar(root)
         self.tool_bar(root)
         self.status_bar(root)
@@ -45,65 +49,15 @@ class Circuitizer:
         self.project_panel(root)
         self.main_content(root)
 
-    def menu_bar(self, root):
-        self.menubar = tk.Menu(root)
-        self.root.config(menu=self.menubar)
-
-        class FileMenu:
-            self.filemenu = tk.Menu(self.menubar, tearoff=0)
-
-            self.filemenu.add_command(label="New", command=None)
-            self.filemenu.add_command(label="Open", command=None)
-            self.filemenu.add_command(label="Save", command=None)
-            self.filemenu.add_command(label="Save as...", command=None)
-            self.filemenu.add_command(label="Close", command=None)
-
-            self.filemenu.add_separator()
-
-            self.filemenu.add_command(label="Exit", command=root.quit)
-
-            self.menubar.add_cascade(label="File", menu=self.filemenu)
-
-        class EditMenu:
-            self.editmenu = tk.Menu(self.menubar, tearoff=0)
-
-            self.editmenu.add_command(label="Undo", command=None)
-            self.editmenu.add_command(label="Redo", command=None)
-
-            self.editmenu.add_separator()
-
-            self.editmenu.add_command(label="Cut", command=None)
-            self.editmenu.add_command(label="Copy", command=None)
-            self.editmenu.add_command(label="Paste", command=None)
-            self.editmenu.add_command(label="Delete", command=None)
-            self.editmenu.add_command(label="Select All", command=None)
-
-            self.menubar.add_cascade(label="Edit", menu=self.editmenu)
-
-        class HelpMenu:
-            self.helpmenu = tk.Menu(self.menubar, tearoff=0)
-    
-            self.helpmenu.add_command(label="Help Index", command=None)
-            self.helpmenu.add_command(label="About...", command=None)
-    
-            self.menubar.add_cascade(label="Help", menu=self.helpmenu)
-
     def modern_menu_bar(self, root):
         self.frame = tk.Frame(root)
         self.frame.configure(background=TOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
         def generate_tools(self, txt, icon=None, command=None):
-            if icon is not None:
-                self.image = tk.PhotoImage(file=icon)
-                self.open = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT)
-                # reference of this image is required otherwise this image is garbage collected
-                self.open.image = self.image
-            else:
-                self.open = tk.Button(self.frame, text=txt, relief=tk.FLAT, compound=tk.LEFT)
+            self.open = tk.Button(self.frame, text=txt, relief=tk.FLAT, compound=tk.LEFT)
             self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5)
 
-        # generate_tools(self, 'Hi', RESOURCE_PATH + 'icon.png')
         for txt in ['File', 'Edit', 'Debug', 'Tools']:
             generate_tools(self, txt)
 
@@ -236,10 +190,12 @@ class Circuitizer:
         # A global pointer to self for accessing everywhere in the application
         global self_pointer
         self_pointer = self 
+
         # The main frame where the circuit canvas is rendered
         self.frame = tk.Frame(root)
         self.frame.configure(background=BG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         self.canvas = turtle.ScrolledCanvas(root, canvwidth=2000, canvheight=2000)
+    
         # Pen configuration
         self.pen = turtle.RawTurtle(self.canvas)
         self.pen.color(PEN_COLOR)
@@ -248,13 +204,16 @@ class Circuitizer:
         self.pen.shape('circle')
         self.pen.setundobuffer(1000)
         self.pen.up()
+
         # left button of mouse to drag the cursor of the canvas
         self.pen.ondrag(self.pen.goto)
         self.canvas.config(background=BG_COLOR, highlightthickness=0, highlightbackground=BORDER_COLOR)
+
         # middle button of mouse to drag canvas
         self.canvas.bind("<ButtonPress-2>", lambda event: self.canvas.scan_mark(event.x, event.y))
         self.canvas.bind("<B2-Motion>", lambda event: self.canvas.scan_dragto(event.x, event.y, gain=1))
         self.canvas.pack(fill=tk.BOTH, expand=True)
+        self.canvas.pack_forget()
         # self.canvas.destroy()
         self.frame.pack(fill=tk.BOTH, side=tk.LEFT, ipadx=10, ipady=3)
 
@@ -262,6 +221,7 @@ class Circuitizer:
         # render the frame for the status bar
         self.frame = tk.Frame(root)
         self.frame.configure(background=STATUS_COLOR)
+
         # the status text with some status information
         self.txt = tk.Label(self.frame, text="Ready")
         self.txt.configure(background=STATUS_COLOR, foreground='white')
