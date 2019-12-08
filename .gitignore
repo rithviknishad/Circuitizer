@@ -22,6 +22,7 @@ dump/
 *.pyi
 *.pyd
 libmainUI.a
+working.circuit
 
 ## C and C++ .gitignore
 

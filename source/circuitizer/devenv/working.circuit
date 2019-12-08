@@ -54,3 +54,5 @@ for sys in crt:
     self.pen.getscreen().addshape(sys[2])
     self.pen.shape(sys[2])
     self.pen.stamp()
+
+(0.0, 0.0, "and.gif"),
