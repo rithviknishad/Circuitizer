@@ -22,4 +22,5 @@ REFRESH = 'resource/tool/refresh.png'
 SAVE = 'resource/tool/save.png'
 SETTINGS = 'resource/tool/settings.png'
 
+RESOURCE_PATH = 'resource/'
 COMPONENT_PATH = 'component/'

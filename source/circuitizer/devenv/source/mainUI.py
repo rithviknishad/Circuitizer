@@ -34,8 +34,10 @@ class Circuitizer:
         self.root.geometry("1200x700")
         self.root.title("Circuitizer")
         self.root.configure(background=BG_COLOR)
+        self.root.iconbitmap(RESOURCE_PATH + 'logo.ico')
         # The GUI components
-        self.menu_bar(root)
+        # self.menu_bar(root)
+        self.modern_menu_bar(root)
         self.tool_bar(root)
         self.status_bar(root)
         self.properties_panel(root)
@@ -85,6 +87,28 @@ class Circuitizer:
             self.helpmenu.add_command(label="About...", command=None)
     
             self.menubar.add_cascade(label="Help", menu=self.helpmenu)
+
+    def modern_menu_bar(self, root):
+        self.frame = tk.Frame(root)
+        self.frame.configure(background=TOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+
+        def generate_tools(self, txt, icon=None, command=None):
+            if icon is not None:
+                self.image = tk.PhotoImage(file=icon).subsample(2, 2)
+                self.open = tk.Button(self.frame, relief=tk.FLAT, compound=tk.LEFT)
+                # reference of this image is required otherwise this image is garbage collected
+                self.open.image = self.image
+                self.idontknowthisisjustareference = self.image
+            else:
+                self.open = tk.Button(self.frame, text=txt, relief=tk.FLAT, compound=tk.LEFT)
+            self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+            self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5)
+
+        generate_tools(self, 'Hi', RESOURCE_PATH + 'icon.png')
+        for txt in ['File', 'Edit', 'Debug', 'Tools']:
+            generate_tools(self, txt)
+
+        self.frame.pack(fill=tk.X, side=tk.TOP)
 
     def tool_bar(self, root):
         self.frame = tk.Frame(root)
