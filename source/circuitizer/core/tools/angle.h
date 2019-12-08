@@ -2,28 +2,36 @@
 
 #include "emath.h"
 
-typedef double angle;
-
 namespace math
 {
-#pragma region angle
-
-	double absolute_angle(double val, double lim)
+	typedef struct angle
 	{
-		if (val < 0.0)
-			val += (((int)(-val / lim)) + 1.00) * lim;
-		else if (val >= lim)
-			val -= ((int)(val / lim)) * lim;
+		union { double radian, value, rad; };
 
-		return val;
-	}
+		angle();
+		angle(double val);
+		angle(angle &obj);
 
-	angle abs_rad(angle theta) { return absolute_angle((double)theta, pi2); }
-	angle abs_deg(angle theta) { return absolute_angle((double)theta, 360.0); }
-	angle abs_grad(angle theta) { return absolute_angle((double)theta, 100.0); }
+		operator double();
+		operator float();
 
-	angle radian(double degree) { return angle(degree * pi / 180.0); }
-	double degree(angle radian) { return radian * 180.0 / pi; }
+		angle& absolute();
 
-#pragma endregion
+		angle& operator=(const angle rhs);
+
+		angle& operator+=(const angle rhs);
+		angle& operator-=(const angle rhs);
+
+		angle& operator+=(const double rhs);
+		angle& operator-=(const double rhs);
+
+	} angle;
+
+	angle absolute(const angle rhs);
+
+	angle operator+(const angle lhs, const angle rhs);
+	angle operator+(const angle lhs, const double rhs);
+	angle operator-(const angle lhs);
+	angle operator-(const angle lhs, const angle rhs);
+	angle operator-(const angle lhs, const double rhs);
 }

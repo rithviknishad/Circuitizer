@@ -6,13 +6,13 @@ using namespace math;
 math::polar::polar(const double _abs, const angle _phi)
 {
 	abs = _abs;
-	phi = abs_rad(_phi);
+	phi = _phi;
 }
 
 math::polar::polar(const complex c)
 {
 	abs = math::abs(c);
-	phi = abs_rad(math::arg(c));
+	phi = math::arg(c);
 }
 
 polar& math::polar::operator=(const polar rhs)
@@ -374,7 +374,7 @@ double math::imaginary(const complex c)
 
 polar math::conj(const polar p)
 {
-	return polar(p.abs, -p.phi);
+	return polar(p.abs, -(p.phi));
 }
 
 complex math::conj(const complex c)
