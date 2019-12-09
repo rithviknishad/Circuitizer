@@ -1,0 +1,3 @@
+[submodule "source/circuitizer/Circuitizer/vendor/glm"]
+	path = source/circuitizer/Circuitizer/vendor/glm
+	url = https://github.com/g-truc/glm
