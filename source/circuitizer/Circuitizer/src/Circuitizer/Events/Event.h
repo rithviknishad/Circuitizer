@@ -1,9 +1,7 @@
 #pragma once
 
+#include "crpch.h"
 #include "Circuitizer/Core.h"
-
-#include <string>
-#include <functional>
 
 namespace Circuitizer
 {

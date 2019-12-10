@@ -18,6 +18,9 @@ project "Circuitizer"
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("obj/" .. outputdir .. "/%{prj.name}")
 
+		pchheader "crpch.h"
+		pchsource "Circuitizer/src/crpch.cpp"
+
 		files
 		{
 			"%{prj.name}/src/**.h",

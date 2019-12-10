@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Circuitizer
 {
 	class CIRCUITIZER_API KeyEvent : public Event
