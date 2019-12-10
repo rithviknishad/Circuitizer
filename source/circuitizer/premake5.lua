@@ -12,8 +12,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Circuitizer/vendor/GLFW/include"
+IncludeDir["Glad"] = "Circuitizer/vendor/Glad/include"
 
 include "Circuitizer/vendor/GLFW"
+include "Circuitizer/vendor/Glad"
 
 project "Circuitizer"
 		location "Circuitizer"
@@ -36,12 +38,14 @@ project "Circuitizer"
 		{
 			"%{prj.name}/src",
 			"%{prj.name}/vendor/spdlog/include",
-			"%{IncludeDir.GLFW}"
+			"%{IncludeDir.GLFW}",
+			"%{IncludeDir.Glad}"
 		}
 
 		links
 		{
 			"GLFW",
+			"Glad",
 			"opengl32.lib"
 		}
 
@@ -53,7 +57,8 @@ project "Circuitizer"
 			defines
 			{
 				"CR_PLATFORM_WINDOWS",
-				"CR_BUILD_DLL"
+				"CR_BUILD_DLL",
+				"GLFW_INCLUDE_NONE"
 			}
 
 			postbuildcommands
