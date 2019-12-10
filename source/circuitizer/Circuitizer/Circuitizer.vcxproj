@@ -87,6 +87,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -113,6 +114,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -139,6 +141,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -161,18 +164,22 @@
     <ClInclude Include="src\Circuitizer\Events\Event.h" />
     <ClInclude Include="src\Circuitizer\Events\KeyEvent.h" />
     <ClInclude Include="src\Circuitizer\Events\MouseEvent.h" />
+    <ClInclude Include="src\Circuitizer\Layer.h" />
+    <ClInclude Include="src\Circuitizer\LayerStack.h" />
     <ClInclude Include="src\Circuitizer\Log.h" />
     <ClInclude Include="src\Circuitizer\Window.h" />
-    <ClInclude Include="src\crpch.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\crpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Circuitizer\Application.cpp" />
+    <ClCompile Include="src\Circuitizer\Layer.cpp" />
+    <ClCompile Include="src\Circuitizer\LayerStack.cpp" />
     <ClCompile Include="src\Circuitizer\Log.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\crpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

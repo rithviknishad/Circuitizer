@@ -65,16 +65,18 @@ project "Circuitizer"
 			defines
 			{
 				"CR_DEBUG"
-				"CR_ENABLE_ASSERTS"
 			}
+			buildoptions "/MDd"
 			optimize "On"
 
 		filter "configurations:Release"
 			defines "CR_RELEASE"
+			buildoptions "/MDd"
 			optimize "On"
 
 		filter "configurations:Dist"
 			defines "CR_DIST"
+			buildoptions "/MDd"
 			optimize "On"
 
 
@@ -117,12 +119,15 @@ project "Sandbox"
 
 		filter "configurations:Debug"
 			defines "CR_DEBUG"
+			buildoptions "/MDd"
 			optimize "On"
 
 		filter "configurations:Release"
 			defines "CR_RELEASE"
+			buildoptions "/MDd"
 			optimize "On"
 
 		filter "configurations:Dist"
 			defines "CR_DIST"
+			buildoptions "/MDd"
 			optimize "On"
