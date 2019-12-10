@@ -1,3 +1,6 @@
 [submodule "source/circuitizer/Circuitizer/vendor/glm"]
 	path = source/circuitizer/Circuitizer/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "source/circuitizer/Circuitizer/vendor/GLFW"]
+	path = source/circuitizer/Circuitizer/vendor/GLFW
+	url = https://github.com/TheCherno/glfw

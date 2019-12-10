@@ -10,6 +10,11 @@ workspace "Circuitizer"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Circuitizer/vendor/GLFW/include"
+
+include "Circuitizer/vendor/GLFW"
+
 project "Circuitizer"
 		location "Circuitizer"
 		kind "SharedLib"
@@ -30,7 +35,14 @@ project "Circuitizer"
 		includedirs
 		{
 			"%{prj.name}/src",
-			"%{prj.name}/vendor/spdlog/include"
+			"%{prj.name}/vendor/spdlog/include",
+			"%{IncludeDir.GLFW}"
+		}
+
+		links
+		{
+			"GLFW",
+			"opengl32.lib"
 		}
 
 		filter "system:windows"
@@ -50,7 +62,11 @@ project "Circuitizer"
 			}
 
 		filter "configurations:Debug"
-			defines "CR_DEBUG"
+			defines
+			{
+				"CR_DEBUG"
+				"CR_ENABLE_ASSERTS"
+			}
 			optimize "On"
 
 		filter "configurations:Release"

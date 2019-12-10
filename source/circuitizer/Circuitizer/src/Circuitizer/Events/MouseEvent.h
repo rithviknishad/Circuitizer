@@ -19,7 +19,7 @@ namespace Circuitizer
 		{
 			std::stringstream ss;
 			ss << "MouseMovedEvent: " << m_MouseX << ", " << m_MouseY;
-			return ss.str;
+			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(MouseMoved)
@@ -44,7 +44,7 @@ namespace Circuitizer
 		{
 			std::stringstream ss;
 			ss << "MouseScrolledEvent: " << m_XOffset << ", " << m_YOffset;
-			return ss.str;
+			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(MouseScrolled)
@@ -81,7 +81,7 @@ namespace Circuitizer
 		{
 			std::stringstream ss;
 			ss << "MouseButtonPressedEvent: " << m_Button;
-			return ss.str;
+			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(MouseButtonPressed)
@@ -98,10 +98,10 @@ namespace Circuitizer
 		{
 			std::stringstream ss;
 			ss << "MosueButtonReleasedEvent: " << m_Button;
-			return ss.str;
+			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MosueButtonReleased)
+		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
 
 
