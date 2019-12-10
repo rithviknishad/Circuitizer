@@ -13,9 +13,13 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Circuitizer/vendor/GLFW/include"
 IncludeDir["Glad"] = "Circuitizer/vendor/Glad/include"
+IncludeDir["ImGui"] = "Circuitizer/vendor/imgui"
 
 include "Circuitizer/vendor/GLFW"
 include "Circuitizer/vendor/Glad"
+include "Circuitizer/vendor/imgui"
+
+startproject "Sandbox"
 
 project "Circuitizer"
 		location "Circuitizer"
@@ -39,13 +43,15 @@ project "Circuitizer"
 			"%{prj.name}/src",
 			"%{prj.name}/vendor/spdlog/include",
 			"%{IncludeDir.GLFW}",
-			"%{IncludeDir.Glad}"
+			"%{IncludeDir.Glad}",
+			"%{IncludeDir.ImGui}"
 		}
 
 		links
 		{
 			"GLFW",
 			"Glad",
+			"imGUI",
 			"opengl32.lib"
 		}
 

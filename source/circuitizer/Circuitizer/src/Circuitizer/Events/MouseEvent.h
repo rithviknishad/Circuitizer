@@ -87,10 +87,10 @@ namespace Circuitizer
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class CIRCUITIZER_API MosueButtonReleasedEvent : public MouseButtonEvent
+	class CIRCUITIZER_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MosueButtonReleasedEvent(int button) : MouseButtonEvent(button)
+		MouseButtonReleasedEvent(int button) : MouseButtonEvent(button)
 		{
 		}
 

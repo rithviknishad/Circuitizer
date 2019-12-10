@@ -24,6 +24,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer);
+		PushLayer(new Circuitizer::ImGuiLayer());
 	}
 
 	~Sandbox()

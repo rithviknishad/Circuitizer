@@ -102,6 +102,14 @@ namespace Circuitizer {
 				}
 			});
 
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				KeyTypedEvent event(keycode);
+				data.EventCallback(event);
+			});
+
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -112,11 +120,13 @@ namespace Circuitizer {
 				{
 					MouseButtonPressedEvent event(button);
 					data.EventCallback(event);
+					break;
 				}
 				case GLFW_RELEASE:
 				{
-					MosueButtonReleasedEvent event(button);
+					MouseButtonReleasedEvent event(button);
 					data.EventCallback(event);
+					break;
 				}
 				}
 			});
