@@ -9,7 +9,7 @@ public:
 
 	void OnUpdate() override
 	{
-		CR_INFO("ExampleLayer::Update");
+		//CR_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Circuitizer::Event& event) override

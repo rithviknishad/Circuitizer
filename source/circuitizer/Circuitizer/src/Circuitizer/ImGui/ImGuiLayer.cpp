@@ -22,7 +22,10 @@ namespace Circuitizer
 	void ImGuiLayer::OnAttach()
 	{
 		ImGui::CreateContext();
-		ImGui::StyleColorsDark();
+		
+		//ImGui::StyleColorsDark();
+		ImGui::StyleColorsLight();
+		//ImGui::StyleColorsClassic();
 		
 		ImGuiIO& io = ImGui::GetIO();
 

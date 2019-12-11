@@ -8,24 +8,27 @@ workspace "Circuitizer"
 		"Dist"
 	}
 
+	startproject "Sandbox"
+
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Circuitizer/vendor/GLFW/include"
 IncludeDir["Glad"] = "Circuitizer/vendor/Glad/include"
 IncludeDir["ImGui"] = "Circuitizer/vendor/imgui"
 
-include "Circuitizer/vendor/GLFW"
-include "Circuitizer/vendor/Glad"
-include "Circuitizer/vendor/imgui"
-
-startproject "Sandbox"
+group "Dependencies"
+	include "Circuitizer/vendor/GLFW"
+	include "Circuitizer/vendor/Glad"
+	include "Circuitizer/vendor/imgui"
 
 project "Circuitizer"
 		location "Circuitizer"
 		kind "SharedLib"
 		language "C++"
-		
+		staticruntime "off"
+
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("obj/" .. outputdir .. "/%{prj.name}")
 
@@ -57,7 +60,6 @@ project "Circuitizer"
 
 		filter "system:windows"
 			cppdialect "C++17"
-			staticruntime "On"
 			systemversion "latest"
 
 			defines
@@ -77,12 +79,13 @@ project "Circuitizer"
 			{
 				"CR_DEBUG"
 			}
-			buildoptions "/MDd"
+			runtime "Debug"
+			symbols "On"
 			optimize "On"
 
 		filter "configurations:Release"
 			defines "CR_RELEASE"
-			buildoptions "/MDd"
+			runtime "Release"
 			optimize "On"
 
 		filter "configurations:Dist"
@@ -97,6 +100,7 @@ project "Sandbox"
 		location "Sandbox"
 		kind "ConsoleApp"
 		language "C++"
+		staticruntime "off"
 		
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("obj/" .. outputdir .. "/%{prj.name}")
@@ -120,7 +124,6 @@ project "Sandbox"
 
 		filter "system:windows"
 			cppdialect "C++17"
-			staticruntime "On"
 			systemversion "latest"
 
 			defines
@@ -130,15 +133,16 @@ project "Sandbox"
 
 		filter "configurations:Debug"
 			defines "CR_DEBUG"
-			buildoptions "/MDd"
+			runtime "Debug"
+			symbols "On"
 			optimize "On"
 
 		filter "configurations:Release"
 			defines "CR_RELEASE"
-			buildoptions "/MDd"
+			runtime "Release"
 			optimize "On"
 
 		filter "configurations:Dist"
 			defines "CR_DIST"
-			buildoptions "/MDd"
+			runtime "Release"
 			optimize "On"
