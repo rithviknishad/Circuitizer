@@ -12,20 +12,31 @@ import ntpath
 # import build configurations for the project
 exec(open('build/build.config').read())
 
+def do(stuff):
+    print(stuff)
+    os.system(stuff)
+
+
 # Generate build
 if __name__ == "__main__":
+    # add the C compiler to build argv
+    BUILD_ARGS.append(C_COMPILER)
     # Add disable console argv if specified in build configuration
     if not CONSOLE:
-        BUILD_ARGS.append('windows-disable-console' if sys.platform == 'win32' else '')
+        BUILD_ARGS.append('windows-disable-console' if sys.platform is 'win32' else '')
     # Setup the linux build process
-    if sys.platform == 'linux':
-        print(LINUX_SETUP_SH)
-        os.system(LINUX_SETUP_SH)
+    if sys.platform is 'linux':
+        do(LINUX_SETUP_SH)
     # Setup the python pip requirements
     os.system(PYTHON_POINTER + ' -m pip install -r "' + PYTHON_PIP_CONFIG + '" -U')
     if BUILD:
         for file in glob.glob('source/*'):
-            shutil.copy(file, os.getcwd())
+            # ISSUE: Used try n except statment to make sure we do not
+            # copy Permission Denied files
+            try:
+                shutil.copy(file, os.getcwd())
+            except:
+                pass
         # Clean previous build folder
         for dir in [
             TARGET_MAIN_FILE[:-3] + '.build/',
@@ -40,11 +51,9 @@ if __name__ == "__main__":
         for file in glob.glob('*.py'):
             os.remove(file)
         # build UI
-        print(PYTHON_POINTER + ' -' + str(PYTHON_VERSION) + ' -m ' + BUILD_PROVIDER + ' --module ' + TARGET_MAIN_FILE + ' --remove-output --' + C_COMPILER)
-        os.system(PYTHON_POINTER + ' -' + str(PYTHON_VERSION) + ' -m ' + BUILD_PROVIDER + ' --module ' +TARGET_MAIN_FILE + ' --remove-output --' + C_COMPILER)
+        do(PYTHON_POINTER + ' -m ' + BUILD_PROVIDER + ' --module ' +TARGET_MAIN_FILE + ' --remove-output --' + C_COMPILER)
         # build bootloader and make application entry point
-        print(PYTHON_POINTER + ' -' + str(PYTHON_VERSION) + ' -m ' + BUILD_PROVIDER + ' ' + RUNTIME_FILE + ' -' + ' --'.join(BUILD_ARGS))
-        os.system(PYTHON_POINTER + ' -' + str(PYTHON_VERSION) + ' -m ' + BUILD_PROVIDER + ' ' + RUNTIME_FILE + ' ' + ' --'.join(BUILD_ARGS))
+        do(PYTHON_POINTER + ' -m ' + BUILD_PROVIDER + ' ' + RUNTIME_FILE + ' ' + ' --'.join(BUILD_ARGS))
         # copy UI binaries
         for file in glob.glob('*.pyd'):
             shutil.copy(file, ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/')
