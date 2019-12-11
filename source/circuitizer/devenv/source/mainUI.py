@@ -32,7 +32,9 @@ class Circuitizer:
         self.root.geometry(GEOMETERY)
         self.root.title("Circuitizer")
         self.root.configure(background=BG_COLOR)
-        self.root.iconbitmap(RESOURCE_PATH + 'logo.ico')
+
+        # This line will only work on win32 for some reason
+        self.root.iconbitmap(RESOURCE_PATH + 'logo.ico' if 'win' in sys.platform else None)
 
         # The GUI components
         self.modern_menu_bar(root)
