@@ -12,6 +12,11 @@ import ntpath
 # import build configurations for the project
 exec(open('build/build.config').read())
 
+LINUX_SETUP_SH = 'build/build.' + LINUX_SETUP_SH 
+PYTHON_PIP_CONFIG = 'build/build.' + PYTHON_PIP_CONFIG
+OPTIMISE_SIZE_LIST = 'build/build.' + OPTIMISE_SIZE_LIST
+OPTIMISE_TAR_LIST = 'build/build.' + OPTIMISE_TAR_LIST
+
 def do(stuff):
     print(stuff)
     os.system(stuff)
