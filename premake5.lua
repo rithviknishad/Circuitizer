@@ -23,6 +23,40 @@ group "Dependencies"
 	include "Circuitizer/vendor/Glad"
 	include "Circuitizer/vendor/imgui"
 
+project "Electrical"
+	location "Electrical"
+	kind "SharedLib"
+	language "C++"
+	staticruntime "off"
+
+	targetdir ("bin/" ..outputdir .. "/%{prj.name}")
+	objdir ("obj/" ..outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs
+	{
+		"Electrical/src",
+	}
+
+	filter "system:windows"
+		cppdialect "C++17"
+		systemversion "latest"
+		
+		defines
+		{
+			"CR_PLATFORM_WINDOWS",
+		}
+
+	filter "configurations:Debug"
+		defines "CR_DEBUG"
+		runtime "Debug"
+		symbols "On"
+
 project "Circuitizer"
 		location "Circuitizer"
 		kind "SharedLib"
