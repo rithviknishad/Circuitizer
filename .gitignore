@@ -8,8 +8,9 @@ test/
 *.tlog/
 
 # Circuitizer Test Folder Ignores
-tests/
-dump/
+.tests/
+.dump/
+.*/
 
 # Ignore Circuitizer UI builds
 /source/circuitizer/devenv/dist
