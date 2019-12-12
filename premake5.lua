@@ -18,10 +18,10 @@ IncludeDir["Glad"] = "Circuitizer/vendor/Glad/include"
 IncludeDir["ImGui"] = "Circuitizer/vendor/imgui"
 IncludeDir["glm"] = "Circuitizer/vendor/glm"
 
-group "Dependencies"
-	include "Circuitizer/vendor/GLFW"
-	include "Circuitizer/vendor/Glad"
-	include "Circuitizer/vendor/imgui"
+--group "Dependencies"
+include "Circuitizer/vendor/GLFW"
+include "Circuitizer/vendor/Glad"
+include "Circuitizer/vendor/imgui"
 
 project "Electrical"
 	location "Electrical"
@@ -43,6 +43,11 @@ project "Electrical"
 		"Electrical/src",
 	}
 
+	postbuildcommands
+	{
+		("{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.. "/Sandbox")
+	}
+
 	filter "system:windows"
 		cppdialect "C++17"
 		systemversion "latest"
@@ -50,12 +55,24 @@ project "Electrical"
 		defines
 		{
 			"CR_PLATFORM_WINDOWS",
+			"CR_BUILD_DLL",
 		}
 
 	filter "configurations:Debug"
 		defines "CR_DEBUG"
 		runtime "Debug"
 		symbols "On"
+		optimize "On"
+
+	filter "configurations:Release"
+		defines "CR_RELEASE"
+		runtime "Release"
+		optimize "On"
+
+	filter "configurations:Dist"
+		defines "CR_DIST"
+		runtime "Release"
+		optimize "On"
 
 project "Circuitizer"
 		location "Circuitizer"
