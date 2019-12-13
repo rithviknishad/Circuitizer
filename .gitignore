@@ -13,13 +13,13 @@ test/
 .*/
 
 # Ignore Circuitizer UI builds
-/devenv/dist
-/devenv/mainUI.build
-/devenv/mainUI.dist
-/devenv/boot.build
-/devenv/boot.dist
-/devenv/working.build
-/devenv/untitled.build
+dist
+mainUI.build
+mainUI.dist
+boot.build
+boot.dist
+working.build
+untitled.build
 *.spec
 *.pyi
 *.pyd
