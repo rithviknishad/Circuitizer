@@ -7,6 +7,11 @@ class Terminal;
 
 namespace Electrical
 {
+	/*
+	A node is any point on a circuit where the terminals of two or more circuit elements meet.
+	In circuit diagrams, connections are ideal wires with zero resistance, so a node may 
+	consist of the entire section of wire between elements, not just a single point.
+	*/
 	class CIRCUITIZER_API Node
 	{
 	public:
@@ -50,7 +55,10 @@ namespace Electrical
 		Detaches the terminal from the node.
 		Note: Pass a Terminal* (pointer to the terminal).
 		*/
-		inline void DisconnectTerminal(Terminal* terminal) { m_Terminals.erase(std::remove(m_Terminals.begin(), m_Terminals.end(), terminal), m_Terminals.end()); }
+		inline void DisconnectTerminal(Terminal* terminal)
+		{ 
+			m_Terminals.erase(std::remove(m_Terminals.begin(), m_Terminals.end(), terminal), m_Terminals.end());
+		}
 
 		/*
 		Disconnects all terminals from the node.
@@ -66,6 +74,7 @@ namespace Electrical
 			node->DisconnectAllTerminals();
 			return this;
 		}
+
 
 		/*
 		Returns a std::vector of Terminal pointers associated with the node.

@@ -6,6 +6,11 @@
 
 namespace Electrical
 {
+	/*
+	A terminal is the point at which a conductor from a component, device or network comes to an end. 
+	Terminal may also refer to an electrical connector at this endpoint, acting as the reusable 
+	interface to a conductor and creating a point where external circuits can be connected.
+	*/
 	class CIRCUITIZER_API Terminal
 	{
 	public:
@@ -30,21 +35,20 @@ namespace Electrical
 		{
 			if (m_Node != nullptr)
 			{
-				if (terminal->ConnectedNode() == nullptr)
-					terminal->ConnectToNode(m_Node);
-				else
+				if (terminal->ConnectedNode() != nullptr)
 				{
-					for (Terminal* terminal : terminal->ConnectedNode()->GetTerminals())
-						terminal->ConnectToNode(m_Node);
+					for (Terminal* t : terminal->ConnectedNode()->GetTerminals())
+						t->ConnectToNode(m_Node);
 				}
+				else
+					return terminal->ConnectToNode(m_Node);
 			}
 			else
 			{
 				if (terminal->ConnectedNode() == nullptr)
-				{
-					Node* node = new Node();
-					
-				}
+					return ConnectToNode(terminal->ConnectToNode(new Node));
+				else
+					return terminal->ConnectToTerminal(this);
 			}
 			return m_Node;
 		}
@@ -56,26 +60,28 @@ namespace Electrical
 		inline Node* ConnectedNode() { return m_Node; }
 
 		/*
-		Connects the terminal to the specified node, after disconnecting from previously connected node (if any).
+		Connects the terminal to the specified node, after disconnecting from previously connected node (if any), and returns the new node.
 		Note: A terminal can be connected only to one node.
 		*/
-		inline void ConnectToNode(Node* node)
+		inline Node* ConnectToNode(Node* node)
 		{ 
 			if (m_Node != nullptr)
 				m_Node->DisconnectTerminal(this);
 			
-			m_Node = node->ConnectTerminal(this);
+			return (m_Node = node->ConnectTerminal(this));
 		}
 
 		/*
-		Disconnects from connected node (if any).
+		Disconnects from connected node (if any)
 		*/
-		inline void DisconnectFromNode()
+		inline Node* DisconnectFromNode()
 		{
 			if (m_Node != nullptr)
 				m_Node->DisconnectTerminal(this);
 			m_Node = nullptr;
 		}
+	
+		double Voltage = 0.0;
 
 	private:
 		std::string m_Name;
