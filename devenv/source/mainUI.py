@@ -25,6 +25,9 @@ class Circuitizer:
     def __init__(self, root):
         # The root reference
         self.root = root
+        # A global pointer to self for accessing everywhere in the application
+        global self_pointer
+        self_pointer = self 
         # The toggle counter for the pen in the circuit canvaas
         self.toggle_pen = True
 
@@ -142,33 +145,41 @@ class Circuitizer:
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
     
     def project_panel(self, root):
+        global generate_tree
         """The project panel div UI code"""
-        self.frame = tk.Frame(root)
-        self.frame.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+        self.frame_panel = tk.Frame(root)
+        self.frame_panel.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
-        # the heading of the project panel
-        self.open = tk.Label(self.frame, text="Project Files                          ")
-        self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR)
-        self.open.pack(side=tk.TOP, fill=tk.BOTH, ipadx=3, ipady=3)
+        def generate_tree(self, dir=os.getcwd()):
+            # clean previous list
+            for child in self.frame_panel.winfo_children():
+                child.destroy()
+            print(dir)
+            # the heading of the project panel
+            self.open = tk.Label(self.frame_panel, text="Project Files                          ")
+            self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR)
+            self.open.pack(side=tk.TOP, fill=tk.BOTH, ipadx=3, ipady=3)
+            # load the current project working directory
+            for file in glob.glob(dir + '/*'):
+                if os.path.isdir(file):
+                    self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/open.png').subsample(2, 2)
+                    file = os.path.basename(file)
+                else:
+                    self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/file.png').subsample(2, 2)
+                    file = os.path.basename(file)
+                
+                self.open = tk.Button(self.frame_panel, image=self.image, text="      " + file, anchor=tk.W, font=("Arial", 10), compound=tk.LEFT, command=lambda: generate_tree(self, os.path.abspath(file)))
+                self.open.image = self.image
+                self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR, bd=0)
+                self.open.pack(side=tk.TOP, fill=tk.BOTH, padx=20, ipady=3)
 
-        # load the current project working directory
-        for file in glob.glob('*'):
-            if os.path.isdir(file):
-                self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/open.png').subsample(2, 2)
-            else:
-                self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/file.png').subsample(2, 2)
-            self.open = tk.Button(self.frame, image=self.image, text="      " + file, anchor=tk.W, font=("Arial", 10), compound=tk.LEFT)
-            self.open.image = self.image
-            self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR, bd=0)
-            self.open.pack(side=tk.TOP, fill=tk.BOTH, padx=20, ipady=3)
+        self.frame_panel.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
 
-        self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
+        generate_tree(self)
+        generate_tree(self)
     
     def main_content(self, root):
         """The main div UI code"""
-        # A global pointer to self for accessing everywhere in the application
-        global self_pointer
-        self_pointer = self 
 
         # The main frame where the circuit canvas is rendered
         self.frame = tk.Frame(root)
