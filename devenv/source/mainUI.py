@@ -55,7 +55,7 @@ class Circuitizer:
 
         def generate_ui(self, txt, icon=None, command=None):
             """Generate the UI with the custom theme"""
-            self.open = tk.Button(self.frame, text=txt, relief=tk.FLAT, compound=tk.LEFT)
+            self.open = tk.Button(self.frame, text=txt, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
             self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5)
 
@@ -73,7 +73,7 @@ class Circuitizer:
         def generate_ui(self, icon, command=None):
             """Generate the UI with the custom theme"""
             self.image = tk.PhotoImage(file=icon)
-            self.open = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT)
+            self.open = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
             self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of this image is required otherwise this image is garbage collected
             self.open.image = self.image
@@ -123,7 +123,7 @@ class Circuitizer:
         def generate_ui(self, root, icon, command=None):
             """Generate the UI with the custom theme"""
             self.image = tk.PhotoImage(file=icon)
-            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=command)
+            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=command, highlightthickness=0)
             self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of image is required otherwise this image is garbage collected
             self.add.image = self.image
@@ -168,7 +168,7 @@ class Circuitizer:
                     self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/file.png').subsample(2, 2)
                     file = os.path.basename(file)
                 
-                self.open = tk.Button(self.frame_panel, image=self.image, text="      " + file, anchor=tk.W, font=("Arial", 10), compound=tk.LEFT, command=lambda: generate_tree(self, os.path.abspath(file)))
+                self.open = tk.Button(self.frame_panel, image=self.image, text="      " + file, anchor=tk.W, font=("Arial", 10), compound=tk.LEFT, highlightthickness=0, command=lambda: generate_tree(self, os.path.abspath(file)))
                 self.open.image = self.image
                 self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR, bd=0)
                 self.open.pack(side=tk.TOP, fill=tk.BOTH, padx=20, ipady=3)
