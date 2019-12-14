@@ -9,7 +9,6 @@ import ctypes
 import turtle
 
 import tkinter as tk
-import tkinter.ttk as ttk
 import tkinter.filedialog as tkdialog
 
 # custom imports
@@ -17,7 +16,9 @@ import tkinter.filedialog as tkdialog
 import crt
 import libUI
 
-from cfg import *
+from cfg import GEOMETERY, BG_COLOR, FG_COLOR, PANEL_COLOR, STATUS_COLOR, \
+    BORDER_COLOR, TOOL_COLOR, SIDETOOL_COLOR, PEN_COLOR, ADD, CARD, CLOUD, \
+    FILE, GRAPH, MONEY, REFRESH, SAVE, SETTINGS, RESOURCE_PATH, COMPONENT_PATH
 
 
 class Circuitizer:
@@ -27,7 +28,7 @@ class Circuitizer:
         self.root = root
         # A global pointer to self for accessing everywhere in the application
         global self_pointer
-        self_pointer = self 
+        self_pointer = self
         # The toggle counter for the pen in the circuit canvaas
         self.toggle_pen = True
 
@@ -100,7 +101,7 @@ class Circuitizer:
         self.open.pack(side=tk.TOP, fill=tk.BOTH, ipady=4)
 
         self.frame.pack(fill=tk.Y, side=tk.TOP, ipadx=10, ipady=3)
-    
+
     def side_tool_bar(self, root):
         """The side tool bar div UI code"""
         self.frame = tk.Frame(root)
@@ -147,7 +148,7 @@ class Circuitizer:
             generate_ui(self, root, icon=widget[0], command=widget[1])
 
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
-    
+
     def project_panel(self, root):
         global generate_tree
         """The project panel div UI code"""
@@ -171,7 +172,7 @@ class Circuitizer:
                 else:
                     self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/file.png').subsample(2, 2)
                     file = os.path.basename(file)
-                
+
                 self.open = tk.Button(self.frame_panel, image=self.image, text="      " + file, anchor=tk.W, font=("Arial", 10), compound=tk.LEFT, highlightthickness=0, command=lambda: generate_tree(self, os.path.abspath(file)))
                 self.open.image = self.image
                 self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR, bd=0)
@@ -181,7 +182,7 @@ class Circuitizer:
 
         generate_tree(self)
         generate_tree(self)
-    
+
     def main_content(self, root):
         """The main div UI code"""
 
@@ -189,7 +190,7 @@ class Circuitizer:
         self.frame = tk.Frame(root)
         self.frame.configure(background=BG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         self.canvas = turtle.ScrolledCanvas(root, canvwidth=2000, canvheight=2000)
-    
+
         # Pen configuration
         self.pen = turtle.RawTurtle(self.canvas)
         self.pen.color(PEN_COLOR)
@@ -247,5 +248,9 @@ def main():
     root.deiconify()
     root.mainloop()
 
+
 if __name__ == "__main__":
+    # Some global variable which are assigned with values later
+    crt_handler, self_pointer, generate_tree = None, None, None
+    # Call main function
     main()
