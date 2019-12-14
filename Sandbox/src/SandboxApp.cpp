@@ -1,5 +1,7 @@
 #include <Circuitizer.h>
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Circuitizer::Layer
 {
 public:
@@ -10,6 +12,13 @@ public:
 	void OnUpdate() override
 	{
 		//CR_INFO("ExampleLayer::Update");
+	}
+
+	void OnImGuiRender() override
+	{
+		/*ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();*/
 	}
 
 	void OnEvent(Circuitizer::Event& event) override
@@ -24,7 +33,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer);
-		PushLayer(new Circuitizer::ImGuiLayer());
+		//PushLayer(new Circuitizer::ImGuiLayer());
 	}
 
 	~Sandbox()

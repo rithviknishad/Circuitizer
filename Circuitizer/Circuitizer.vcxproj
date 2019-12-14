@@ -173,7 +173,6 @@
     <ClInclude Include="src\Circuitizer\Log.h" />
     <ClInclude Include="src\Circuitizer\MouseButtonCodes.h" />
     <ClInclude Include="src\Circuitizer\Window.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\crpch.h" />
@@ -548,11 +547,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Circuitizer\Application.cpp" />
+    <ClCompile Include="src\Circuitizer\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Circuitizer\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Circuitizer\Layer.cpp" />
     <ClCompile Include="src\Circuitizer\LayerStack.cpp" />
     <ClCompile Include="src\Circuitizer\Log.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\crpch.cpp">
@@ -573,4 +572,4 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-</Project>
+</Project> 
