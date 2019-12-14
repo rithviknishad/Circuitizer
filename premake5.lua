@@ -168,6 +168,7 @@ project "Sandbox"
 		includedirs
 		{
 			"Circuitizer/vendor/spdlog/include",
+			"Circuitizer/vendor",
 			"Circuitizer/src",
 			"%{IncludeDir.glm}",
 		}

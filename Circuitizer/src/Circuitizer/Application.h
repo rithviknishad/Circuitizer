@@ -7,6 +7,7 @@
 #include "Circuitizer/Events/Event.h"
 #include "Circuitizer/Events/ApplicationEvent.h"
 
+#include "Circuitizer/ImGui/ImGuiLayer.h"
 
 namespace Circuitizer
 {
@@ -32,6 +33,7 @@ namespace Circuitizer
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 
 		LayerStack m_LayerStack;
