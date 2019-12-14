@@ -43,9 +43,13 @@ class Circuitizer:
         self.modern_menu_bar(root)
         self.tool_bar(root)
         self.status_bar(root)
-        self.properties_panel(root)
         self.side_tool_bar(root)
-        self.project_panel(root)
+
+        self.main_panel = tk.Frame(root)
+        self.properties_panel(self.main_panel)
+        self.project_panel(self.main_panel)
+        self.main_panel.pack(side=tk.RIGHT, fill=tk.Y)
+
         self.main_content(root)
 
     def modern_menu_bar(self, root):
@@ -95,7 +99,7 @@ class Circuitizer:
         self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR)
         self.open.pack(side=tk.TOP, fill=tk.BOTH, ipady=4)
 
-        self.frame.pack(fill=tk.Y, side=tk.RIGHT, ipadx=10, ipady=3)
+        self.frame.pack(fill=tk.Y, side=tk.TOP, ipadx=10, ipady=3)
     
     def side_tool_bar(self, root):
         """The side tool bar div UI code"""
@@ -147,7 +151,7 @@ class Circuitizer:
     def project_panel(self, root):
         global generate_tree
         """The project panel div UI code"""
-        self.frame_panel = tk.Frame(root)
+        self.frame_panel = tk.Frame(root, width=200)
         self.frame_panel.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
 
         def generate_tree(self, dir=os.getcwd()):
@@ -156,7 +160,7 @@ class Circuitizer:
                 child.destroy()
             print(dir)
             # the heading of the project panel
-            self.open = tk.Label(self.frame_panel, text="Project Files                          ")
+            self.open = tk.Label(self.frame_panel, text="Project Files                                                          ")
             self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR)
             self.open.pack(side=tk.TOP, fill=tk.BOTH, ipadx=3, ipady=3)
             # load the current project working directory
@@ -173,7 +177,7 @@ class Circuitizer:
                 self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR, bd=0)
                 self.open.pack(side=tk.TOP, fill=tk.BOTH, padx=20, ipady=3)
 
-        self.frame_panel.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
+        self.frame_panel.pack(fill=tk.Y, side=tk.BOTTOM, ipadx=10, ipady=3)
 
         generate_tree(self)
         generate_tree(self)
