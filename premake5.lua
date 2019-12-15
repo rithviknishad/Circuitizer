@@ -25,9 +25,10 @@ include "Circuitizer/vendor/imgui"
 
 project "Electrical"
 	location "Electrical"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" ..outputdir .. "/%{prj.name}")
 	objdir ("obj/" ..outputdir .. "/%{prj.name}")
@@ -49,7 +50,6 @@ project "Electrical"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 		
 		defines
@@ -61,24 +61,24 @@ project "Electrical"
 	filter "configurations:Debug"
 		defines "CR_DEBUG"
 		runtime "Debug"
-		symbols "On"
-		optimize "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "CR_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "CR_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 project "Circuitizer"
 		location "Circuitizer"
-		kind "SharedLib"
+		kind "StaticLib"
 		language "C++"
-		staticruntime "off"
+		cppdialect "C++17"
+		staticruntime "on"
 
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("obj/" .. outputdir .. "/%{prj.name}")
@@ -92,6 +92,11 @@ project "Circuitizer"
 			"%{prj.name}/src/**.cpp",
 			"%{prj.name}/vendor/glm/glm/**.hpp",
 			"%{prj.name}/vendor/glm/glm/**.inl",
+		}
+
+		defines
+		{
+			"_CRT_SECURE_NO_WARNINGS"
 		}
 
 		includedirs
@@ -113,7 +118,6 @@ project "Circuitizer"
 		}
 
 		filter "system:windows"
-			cppdialect "C++17"
 			systemversion "latest"
 
 			defines
@@ -123,29 +127,20 @@ project "Circuitizer"
 				"GLFW_INCLUDE_NONE"
 			}
 
-			postbuildcommands
-			{
-				("{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.. "/Sandbox")
-			}
-
 		filter "configurations:Debug"
-			defines
-			{
-				"CR_DEBUG"
-			}
+			defines "CR_DEBUG"
 			runtime "Debug"
-			symbols "On"
-			optimize "On"
+			symbols "on"
 
 		filter "configurations:Release"
 			defines "CR_RELEASE"
 			runtime "Release"
-			optimize "On"
+			optimize "on"
 
 		filter "configurations:Dist"
 			defines "CR_DIST"
 			buildoptions "/MDd"
-			optimize "On"
+			optimize "on"
 
 
 
@@ -154,7 +149,8 @@ project "Sandbox"
 		location "Sandbox"
 		kind "ConsoleApp"
 		language "C++"
-		staticruntime "off"
+		cppdialect "C++17"
+		staticruntime "on"
 		
 		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 		objdir ("obj/" .. outputdir .. "/%{prj.name}")
@@ -179,7 +175,6 @@ project "Sandbox"
 		}
 
 		filter "system:windows"
-			cppdialect "C++17"
 			systemversion "latest"
 
 			defines
@@ -190,15 +185,14 @@ project "Sandbox"
 		filter "configurations:Debug"
 			defines "CR_DEBUG"
 			runtime "Debug"
-			symbols "On"
-			optimize "On"
+			symbols "on"
 
 		filter "configurations:Release"
 			defines "CR_RELEASE"
 			runtime "Release"
-			optimize "On"
+			optimize "on"
 
 		filter "configurations:Dist"
 			defines "CR_DIST"
 			runtime "Release"
-			optimize "On"
+			optimize "on"
