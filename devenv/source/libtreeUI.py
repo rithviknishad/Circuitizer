@@ -3,6 +3,7 @@
 # ************************
 
 import os
+import sys
 import glob
 import tkinter as tk
 
@@ -50,43 +51,57 @@ class ScrollFrame(tk.Frame):
 class PanelTree(tk.Frame):
     def __init__(self, root, panel_width):
         tk.Frame.__init__(self, root)
-        global generate_tree_project_view
+        global generate_tree_project_view, PATH
         self.scrollFrame = ScrollFrame(self)
         self.scrollFrame.panel_width = panel_width
         self.scrollFrame.construct()
         self.scrollFrame.viewPort.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=0)
+        PATH = os.getcwd()
 
-        def generate_tree_project_view(self, dir=os.getcwd()):
+        def generate_tree_project_view(self, dir=os.getcwd()+'/'):
+            global PATH, self_pointer
+            self_pointer = self
+
             row = 0
             # clean previous list
             for child in self.scrollFrame.viewPort.winfo_children():
                 child.destroy()
-            print(dir)
+            print("DIR", dir)
             # the heading of the project panel
             tk.Label(self.scrollFrame.viewPort, background=PANEL_COLOR).grid(row=row)
+            PATH = os.path.abspath(dir).split('\\' if sys.platform == 'win32' else '/')[-2]
             # load the current project working directory
-            for file in glob.glob(dir + '/*'):
+            for file in [PATH] + glob.glob(dir + '*'):
                 row += 1
                 if os.path.isdir(file):
                     self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/open.png').subsample(2, 2)
-                    file = os.path.basename(file)
                 else:
                     self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/file.png').subsample(2, 2)
-                    file = os.path.basename(file)
                 # NOTE: the child controls are added to the view port (scrollFrame.viewPort, NOT scrollframe itself)
                 self.open_frame = tk.Frame(self.scrollFrame.viewPort)
                 self.open_frame.configure(background=PANEL_COLOR)
 
-                def theme_button_tree():
-                    open = tk.Button(self.open_frame, image=self.image, text="      " + file, anchor=tk.NW, font=("Arial", 10), compound=tk.LEFT, highlightthickness=0, command=lambda: generate_tree_project_view(self, os.path.abspath(file)))
-                    open.image = self.image
-                    open.configure(background=PANEL_COLOR, foreground=FG_COLOR, bd=0)
-                    open.pack(side=tk.LEFT, padx=15, ipadx=5)
-                    open.bind("<Enter>", lambda x: open.configure(background=TOOL_COLOR))
-                    open.bind("<Leave>", lambda x: open.configure(background=PANEL_COLOR))
+                def theme_button_tree(put=file):
+                    global generate_tree_project_view, self_pointer
+                    ui = tk.Button(self.open_frame, image=self.image, text="      " + os.path.basename(file), anchor=tk.NW, font=("Arial", 10), compound=tk.LEFT, highlightthickness=0)
+
+                    def do():
+                        global generate_tree_project_view, self_pointer
+                        p = ui.cget('text').replace(' ', '')
+                        if os.path.abspath(p).split('\\' if sys.platform == 'win32' else '/')[-1] == os.path.abspath(p).split('\\' if sys.platform == 'win32' else '/')[-2]:
+                            exec("generate_tree_project_view(self_pointer, '" + '/'.join(os.path.abspath(p).split('\\' if sys.platform == 'win32' else '/')[:-1]) + "/')")
+                        else:
+                            exec("generate_tree_project_view(self_pointer, '" + '/'.join(os.path.abspath(p).split('\\' if sys.platform == 'win32' else '/')) + "/')")
+
+                    ui.configure(command=do)
+                    ui.image = self.image
+                    ui.configure(background=PANEL_COLOR, foreground=FG_COLOR, bd=0)
+                    ui.pack(side=tk.LEFT, padx=15, ipadx=5)
+                    ui.bind("<Enter>", lambda x: ui.configure(background=TOOL_COLOR))
+                    ui.bind("<Leave>", lambda x: ui.configure(background=PANEL_COLOR))
+
                 theme_button_tree()
                 self.open_frame.grid(row=row, sticky=tk.NW)
-                
 
         # when packing the scrollframe, we pack scrollFrame itself (NOT the viewPort)
         self.scrollFrame.pack(side="top", fill="both", expand=True, ipadx=10)
