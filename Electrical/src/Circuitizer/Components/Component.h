@@ -38,7 +38,8 @@ namespace Electrical
 			m_Terminals.erase(std::remove(m_Terminals.begin(), m_Terminals.end(), terminal), m_Terminals.end());
 		}
 
-
+		/* Updates the component for time change */
+		virtual void OnUpdate(double time) = 0;
 
 		inline std::vector<Terminal*> GetTerminals() { return m_Terminals; }
 

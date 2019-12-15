@@ -3,7 +3,7 @@
 #include "crpch.h"
 
 #include "Circuitizer/Components/Component.h"
-#include "Circuitizer/Components/Resistor.h"
+#include "Circuitizer/Components/Passive/Resistor.h"
 
 namespace Electrical
 {
@@ -47,7 +47,7 @@ namespace Electrical
 	{
 	public:
 		
-		VoltageSource(double voltage, std::string name = "<unnamed>", double internalResistance = 0.0)
+		VoltageSource(double voltage = 0.0, std::string name = "<unnamed>", double internalResistance = 0.0)
 			: Component(name), m_Voltage(voltage), m_InternalResistor(new Resistor(internalResistance, name + "_InternalResistor"))
 		{
 			m_NegativeTerminal = new Terminal(name + "_PositiveTerminal");
