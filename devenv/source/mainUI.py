@@ -14,6 +14,7 @@ import tkinter.filedialog as tkdialog
 # custom imports
 
 import crt
+import libtreeUI
 import libUI
 
 from cfg import GEOMETERY, BG_COLOR, FG_COLOR, PANEL_COLOR, STATUS_COLOR, \
@@ -47,6 +48,7 @@ class Circuitizer:
         self.side_tool_bar(root)
 
         self.main_panel = tk.Frame(root)
+        self.main_panel.configure(background=PANEL_COLOR, highlightthickness=0)
         self.properties_panel(self.main_panel)
         self.project_panel(self.main_panel)
         self.main_panel.pack(side=tk.RIGHT, fill=tk.Y)
@@ -150,38 +152,14 @@ class Circuitizer:
         self.frame.pack(fill=tk.Y, side=tk.LEFT, ipadx=10, ipady=3)
 
     def project_panel(self, root):
-        global generate_tree
         """The project panel div UI code"""
-        self.frame_panel = tk.Frame(root, width=200)
-        self.frame_panel.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
-
-        def generate_tree(self, dir=os.getcwd()):
-            # clean previous list
-            for child in self.frame_panel.winfo_children():
-                child.destroy()
-            print(dir)
-            # the heading of the project panel
-            self.open = tk.Label(self.frame_panel, text="Project Files                                                          ")
-            self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR)
-            self.open.pack(side=tk.TOP, fill=tk.BOTH, ipadx=3, ipady=3)
-            # load the current project working directory
-            for file in glob.glob(dir + '/*'):
-                if os.path.isdir(file):
-                    self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/open.png').subsample(2, 2)
-                    file = os.path.basename(file)
-                else:
-                    self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/file.png').subsample(2, 2)
-                    file = os.path.basename(file)
-
-                self.open = tk.Button(self.frame_panel, image=self.image, text="      " + file, anchor=tk.W, font=("Arial", 10), compound=tk.LEFT, highlightthickness=0, command=lambda: generate_tree(self, os.path.abspath(file)))
-                self.open.image = self.image
-                self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR, bd=0)
-                self.open.pack(side=tk.TOP, fill=tk.BOTH, padx=20, ipady=3)
-
-        self.frame_panel.pack(fill=tk.Y, side=tk.BOTTOM, ipadx=10, ipady=3)
-
-        generate_tree(self)
-        generate_tree(self)
+        self.frame = tk.Frame(root)
+        self.frame.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+        libtreeUI.PanelTree(self.frame, panel_width=100).pack(side=tk.BOTTOM, fill=tk.BOTH, expand=tk.NO)
+        self.open = tk.Label(self.frame, text="Project Files", anchor='nw')
+        self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+        self.open.pack(side=tk.BOTTOM, fill=tk.BOTH, ipady=3, padx=10, pady=3)
+        self.frame.pack(fill=tk.BOTH, side=tk.BOTTOM, ipadx=10, ipady=3, expand=True)
 
     def main_content(self, root):
         """The main div UI code"""
