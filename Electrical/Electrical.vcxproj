@@ -150,6 +150,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Circuitizer\Components\Active\PowerSources\VoltageSource.h" />
     <ClInclude Include="src\Circuitizer\Components\Component.h" />
     <ClInclude Include="src\Circuitizer\Components\Resistor.h" />
     <ClInclude Include="src\Circuitizer\Core.h" />
