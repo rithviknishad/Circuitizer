@@ -42,7 +42,7 @@ namespace Circuitizer
 		ImGui::CreateContext();
 		
 		//ImGui::StyleColorsDark();
-		ImGui::StyleColorsLight();
+		//ImGui::StyleColorsLight();
 		//ImGui::StyleColorsClassic();
 		
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
