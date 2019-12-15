@@ -11,6 +11,11 @@ from cfg import GEOMETERY, BG_COLOR, FG_COLOR, PANEL_COLOR, STATUS_COLOR, \
     FILE, GRAPH, MONEY, REFRESH, SAVE, SETTINGS, RESOURCE_PATH, COMPONENT_PATH
 
 
+# Function definition
+def generate_tree_project_view():
+    pass
+
+
 class ScrollFrame(tk.Frame):
     def __init__(self, parent, *args, **kw):
         super().__init__(parent, *args, **kw)
@@ -77,8 +82,6 @@ class PanelTree(tk.Frame):
                 self.open.pack(side=tk.LEFT, padx=15, ipadx=5)
                 self.open_frame.grid(row=row, sticky=tk.NW)
 
-        generate_tree_project_view(self)
-
         # when packing the scrollframe, we pack scrollFrame itself (NOT the viewPort)
         self.scrollFrame.pack(side="top", fill="both", expand=True, ipadx=10)
 
@@ -86,8 +89,13 @@ class PanelTree(tk.Frame):
         generate_tree_project_view(self)
 
 
-if __name__ == "__main__":
-    generate_tree_project_view = None
+def test():
     root = tk.Tk()
-    Example(root, panel_width=60).pack(side="top", fill="both", expand=True)
+    panel = PanelTree(root, panel_width=60)
+    panel.refresh()
+    panel.pack(side="top", fill="both", expand=True)
     root.mainloop()
+
+
+if __name__ == "__main__":
+    test()

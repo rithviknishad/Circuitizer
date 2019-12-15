@@ -155,7 +155,9 @@ class Circuitizer:
         """The project panel div UI code"""
         self.frame = tk.Frame(root)
         self.frame.configure(background=PANEL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
-        libtreeUI.PanelTree(self.frame, panel_width=100).pack(side=tk.BOTTOM, fill=tk.BOTH, expand=tk.NO)
+        self.panel = libtreeUI.PanelTree(self.frame, panel_width=100)
+        self.panel.refresh()
+        self.panel.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=tk.NO)
         self.open = tk.Label(self.frame, text="Project Files", anchor='nw')
         self.open.configure(background=PANEL_COLOR, foreground=FG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         self.open.pack(side=tk.BOTTOM, fill=tk.BOTH, ipady=3, padx=10, pady=3)
@@ -166,29 +168,7 @@ class Circuitizer:
 
         # The main frame where the circuit canvas is rendered
         self.frame = tk.Frame(root)
-        self.frame.configure(background=BG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
-        self.canvas = turtle.ScrolledCanvas(root, canvwidth=2000, canvheight=2000)
-
-        # Pen configuration
-        self.pen = turtle.RawTurtle(self.canvas)
-        self.pen.color(PEN_COLOR)
-        self.pen.speed(5)
-        self.pen.shapesize(1.5)
-        self.pen.shape('circle')
-        self.pen.setundobuffer(1000)
-        self.pen.up()
-
-        # left button of mouse to drag the cursor of the canvas
-        self.pen.ondrag(self.pen.goto)
-        self.canvas.config(background=BG_COLOR, highlightthickness=0, highlightbackground=BORDER_COLOR)
-
-        # middle button of mouse to drag canvas
-        self.canvas.bind("<ButtonPress-2>", lambda event: self.canvas.scan_mark(event.x, event.y))
-        self.canvas.bind("<B2-Motion>", lambda event: self.canvas.scan_dragto(event.x, event.y, gain=1))
-        self.canvas.pack(fill=tk.BOTH, expand=True)
-
-        # Hide the canvas for now
-        self.canvas.pack_forget()
+        print(self.frame.winfo_width(), self.frame.winfo_height())
         self.frame.pack(fill=tk.BOTH, side=tk.LEFT, ipadx=10, ipady=3)
 
     def status_bar(self, root):
