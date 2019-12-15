@@ -62,9 +62,11 @@ class Circuitizer:
 
         def generate_ui(self, txt, icon=None, command=None):
             """Generate the UI with the custom theme"""
-            self.open = tk.Button(self.frame, text=txt, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
-            self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
-            self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5)
+            open = tk.Button(self.frame, text=txt, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0, bd=0, highlightcolor=BORDER_COLOR)
+            open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+            open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5)
+            open.bind("<Enter>", lambda x: open.configure(background=PANEL_COLOR))
+            open.bind("<Leave>", lambda x: open.configure(background=TOOL_COLOR))
 
         # structure the ui
         for txt in ['File', 'Edit', 'Debug', 'Tools']:
@@ -80,11 +82,13 @@ class Circuitizer:
         def generate_ui(self, icon, command=None):
             """Generate the UI with the custom theme"""
             self.image = tk.PhotoImage(file=icon)
-            self.open = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
-            self.open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+            open = tk.Button(self.frame, image=self.image, bd=0, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
+            open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of this image is required otherwise this image is garbage collected
-            self.open.image = self.image
-            self.open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5, ipady=5)
+            open.image = self.image
+            open.pack(side=tk.LEFT, fill=tk.BOTH, ipadx=5, ipady=5)
+            open.bind("<Enter>", lambda x: open.configure(background=PANEL_COLOR))
+            open.bind("<Leave>", lambda x: open.configure(background=TOOL_COLOR))
 
         # structure the ui
         for icon in glob.glob(os.getcwd() + '/resource/tool/*.png'):
@@ -130,11 +134,13 @@ class Circuitizer:
         def generate_ui(self, root, icon, command=None):
             """Generate the UI with the custom theme"""
             self.image = tk.PhotoImage(file=icon)
-            self.add = tk.Button(self.frame, image=self.image, relief=tk.FLAT, compound=tk.LEFT, command=command, highlightthickness=0)
-            self.add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+            add = tk.Button(self.frame, image=self.image, bd=0, relief=tk.FLAT, compound=tk.LEFT, command=command, highlightthickness=0)
+            add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of image is required otherwise this image is garbage collected
-            self.add.image = self.image
-            self.add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
+            add.image = self.image
+            add.pack(side=tk.TOP, fill=tk.BOTH, ipady=5)
+            add.bind("<Enter>", lambda x: add.configure(background=PANEL_COLOR))
+            add.bind("<Leave>", lambda x: add.configure(background=TOOL_COLOR))
 
         # structure the ui
         for widget in [
@@ -165,11 +171,15 @@ class Circuitizer:
 
     def main_content(self, root):
         """The main div UI code"""
-
         # The main frame where the circuit canvas is rendered
+        """
         self.frame = tk.Frame(root)
+        self.frame.configure(background=TOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         print(self.frame.winfo_width(), self.frame.winfo_height())
+        self.frame.forget()
         self.frame.pack(fill=tk.BOTH, side=tk.LEFT, ipadx=10, ipady=3)
+        """
+        pass
 
     def status_bar(self, root):
         """The status bar UI code"""
