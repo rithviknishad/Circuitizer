@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Circuitizer/Window.h"
+#include "Circuitizer/Renderer/GraphicsContext.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Circuitizer
@@ -29,6 +31,7 @@ namespace Circuitizer
 
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
