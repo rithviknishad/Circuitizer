@@ -5,6 +5,8 @@
 # Circuitizer
 Circuitizer is the free and open source electric circuit development suit.
 
+[![Run on Repl.it](https://repl.it/badge/github/rithviknishad/Circuitizer)](https://repl.it/github/rithviknishad/Circuitizer)
+
 __In development stage__
 
 ### Objective:

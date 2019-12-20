@@ -39,7 +39,7 @@ class ComponentEditor:
         self.img = tk.Label(self.img_frame, width=300, height=415, image=self.image, relief=tk.FLAT, compound=tk.LEFT, background=BG_COLOR)
         self.img.pack(fill=tk.BOTH)
         self.img_frame.pack(side=tk.LEFT)
-    
+
         self.frame.configure(background=BORDER_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         self.frame.pack(side=tk.TOP, fill=tk.BOTH)
 

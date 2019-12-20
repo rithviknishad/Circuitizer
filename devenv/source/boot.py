@@ -2,6 +2,7 @@
 
 import os
 import tarfile
+import mainUI
 
 # Unzip assets
 if not os.path.isfile('_tkinter.pyd'):
@@ -13,5 +14,4 @@ if not os.path.isfile('_tkinter.pyd'):
         pass
 
 # Launch entry point
-import mainUI
 mainUI.main()
