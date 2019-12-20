@@ -5,8 +5,10 @@ import os
 import gc
 import sys
 import glob
+import time
 import ctypes
 import turtle
+import threading
 
 import tkinter as tk
 import tkinter.filedialog as tkdialog
@@ -14,8 +16,9 @@ import tkinter.filedialog as tkdialog
 # custom imports
 
 import crt
-import libtreeUI
 import libUI
+import libcom
+import libtreeUI
 
 from cfg import GEOMETERY, BG_COLOR, FG_COLOR, PANEL_COLOR, STATUS_COLOR, \
     BORDER_COLOR, TOOL_COLOR, SIDETOOL_COLOR, PEN_COLOR, ADD, CARD, CLOUD, \
@@ -172,14 +175,28 @@ class Circuitizer:
     def main_content(self, root):
         """The main div UI code"""
         # The main frame where the circuit canvas is rendered
-        """
-        self.frame = tk.Frame(root)
-        self.frame.configure(background=TOOL_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
+        self.main = tk.Frame(root)
+        self.main.configure(background=BG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
         print(self.frame.winfo_width(), self.frame.winfo_height())
-        self.frame.forget()
-        self.frame.pack(fill=tk.BOTH, side=tk.LEFT, ipadx=10, ipady=3)
-        """
-        pass
+        # self.frame.forget()
+
+        def add_tab(self, name):
+            self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/file.png').subsample(2, 2)
+            add = tk.Button(self.main, text=name, image=self.image, bd=0, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
+            add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+            # reference of image is required otherwise this image is garbage collected
+            add.image = self.image
+            add.pack(side=tk.LEFT, fill=tk.BOTH, ipady=5)
+            add.bind("<Enter>", lambda x: add.configure(background=PANEL_COLOR))
+            add.bind("<Leave>", lambda x: add.configure(background=TOOL_COLOR))
+
+        self.main.pack(fill=tk.BOTH, side=tk.TOP, ipadx=30)
+
+        def _():
+            while True:
+                print(libcom.CurrentTab.value)
+                time.sleep(4)
+        threading.Thread(target=lambda: _()).start()
 
     def status_bar(self, root):
         """The status bar UI code"""

@@ -87,6 +87,8 @@ class PanelTree(tk.Frame):
 
                     def do():
                         global generate_tree_project_view, self_pointer
+                        import libcom
+                        libcom.CurrentTab.value = ui.cget('text').replace(' ', '')
                         p = ui.cget('text').replace(' ', '')
                         if os.path.abspath(p).split('\\' if sys.platform == 'win32' else '/')[-1] == os.path.abspath(p).split('\\' if sys.platform == 'win32' else '/')[-2]:
                             exec("generate_tree_project_view(self_pointer, '" + '/'.join(os.path.abspath(p).split('\\' if sys.platform == 'win32' else '/')[:-1]) + "/')")
@@ -101,6 +103,7 @@ class PanelTree(tk.Frame):
                     ui.bind("<Leave>", lambda x: ui.configure(background=PANEL_COLOR))
 
                 theme_button_tree()
+
                 self.open_frame.grid(row=row, sticky=tk.NW)
 
         # when packing the scrollframe, we pack scrollFrame itself (NOT the viewPort)
