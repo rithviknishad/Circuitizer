@@ -1,2 +1,2 @@
 language = "bash"
-run = "cd devenv && python3 source/mainUI.py"
+run = "cd Circuitizer/stable-ui && python3 source/mainUI.py"
