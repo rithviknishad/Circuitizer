@@ -1,2 +1,2 @@
-language = "Tkinter"
+language = "tkinter"
 run = "cd devenv && python3 source/mainUI.py"
