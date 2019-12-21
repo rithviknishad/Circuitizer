@@ -8,7 +8,7 @@ repository = "https://github.com/rithviknishad/Circuitizer"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.5"
 nuitka = "^0.6.5"
 setuptools = "^42.0.2"
 pip = "^19.3.1"
