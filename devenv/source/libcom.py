@@ -1,14 +1,16 @@
-import threading
+#!/usr/bin/python3
+# Circuitizer Cross Global Definitions
 
 
 class DynamicCrossGlobalVariable(object):
     def __init__(self):
         self.value = None
-        threading.Timer(1, self.go_back, ()).start()
 
-    def go_back(self):
+    def reset(self):
         self.value = None
 
 
+# Store the current tab name here
 CurrentTab = DynamicCrossGlobalVariable()
-CurrentTab.value = str()
+# Used to decide if the scrollbar should be visible for not
+TabPanelWidth = DynamicCrossGlobalVariable()
