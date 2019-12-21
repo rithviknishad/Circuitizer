@@ -9,6 +9,8 @@ test/
 *.tlog
 *.tlog/
 
+bin
+
 # Circuitizer Test Folder Ignores
 .tests/
 .dump/
