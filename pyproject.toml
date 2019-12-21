@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "Circuitizer"
+name = "UI"
 version = "0.1.0"
 description = "Circuitizer is the free and open source electric circuit development suit"
 authors = ["AshBlade <jeenamurali100tab@gmail.com>"]
