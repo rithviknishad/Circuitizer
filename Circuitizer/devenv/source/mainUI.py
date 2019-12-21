@@ -7,7 +7,6 @@ import sys
 import glob
 import time
 import ctypes
-import turtle
 import threading
 
 import tkinter as tk
@@ -16,13 +15,13 @@ import tkinter.filedialog as tkdialog
 # custom imports
 
 import crt
-import libUI
 import libcom
 import libtreeUI
 
 from cfg import GEOMETERY, BG_COLOR, FG_COLOR, PANEL_COLOR, STATUS_COLOR, \
     BORDER_COLOR, TOOL_COLOR, SIDETOOL_COLOR, PEN_COLOR, ADD, CARD, CLOUD, \
-    FILE, GRAPH, MONEY, REFRESH, SAVE, SETTINGS, RESOURCE_PATH, COMPONENT_PATH
+    FILE, GRAPH, MONEY, REFRESH, SAVE, SETTINGS, RESOURCE_PATH, COMPONENT_PATH, \
+    THREAD_RESPONSE_RATE, TAB_POS
 
 
 class Circuitizer:
@@ -33,16 +32,18 @@ class Circuitizer:
         # A global pointer to self for accessing everywhere in the application
         global self_pointer
         self_pointer = self
-        # The toggle counter for the pen in the circuit canvaas
-        self.toggle_pen = True
 
         # Basic Application Meta Data
         self.root.geometry(GEOMETERY)
         self.root.title("Circuitizer")
         self.root.configure(background=BG_COLOR)
+        self.root.protocol("WM_DELETE_WINDOW", self.ui_onquit)
 
         # This line will only work on win32 for some reason
         self.root.iconbitmap(RESOURCE_PATH + 'logo.ico' if 'win' in sys.platform else None)
+
+        # The tab's close icon
+        self.close_icon_tab = tk.PhotoImage(file=os.getcwd() + '/resource/tool/close.png').subsample(2, 2)
 
         # The GUI components
         self.modern_menu_bar(root)
@@ -50,13 +51,17 @@ class Circuitizer:
         self.status_bar(root)
         self.side_tool_bar(root)
 
-        self.main_panel = tk.Frame(root)
-        self.main_panel.configure(background=PANEL_COLOR, highlightthickness=0)
+        self.main_panel = tk.Frame(root, background=PANEL_COLOR, highlightthickness=0)
         self.properties_panel(self.main_panel)
         self.project_panel(self.main_panel)
         self.main_panel.pack(side=tk.RIGHT, fill=tk.Y)
 
         self.main_content(root)
+
+    def ui_onquit(self):
+        global exitFlag
+        exitFlag = True
+        self.root.destroy()
 
     def modern_menu_bar(self, root):
         """The menu div UI code"""
@@ -85,6 +90,8 @@ class Circuitizer:
         def generate_ui(self, icon, command=None):
             """Generate the UI with the custom theme"""
             self.image = tk.PhotoImage(file=icon)
+            self.image = self.image.zoom(3, 3)  # this new image is 3x the original
+            self.image = self.image.subsample(4, 4)  # halve the size, it is now 1.5x the original
             open = tk.Button(self.frame, image=self.image, bd=0, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
             open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of this image is required otherwise this image is garbage collected
@@ -137,6 +144,8 @@ class Circuitizer:
         def generate_ui(self, root, icon, command=None):
             """Generate the UI with the custom theme"""
             self.image = tk.PhotoImage(file=icon)
+            self.image = self.image.zoom(3, 3)  # this new image is 3x the original
+            self.image = self.image.subsample(4, 4)  # halve the size, it is now 1.5x the original
             add = tk.Button(self.frame, image=self.image, bd=0, relief=tk.FLAT, compound=tk.LEFT, command=command, highlightthickness=0)
             add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of image is required otherwise this image is garbage collected
@@ -175,28 +184,49 @@ class Circuitizer:
     def main_content(self, root):
         """The main div UI code"""
         # The main frame where the circuit canvas is rendered
-        self.main = tk.Frame(root)
+        self.main = libtreeUI.TabTree(root, panel_width=None)
+        self.main.scrollFrame.vsb.pack_forget()
         self.main.configure(background=BG_COLOR, highlightbackground=BORDER_COLOR, highlightcolor=BORDER_COLOR, highlightthickness=1)
-        print(self.frame.winfo_width(), self.frame.winfo_height())
-        # self.frame.forget()
 
         def add_tab(self, name):
             self.image = tk.PhotoImage(file=os.getcwd() + '/resource/tool/file.png').subsample(2, 2)
-            add = tk.Button(self.main, text=name, image=self.image, bd=0, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
+            add = tk.Button(self.main.scrollFrame.viewPort, text='    ' + name, image=self.image, bd=0, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
             add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
+
+            def close_tab():
+                add.forget()
+                close.forget()
+            close = tk.Button(self.main.scrollFrame.viewPort, image=self.close_icon_tab, bd=0, relief=tk.FLAT, compound=tk.RIGHT, highlightthickness=0, command=close_tab)
+            close.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of image is required otherwise this image is garbage collected
             add.image = self.image
-            add.pack(side=tk.LEFT, fill=tk.BOTH, ipady=5)
+            add.pack(side=tk.LEFT, fill=tk.BOTH, ipady=5, ipadx=10)
+            close.pack(side=tk.LEFT, fill=tk.BOTH, ipady=5, ipadx=10)
             add.bind("<Enter>", lambda x: add.configure(background=PANEL_COLOR))
             add.bind("<Leave>", lambda x: add.configure(background=TOOL_COLOR))
 
-        self.main.pack(fill=tk.BOTH, side=tk.TOP, ipadx=30)
+        self.main.pack(fill=tk.BOTH, side=TAB_POS, ipadx=30)
 
-        def _():
+        add_tab(self, "Blank")
+
+        def libcom_analyse_thread(self_pointer, add_tab_func_signature, exitflag_signature, THREAD_RESPONSE_RATE_signature):
             while True:
-                print(libcom.CurrentTab.value)
-                time.sleep(4)
-        threading.Thread(target=lambda: _()).start()
+                # Auto enable scrollbar for tabs if it fills the space
+                if self.main.scrollFrame.viewPort.winfo_width() > self.main.winfo_width():
+                    self.main.scrollFrame.vsb.pack(side="right", fill="both")
+                else:
+                    self.main.scrollFrame.vsb.pack_forget()
+                # Add new tab if CurrentTab value is changed
+                if (libcom.CurrentTab.value is not None):
+                    if not os.path.isdir(os.path.abspath(libcom.CurrentTab.value)):
+                        add_tab_func_signature(self_pointer, libcom.CurrentTab.value)
+                        libcom.CurrentTab.reset()
+                # The thread response delay
+                time.sleep(THREAD_RESPONSE_RATE)
+                # Exit condition for the thread
+                if exitFlag:
+                    os._exit(0)
+        threading.Thread(target=lambda: libcom_analyse_thread(self, add_tab, exitFlag, THREAD_RESPONSE_RATE)).start()
 
     def status_bar(self, root):
         """The status bar UI code"""
@@ -236,6 +266,6 @@ def main():
 
 if __name__ == "__main__":
     # Some global variable which are assigned with values later
-    crt_handler, self_pointer, generate_tree = None, None, None
+    crt_handler, self_pointer, generate_tree, exitFlag = None, None, None, False
     # Call main function
     main()
