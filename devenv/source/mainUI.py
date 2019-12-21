@@ -90,6 +90,8 @@ class Circuitizer:
         def generate_ui(self, icon, command=None):
             """Generate the UI with the custom theme"""
             self.image = tk.PhotoImage(file=icon)
+            self.image = self.image.zoom(3, 3)  # this new image is 3x the original
+            self.image = self.image.subsample(4, 4)  # halve the size, it is now 1.5x the original
             open = tk.Button(self.frame, image=self.image, bd=0, relief=tk.FLAT, compound=tk.LEFT, highlightthickness=0)
             open.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of this image is required otherwise this image is garbage collected
@@ -142,6 +144,8 @@ class Circuitizer:
         def generate_ui(self, root, icon, command=None):
             """Generate the UI with the custom theme"""
             self.image = tk.PhotoImage(file=icon)
+            self.image = self.image.zoom(3, 3)  # this new image is 3x the original
+            self.image = self.image.subsample(4, 4)  # halve the size, it is now 1.5x the original
             add = tk.Button(self.frame, image=self.image, bd=0, relief=tk.FLAT, compound=tk.LEFT, command=command, highlightthickness=0)
             add.configure(background=TOOL_COLOR, foreground=FG_COLOR)
             # reference of image is required otherwise this image is garbage collected
@@ -207,8 +211,6 @@ class Circuitizer:
 
         def libcom_analyse_thread(self_pointer, add_tab_func_signature, exitflag_signature, THREAD_RESPONSE_RATE_signature):
             while True:
-                # The thread response delay
-                time.sleep(THREAD_RESPONSE_RATE)
                 # Auto enable scrollbar for tabs if it fills the space
                 if self.main.scrollFrame.viewPort.winfo_width() > self.main.winfo_width():
                     self.main.scrollFrame.vsb.pack(side="right", fill="both")
@@ -219,9 +221,11 @@ class Circuitizer:
                     if not os.path.isdir(os.path.abspath(libcom.CurrentTab.value)):
                         add_tab_func_signature(self_pointer, libcom.CurrentTab.value)
                         libcom.CurrentTab.reset()
+                # The thread response delay
+                time.sleep(THREAD_RESPONSE_RATE)
                 # Exit condition for the thread
                 if exitFlag:
-                    break
+                    os._exit(0)
         threading.Thread(target=lambda: libcom_analyse_thread(self, add_tab, exitFlag, THREAD_RESPONSE_RATE)).start()
 
     def status_bar(self, root):
