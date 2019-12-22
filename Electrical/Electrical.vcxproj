@@ -155,6 +155,7 @@
     <ClInclude Include="src\Circuitizer\Core.h" />
     <ClInclude Include="src\Circuitizer\Node.h" />
     <ClInclude Include="src\Circuitizer\Terminal.h" />
+    <ClInclude Include="src\Circuitizer\shared_terminal.h" />
     <ClInclude Include="src\Electrical.h" />
     <ClInclude Include="src\crpch.h" />
   </ItemGroup>
