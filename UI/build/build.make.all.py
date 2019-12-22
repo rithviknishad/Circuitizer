@@ -13,7 +13,6 @@ import ntpath
 exec(open('build/build.config').read())
 
 LINUX_SETUP_SH = 'build/build.' + LINUX_SETUP_SH 
-PYTHON_PIP_CONFIG = 'build/build.' + PYTHON_PIP_CONFIG
 OPTIMISE_SIZE_LIST = 'build/build.' + OPTIMISE_SIZE_LIST
 OPTIMISE_TAR_LIST = 'build/build.' + OPTIMISE_TAR_LIST
 
@@ -32,8 +31,6 @@ if __name__ == "__main__":
     # Setup the linux build process
     if sys.platform is 'linux':
         do(LINUX_SETUP_SH)
-    # Setup the python pip requirements
-    os.system(PYTHON_POINTER + ' -m pip install -r "' + PYTHON_PIP_CONFIG + '" -U')
     if BUILD:
         for file in glob.glob('source/*'):
             # ISSUE: Used try n except statment to make sure we do not
@@ -84,6 +81,9 @@ if __name__ == "__main__":
     # Copy Application Resources
     if COPY_ASSETS:
         shutil.copytree('resource/', ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/resource/')
+        shutil.copy('build/tcl.tar.xz', 'boot.dist/')
+        shutil.rmtree('boot.dist/tcl')
+        shutil.rmtree('boot.dist/tk')
     # Tar file compression to reduce size of the application
     if REDUCE_SIZE:
         tar = tarfile.open(ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/lib.tar.xz', "w:xz")

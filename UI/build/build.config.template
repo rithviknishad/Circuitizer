@@ -20,7 +20,6 @@ TARGET_MAIN_FILE = 'source/mainUI.py'   # The main source file which will be com
 # This is the optimisation table and setup sheets
 
 LINUX_SETUP_SH = 'make.linux.ubuntu.sh'          # The package dependency for linux distro
-PYTHON_PIP_CONFIG = 'setup.all.config'           # The python dependency for the project
 OPTIMISE_SIZE_LIST = 'optimise.size.all.config'  # The garbage dependency optimisation sheet
 OPTIMISE_TAR_LIST = 'optimise.tar.win32.config'  # The lzma-level optimisation sheet
 
