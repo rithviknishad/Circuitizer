@@ -75,9 +75,11 @@ if __name__ == "__main__":
         for file in glob.glob(os.getcwd() + '/' + ntpath.basename(RUNTIME_FILE[:-3]) + '.dist/*'):
             for garbage_file in open(OPTIMISE_SIZE_LIST).readlines():
                 if os.path.split(file)[1] == garbage_file[:-1]:
+                    print(file)
                     try:
                         os.remove(file)
                     except:
+                        shutil.rmtree(file)
                         print("Failed to optimize file : " + file)
     # Copy Application Resources
     if COPY_ASSETS:
