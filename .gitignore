@@ -2,6 +2,8 @@
 *.code-workspace
 .vscode/
 test/
+*.vcxproj
+*.vcxproj*
 *.vcxproj.user
 *.vcxproj.filters
 *.tlog
@@ -13,6 +15,9 @@ test/
 .*/
 
 # Ignore Circuitizer UI builds
+*.spec
+*.pyi
+*.pyd
 dist
 mainUI.build
 mainUI.dist
@@ -20,9 +25,6 @@ boot.build
 boot.dist
 working.build
 untitled.build
-*.spec
-*.pyi
-*.pyd
 libmainUI.a
 working.circuit
 
@@ -53,10 +55,10 @@ working.circuit
 *.lo
 
 # Shared objects (inc. Windows DLLs)
-# *.dll
-# *.so
-# *.so.*
-# *.dylib
+*.dll
+*.so
+*.so.*
+*.dylib
 
 # Executables
 *.out
@@ -96,16 +98,16 @@ dkms.conf
 *.userprefs
 
 # Build results
-# [Dd]ebug/
-# [Dd]ebugPublic/
-# [Rr]elease/
-# [Rr]eleases/
-# x64/
-# x86/
-# bld/
-# [Bb]in/
-# [Oo]bj/
-# [Ll]og/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

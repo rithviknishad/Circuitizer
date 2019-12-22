@@ -31,3 +31,5 @@ SETTINGS = 'resource/tool/settings.png'
 # Path reference
 RESOURCE_PATH = 'resource/'
 COMPONENT_PATH = 'component/'
+THREAD_RESPONSE_RATE = 0.7
+TAB_POS = 'top'

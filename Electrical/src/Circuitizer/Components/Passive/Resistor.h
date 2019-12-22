@@ -1,7 +1,7 @@
 #pragma once
 
 #include "crpch.h"
-#include "Component.h"
+#include "Circuitizer/Components/Component.h"
 
 namespace Electrical
 {
@@ -31,6 +31,11 @@ namespace Electrical
 		/* Returns the current (unit: A) passing through the resistor. */
 		inline double Current() { return VoltageDrop() / m_Resistance; }
 	
+		virtual void OnUpdate(double time)
+		{
+			Component::OnUpdate(time);
+		}
+
 	protected:
 		/* Resistance (unit: Ohms) */
 		double m_Resistance = 0.0;

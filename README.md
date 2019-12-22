@@ -1,7 +1,11 @@
-![Circuitizer Logo](https://raw.githubusercontent.com/rithviknishad/Circuitizer/master/docs/logo/logo0.png)
+<p align="center">
+  <a href="https://github.com/rithviknishad/Circuitizer" target="blank"><img src="https://raw.githubusercontent.com/rithviknishad/Circuitizer/master/docs/logo/logo0.png" height="224" width="200" alt="Circuitizer" /></a>
+</p>
 
 # Circuitizer
 Circuitizer is the free and open source electric circuit development suit.
+
+[![Run on Repl.it](https://repl.it/badge/github/rithviknishad/Circuitizer)](https://repl.it/github/rithviknishad/Circuitizer)
 
 __In development stage__
 
@@ -10,7 +14,6 @@ __In development stage__
  - Rich tools for circuit development
  - Rich ananlysis tools for circuit diagnostics
  - Script your own mathematical instructions using our rich tools precompiled in c++
- - View your circuit in 3D, and place your 
 
 # Circuitizer UI
 

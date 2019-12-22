@@ -17,14 +17,10 @@ namespace Electrical
 		Terminal(std::string name = "") : m_Name(name) {}
 		~Terminal() {}
 
-		/*
-		Returns the name of the terminal as a string.
-		*/
+		/* Returns the name of the terminal as a string. */
 		inline std::string GetName() { return m_Name; }
 
-		/*
-		Sets the name of the Terminal.
-		*/
+		/* Sets the name of the Terminal. */
 		inline void SetName(std::string name) { m_Name = name; }
 
 		/*
@@ -71,9 +67,7 @@ namespace Electrical
 			return (m_Node = node->ConnectTerminal(this));
 		}
 
-		/*
-		Disconnects from connected node (if any)
-		*/
+		/* Disconnects from connected node (if any) */
 		inline Node* DisconnectFromNode()
 		{
 			if (m_Node != nullptr)
@@ -82,6 +76,7 @@ namespace Electrical
 		}
 	
 		double Voltage = 0.0;
+		double Current = 0.0;
 
 	private:
 		std::string m_Name;
