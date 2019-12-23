@@ -1,5 +1,7 @@
 import remi.gui as gui
 
+from main import CircuitizerUI
+
 StatusCSS = {
     'color' : 'white',
     'text-align' : 'left',
