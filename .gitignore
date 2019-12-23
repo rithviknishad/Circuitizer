@@ -1,0 +1,21 @@
+## generic ignores
+.*
+
+## Visual studio ignores
+*.vcxproj
+*.vcxproj*
+*.sln
+
+*.tlog
+*.tlog/
+
+# build binaries
+obj/
+bin/
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Others
+*.ini
