@@ -3,7 +3,7 @@ import remi.gui as gui
 MenuCSS = {
     'display' : 'table-cell',
     'text-align' : 'center',
-    'background-color' : '#333',
+    'background-color' : '#302d2d',
     'padding' : '0px 9px',
     'text-decoration' : 'none',
     'top' : str(0),
