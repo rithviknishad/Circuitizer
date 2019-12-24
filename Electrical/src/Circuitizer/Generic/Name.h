@@ -12,6 +12,6 @@ public:
 	std::string GetName() { return m_Name; }
 	virtual void SetName(std::string name) { m_Name = name; }
 
-private:
+protected:
 	std::string m_Name;
 };

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "crpch.h"
+
 class Position
 {
 public:
@@ -18,11 +20,13 @@ public:
 	inline void SetPosY(const int y) { m_PosY = y; }
 	inline void SetPosZ(const int z) { m_PosZ = z; }
 
+	inline std::tuple<int, int, int> GetPositions() { return { m_PosX, m_PosY, m_PosZ }; }
+
 	inline int GetPosX() { return m_PosX; }
 	inline int GetPosY() { return m_PosY; }
 	inline int GetPosZ() { return m_PosZ; }
 
-private:
+protected:
 	int m_PosX, m_PosY, m_PosZ;
 
 };
