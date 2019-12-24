@@ -11,7 +11,7 @@ MenuCSS = {
     'height' : gui.to_pix(10),
     'position' : 'relative',
     'font-size' : gui.to_pix(13),
-    'font-family': gui.to_uri('fa-regular-400.wooff')
+    'font-family': gui.to_uri('my_resources:fa-regular-400.wooff')
 }
 
 class MenuUI(gui.Label):

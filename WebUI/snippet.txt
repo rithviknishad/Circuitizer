@@ -1,0 +1,22 @@
+                self.execute_javascript("""
+var i = document.createElement('i');
+i.innerHTML = 'cloud'
+document.getElementById('""" + file + """').appendChild(i)
+""")
+
+    self_pointer.execute_javascript("""
+        var link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = \x22""" + url + """\x22
+        document.getElementsByTagName('HEAD')[0].appendChild(link)
+    """)
+    from multiprocessing import Process
+    # Process(target=do, args=()).start()
+
+
+            self.project_label = gui.Label(text="Project Panel")
+        self.project_label.style['color'] = '#969393'
+        self.project_label.style['display'] = 'table-row'
+        self.project_label.style['padding'] = '10px 10px'
+        self.project_label.style['bottom'] = '0'
+        self.panel.append(self.project_label)
