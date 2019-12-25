@@ -13,9 +13,9 @@ import threading
 import remi.gui as gui
 from remi import start, App
 
-import menuUI
-import statusUI
-import toolUI
+import UI.menuUI
+import UI.statusUI
+import UI.toolUI
 
 
 def lazy_populate_project_files(self_pointer):
@@ -85,7 +85,7 @@ class w3_dropdown_hover(gui.Widget):
 
 class CircuitizerUI(App):
     def __init__(self, *args):
-        super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': './res/'})
+        super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': './UI/res/'})
         """
         for js in glob.glob('res/*.js'):
             lazy_load_js(self, "my_resources:" + os.path.basename(js))
