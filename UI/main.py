@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# Circuitizer UI
 
 # https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css
 # https://www.w3schools.com/w3css/4/w3.css

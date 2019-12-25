@@ -1,2 +1,2 @@
 language = "python3"
-run = "cd UI && python main.py"
+run = "cd UI && python3 main.py"
