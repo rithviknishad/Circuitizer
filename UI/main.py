@@ -1,3 +1,9 @@
+
+# https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css
+# https://www.w3schools.com/w3css/4/w3.css
+# https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css
+# https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js
+
 import os
 import glob
 import threading
@@ -78,11 +84,18 @@ class w3_dropdown_hover(gui.Widget):
 class CircuitizerUI(App):
     def __init__(self, *args):
         super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': './res/'})
+        """
         for js in glob.glob('res/*.js'):
             lazy_load_js(self, "my_resources:" + os.path.basename(js))
         for css in glob.glob('res/*.css'):
             lazy_load_css(self, "my_resources:" + os.path.basename(css))
+        """
+        # Uncomment below and comment above for online version
         lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
+        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
+        lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
+        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
+        lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
 
     def status_logic(self):
         self.status.set_text('Ready')
@@ -288,8 +301,8 @@ class CircuitizerUI(App):
         return container
 
 def do():
-    start(CircuitizerUI, standalone=True, width=1000, height=600)
-    # start(CircuitizerUI, address='0.0.0.0', port=0)
+    # start(CircuitizerUI, standalone=True, width=1000, height=600)
+    start(CircuitizerUI, address='0.0.0.0', port=0)
     # start(CircuitizerUI)
 
 # remi==2019.9 nuitka
