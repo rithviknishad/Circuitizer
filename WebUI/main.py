@@ -46,7 +46,7 @@ class w3_dropdown_hover(gui.Widget):
             def __init__(self, **kwargs):
                 super(w3_dropdown_button, self).__init__(**kwargs)
 
-                self.add_class('bounceIn waves-effect waves-teal')
+                self.add_class('bounceIn')
                 self.set_style(menuUI.MenuCSS)
 
         self.append(w3_dropdown_button(text=text))
@@ -58,11 +58,13 @@ class w3_dropdown_hover(gui.Widget):
                 self.add_class('w3-dropdown-content w3-bar-block w3-card-4')
                 self.style['color'] = '#969393'
                 self.style['background-color'] = '#302d2d'
+                self.style['margin'] = gui.to_pix(0)
 
                 class item(gui.Label):
                     def __init__(self, **kwargs):
                         super(item, self).__init__(**kwargs)
-                        self.add_class('w3-bar-item w3-button')
+                        self.add_class('w3-bar-item w3-button w3-animate-top')
+                        self.style['font-size'] = 'small'
                         self.onclick.do(event)
 
                 for key in items:
@@ -81,7 +83,7 @@ class CircuitizerUI(App):
         for css in glob.glob('res/*.css'):
             lazy_load_css(self, "my_resources:" + os.path.basename(css))
         lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
-    
+
     def status_logic(self):
         self.status.set_text('Ready')
 
@@ -158,8 +160,70 @@ class CircuitizerUI(App):
         top.style['background-color'] = '#302d2d'
         top.add_class('w3-bar')
 
-        for i in ['File', 'Edit', 'View', 'Go', 'Tools', 'Help']:
-            top.append(w3_dropdown_hover(text=i, stuffs={'test': print, 'test2': print}))
+        MENUS = {
+            'File': {
+                'New Project': print,
+                'New Schematic': print,
+                'New Component Definition': print,
+                'New Simulation Card': print,
+                'New Python Script': print,
+                'New C++ Class': print,
+                '': print,
+                'Open Project': print,
+                'Open File': print,
+
+                'Save': print,
+                'Save As': print,
+                'Save All': print,
+
+                'Install Extensions': print,
+
+                'Update Extensions': print,
+                'Update Circuitizer': print,
+
+                'Close Window': print,
+                'Restart UI Service': print,
+            },
+            'Edit': {
+                'Undo': print,
+                'Redo': print,
+                '': print,
+                'Cut': print,
+                'Copy': print,
+                'Paste': print,
+                '.': print,
+                'Find': print,
+                'Replace': print,
+            },
+            'View': {
+                'Command Panel': print,
+                'Appearance': print,
+                '': print,
+                'Output': print,
+                'Log Fish': print,
+                'Editor Layout': print,
+                'File Explorer': print,
+                'Extension Manager': print,
+                '.': print,
+                'Toggle Side Panel': print,
+                'Toggle Tool Bar': print,
+                'Toggle Action Bar': print,
+                'Toggle Status Bar': print,
+            },
+            'Help': {
+                'Welcome Notes': print,
+                'Tutorials': print,
+                '': print,
+                'Documentation': print,
+                'Keyboard Shortcuts': print,
+                'What\'s new': print,
+                'Donate': print,
+                'About': print,
+            },
+
+        }
+        for menu in MENUS:
+            top.append(w3_dropdown_hover(text=menu, stuffs=MENUS[menu]))
 
         container.append(top)
 
