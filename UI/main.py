@@ -309,5 +309,5 @@ def do():
 
 # remi==2019.9 nuitka
 # starts the web server
-if __name__ == "__main__":
-    do()
+# if __name__ == "__main__":
+do()
