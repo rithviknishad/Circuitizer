@@ -32,6 +32,7 @@ def lazy_load_js(self_pointer, url):
     """)
 
 items = {}
+event = print
 
 class w3_dropdown_hover(gui.Widget):
     def __init__(self, text=str(), stuffs=dict(), **kwargs):
@@ -62,9 +63,11 @@ class w3_dropdown_hover(gui.Widget):
                     def __init__(self, **kwargs):
                         super(item, self).__init__(**kwargs)
                         self.add_class('w3-bar-item w3-button')
-                        self.onclick.do(lambda x: print(x))
+                        self.onclick.do(event)
 
                 for key in items:
+                    global event
+                    event = items[key]
                     self.append(item(text=key))
 
         self.append(w3_dropdown_content())
@@ -156,7 +159,7 @@ class CircuitizerUI(App):
         top.add_class('w3-bar')
 
         for i in ['File', 'Edit', 'View', 'Go', 'Tools', 'Help']:
-            top.append(w3_dropdown_hover(text=i, stuffs={'test': 0, 'test2': 0}))
+            top.append(w3_dropdown_hover(text=i, stuffs={'test': print, 'test2': print}))
 
         container.append(top)
 
