@@ -2,8 +2,15 @@
 
 #include "Circuitizer/Math/Math.h"
 
-typedef class Current : public math::Numeric
+namespace Circuitizer
 {
-public:
+	using namespace math;
 
-} current;
+	typedef class Current : public Numeric
+	{
+	public:
+        Current(std::pair<double, double> value) : Numeric(value) {}
+        Current(double real = 0.0, double imaginary = 0.0) : Numeric(real, imaginary) {}
+        Current(Complex& c) : Numeric(c) {}
+	};
+}

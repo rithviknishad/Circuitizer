@@ -12,7 +12,8 @@ namespace math
 		Complex(Complex& c) : m_real(c.m_real), m_imaginary(c.m_imaginary) {}
 
 	public:
-		inline void Set(double real, double imaginary);
+		void Set(double real, double imaginary);
+		void Set(Complex& c);
 		std::pair<double, double> Get() const;
 
 		virtual std::string ToString() const;
@@ -20,17 +21,14 @@ namespace math
 	public:
 		friend double real(Complex& c);
 		friend double imaginary(Complex& c);
+		friend angle phase(Complex& c);
+		friend double magnitude(Complex& c);
 		friend Complex conjugate(Complex& c);
 
 	protected:
 		double m_real, m_imaginary;
 
 	} complex;
-
-	Complex add(Complex a, Complex b);
-	Complex subtract(Complex a, Complex b);
-	Complex multiply(Complex a, Complex b);
-	Complex divide(Complex a, Complex b);
 
 	double real(Complex& c);
 	double imaginary(Complex& c);
