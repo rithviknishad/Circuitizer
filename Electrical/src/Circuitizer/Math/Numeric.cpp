@@ -11,26 +11,10 @@ namespace math
 	Numeric Numeric::operator+() { return Numeric(*this); }
 	Numeric Numeric::operator-() { return Numeric(-m_real, -m_imaginary); }
 
-	// TODO
-	Numeric Numeric::operator++()
-	{
-		return Numeric();
-	}
-	// TODO
-	Numeric Numeric::operator++(int)
-	{
-		return Numeric();
-	}
-	// TODO
-	Numeric Numeric::operator--()
-	{
-		return Numeric();
-	}
-	// TODO
-	Numeric Numeric::operator--(int)
-	{
-		return Numeric();
-	}
+	Numeric Numeric::operator++()		{ return Numeric(++m_real, ++m_imaginary); }
+	Numeric Numeric::operator++(int)	{ return Numeric(m_real++, m_imaginary++); }
+	Numeric Numeric::operator--()		{ return Numeric(--m_real, --m_imaginary); }
+	Numeric Numeric::operator--(int)	{ return Numeric(m_real--, m_imaginary--); }
 	// TODO
 	Numeric Numeric::operator%(Numeric& n)
 	{

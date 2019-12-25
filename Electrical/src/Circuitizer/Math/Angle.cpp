@@ -22,40 +22,14 @@ namespace math
 	
 	Angle Angle::operator+() { return Angle(m_value); }
 	Angle Angle::operator-() { return Angle(m_value + pi); }
-	// TODO
-	Angle Angle::operator++()
-	{
-		return Angle();
-	}
-	// TODO
-	Angle Angle::operator++(int)
-	{
-		return Angle();
-	}
-	// TODO
-	Angle Angle::operator--()
-	{
-		return Angle();
-	}
-	// TODO
-	Angle Angle::operator--(int)
-	{
-		return Angle();
-	}
-	// TODO
-	Angle Angle::operator%	(Angle& a)
-	{
-		m_value = __absangle(m_value);
 
-		
+	Angle Angle::operator++()		{ return Angle(++m_value); }
+	Angle Angle::operator++(int)	{ return Angle(m_value++); }
+	Angle Angle::operator--()		{ return Angle(--m_value); }
+	Angle Angle::operator--(int)	{ return Angle(m_value--); }
 
-		return Angle();
-	}
-	// TODO
-	Angle& Angle::operator%=(Angle& a)
-	{
-		// TODO: insert return statement here
-	}
+	Angle Angle::operator%	(Angle& a) { return Angle(double(*this) - (int(double(*this) / double(a)) * double(a))); }
+	Angle& Angle::operator%=(Angle& a) { m_value = double(*this) - (int(double(*this) / double(a)) * double(a)); return *this; }
 	Angle Angle::operator+	(Angle& a) { return Angle(m_value + a.m_value); }
 	Angle& Angle::operator+=(Angle& a) { m_value += a.m_value; return *this; }
 	Angle Angle::operator-	(Angle& a) { return Angle(m_value - a.m_value); }
@@ -69,16 +43,9 @@ namespace math
 	bool Angle::operator> (Angle& a) { return float(*this) > float(a); }
 	bool Angle::operator>=(Angle& a) { return float(*this) >= float(a); }
 	bool Angle::operator==(Angle& a) { return float(*this) == float(a); }
-	// TODO
-	Angle Angle::operator%	(const double)
-	{
-		return Angle();
-	}
-	// TODO
-	Angle& Angle::operator%=(const double)
-	{
-		// TODO: insert return statement here
-	}
+	
+	Angle Angle::operator%	(const double a) { return Angle(double(*this) - (int(double(*this) / __absangle(double(a))) * __absangle(double(a)))); }
+	Angle& Angle::operator%=(const double a) { m_value = double(*this) - (int(double(*this) / __absangle(double(a))) * __absangle(double(a))); return *this; }
 	Angle Angle::operator*	(const double a) { return Angle(m_value * a); }
 	Angle& Angle::operator*=(const double a) { m_value *= a; return *this; }
 	Angle Angle::operator+	(const double a) { return Angle(m_value + a); }
