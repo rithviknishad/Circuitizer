@@ -289,6 +289,7 @@ class CircuitizerUI(App):
 
 def do():
     start(CircuitizerUI, standalone=True, width=1000, height=600)
+    # start(CircuitizerUI, address='0.0.0.0', port=0)
     # start(CircuitizerUI)
 
 # remi==2019.9 nuitka
