@@ -13,9 +13,9 @@ import threading
 import remi.gui as gui
 from remi import start, App
 
-import UI.menuUI
-import UI.statusUI
-import UI.toolUI
+import UI.menuUI as menuUI
+import UI.statusUI as statusUI
+import UI.toolUI as toolUI
 
 
 def lazy_populate_project_files(self_pointer):
