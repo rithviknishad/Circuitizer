@@ -10,11 +10,16 @@ namespace math
 	public:
 
 		Numeric(double real = 0.0, double imaginary = 0.0) : Complex(real, imaginary) {}
+		Numeric(std::pair<double, double> value) : Complex(value.first, value.second) {}
 		Numeric(Complex& c) : Complex(c) {}
 
 		// ==========  Operator Overloads  ==========
 
+		virtual Numeric& operator=(double);
 		virtual operator bool();
+		virtual operator int();
+		virtual operator float();
+		virtual operator double();
 		virtual bool		operator!	();
 		virtual Numeric		operator~	();
 		virtual Numeric		operator+	();
@@ -43,10 +48,4 @@ namespace math
 		virtual bool		operator==	(Numeric&);
 
 	} numeric;
-
-	void e()
-	{
-		numeric a;
-		double b = real(a);
-	}
 }
