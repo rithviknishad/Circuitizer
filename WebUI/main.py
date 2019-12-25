@@ -31,6 +31,44 @@ def lazy_load_js(self_pointer, url):
         document.getElementsByTagName('HEAD')[0].appendChild(js)
     """)
 
+items = {}
+
+class w3_dropdown_hover(gui.Widget):
+    def __init__(self, text=str(), stuffs=dict(), **kwargs):
+        super(w3_dropdown_hover, self).__init__(text=str(), stuffs=dict(), **kwargs)
+        global items
+        items = stuffs
+        self.style['background-color'] = '#302d2d'
+        self.add_class('w3-dropdown-hover')
+
+        class w3_dropdown_button(gui.Label):
+            def __init__(self, **kwargs):
+                super(w3_dropdown_button, self).__init__(**kwargs)
+
+                self.add_class('bounceIn waves-effect waves-teal')
+                self.set_style(menuUI.MenuCSS)
+
+        self.append(w3_dropdown_button(text=text))
+
+        class w3_dropdown_content(gui.Widget):
+            def __init__(self, **kwargs):
+                super(w3_dropdown_content, self).__init__(**kwargs)
+
+                self.add_class('w3-dropdown-content w3-bar-block w3-card-4')
+                self.style['color'] = '#969393'
+                self.style['background-color'] = '#302d2d'
+
+                class item(gui.Label):
+                    def __init__(self, **kwargs):
+                        super(item, self).__init__(**kwargs)
+                        self.add_class('w3-bar-item w3-button')
+                        self.onclick.do(lambda x: print(x))
+
+                for key in items:
+                    self.append(item(text=key))
+
+        self.append(w3_dropdown_content())
+
 
 class CircuitizerUI(App):
     def __init__(self, *args):
@@ -118,40 +156,7 @@ class CircuitizerUI(App):
         top.add_class('w3-bar')
 
         for i in ['File', 'Edit', 'View', 'Go', 'Tools', 'Help']:
-            class w3_dropdown_hover(gui.Widget):
-                def __init__(self, **kwargs):
-                    super(w3_dropdown_hover, self).__init__(**kwargs)
-
-                    self.style['background-color'] = '#302d2d'
-                    self.add_class('w3-dropdown-hover')
-
-                    class w3_dropdown_button(gui.Label):
-                        def __init__(self, **kwargs):
-                            super(w3_dropdown_button, self).__init__(**kwargs)
-
-                            self.add_class('bounceIn waves-effect waves-teal')
-                            self.set_style(menuUI.MenuCSS)
-
-                    self.append(w3_dropdown_button(text=i))
-
-                    class w3_dropdown_content(gui.Widget):
-                        def __init__(self, **kwargs):
-                            super(w3_dropdown_content, self).__init__(**kwargs)
-
-                            self.add_class('w3-dropdown-content w3-bar-block w3-card-4')
-                            self.style['color'] = '#969393'
-                            self.style['background-color'] = '#302d2d'
-
-                            class items(gui.Label):
-                                def __init__(self, **kwargs):
-                                    super(items, self).__init__(**kwargs)
-                                    self.add_class('w3-bar-item w3-button')
-                            
-                            self.append(items(text='test'))
-
-                    self.append(w3_dropdown_content())
-                            
-            top.append(w3_dropdown_hover())
+            top.append(w3_dropdown_hover(text=i, stuffs={'test': 0, 'test2': 0}))
 
         container.append(top)
 
