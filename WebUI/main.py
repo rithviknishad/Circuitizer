@@ -112,22 +112,67 @@ class CircuitizerUI(App):
         self.menu_layer.style['background-color'] = '#302d2d'
         container.append(self.menu_layer)
 
+        top = gui.Widget()
+        top.style['display'] = 'table-cell'
+        top.style['background-color'] = '#302d2d'
+        top.add_class('w3-bar')
+
         for i in ['File', 'Edit', 'View', 'Go', 'Tools', 'Help']:
-            x = menuUI.MenuUI(text=i, url='')
-            container.append(x)
-            x.add_class('bounceIn waves-effect waves-teal')
+            class w3_dropdown_hover(gui.Widget):
+                def __init__(self, **kwargs):
+                    super(w3_dropdown_hover, self).__init__(**kwargs)
+
+                    self.style['background-color'] = '#302d2d'
+                    self.add_class('w3-dropdown-hover')
+
+                    class w3_dropdown_button(gui.Label):
+                        def __init__(self, **kwargs):
+                            super(w3_dropdown_button, self).__init__(**kwargs)
+
+                            self.add_class('bounceIn waves-effect waves-teal')
+                            self.set_style(menuUI.MenuCSS)
+
+                    self.append(w3_dropdown_button(text=i))
+
+                    class w3_dropdown_content(gui.Widget):
+                        def __init__(self, **kwargs):
+                            super(w3_dropdown_content, self).__init__(**kwargs)
+
+                            self.add_class('w3-dropdown-content w3-bar-block w3-card-4')
+                            self.style['color'] = '#969393'
+                            self.style['background-color'] = '#302d2d'
+
+                            class items(gui.Label):
+                                def __init__(self, **kwargs):
+                                    super(items, self).__init__(**kwargs)
+                                    self.add_class('w3-bar-item w3-button')
+                            
+                            self.append(items(text='test'))
+
+                    self.append(w3_dropdown_content())
+                            
+            top.append(w3_dropdown_hover())
+
+        container.append(top)
+
+        class toolbar(gui.Label):
+            def __init__(self, **kwargs):
+                super(toolbar, self).__init__(**kwargs)
+
+                self.style['width'] = '100%'
+                self.style['top'] = str(15)
+                self.style['height'] = gui.to_pix(30)
+                self.style['position'] = 'fixed'
+                self.style['background-color'] = '#333333'
+
+                class place_holder_text(toolUI.ToolUI):
+                    def __init__(self, **kwargs):
+                        super(place_holder_text, self).__init__(**kwargs)
+                        pass
+                
+                self.append(place_holder_text(text='Toolbar'))
         
-        self.toolbar = gui.Label(text="..")
-        self.toolbar.style['width'] = '100%'
-        self.toolbar.style['top'] = str(15)
-        self.toolbar.style['height'] = gui.to_pix(30)
-        self.toolbar.style['position'] = 'fixed'
-        self.toolbar.style['background-color'] = '#333333'
-
-        container.append(self.toolbar)
-
-        self.tool = toolUI.ToolUI(text="Toolbar")
-        self.toolbar.append(self.tool)
+        container.append(toolbar(text='..'))
 
         self.panel = gui.Widget()
         self.panel.style['position'] = 'fixed'
@@ -171,8 +216,8 @@ class CircuitizerUI(App):
         return container
 
 def do():
-    # start(CircuitizerUI, standalone=True, width=1000, height=600)
-    start(CircuitizerUI)
+    start(CircuitizerUI, standalone=True, width=1000, height=600)
+    # start(CircuitizerUI)
 
 # remi==2019.9 nuitka
 # starts the web server

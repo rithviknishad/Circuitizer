@@ -20,3 +20,78 @@ document.getElementById('""" + file + """').appendChild(i)
         self.project_label.style['padding'] = '10px 10px'
         self.project_label.style['bottom'] = '0'
         self.panel.append(self.project_label)
+
+            'height' : gui.to_pix(6),
+
+
+
+
+            class w3_dropdown_hover(gui.Widget):
+                def __init__(self, **kwargs):
+                    super(w3_dropdown_hover, self).__init__(**kwargs)
+                    self.style['background-color'] = '#302d2d'
+                    self.add_class('w3-dropdown-hover')
+
+                    class w3_dropdown_button(gui.Label):
+                        def __init__(self, **kwargs):
+                            super(w3_dropdown_button, self).__init__(**kwargs)
+                            self.text = i
+                            self.add_class('bounceIn waves-effect waves-teal')
+                            self.set_style(menuUI.MenuCSS)
+
+                    self.append(w3_dropdown_button(text=i))
+
+                    class w3_dropdown_content(gui.Widget):
+                        def __init__(self, **kwargs):
+                            super(w3_dropdown_content, self).__init__(**kwargs)
+                            self.add_class('w3-dropdown-content w3-bar-block w3-card-4')
+                            self.style['color'] = '#969393'
+                            self.style['background-color'] = '#302d2d'
+
+                            class test(gui.Label):
+                                def __init__(self, **kwargs):
+                                    super(w3_dropdown_content, self).__init__(**kwargs)
+                                    self.add_class('w3-bar-item w3-button')
+                            
+                            self.append(test(text='test'))
+
+                    self.append(w3_dropdown_content())
+                            
+            top.append(w3_dropdown_hover())
+
+
+
+            inside = gui.Widget()
+            inside.add_class('w3-dropdown-content w3-bar-block w3-card-4')
+            inside.style['background-color'] = '#302d2d'
+            inside.style['color'] = '#969393'
+
+            test = gui.Label(text='test', url='#')
+            test.add_class('w3-bar-item w3-button')
+            inside.append(test)
+            
+            test = gui.Label(text='test', url='#')
+            test.add_class('w3-bar-item w3-button')
+            inside.append(test)
+            
+            test = gui.Label(text='test', url='#')
+            test.add_class('w3-bar-item w3-button')
+            inside.append(test)
+
+            x.append(inside)
+            top.append(x)
+
+
+                    """
+        self.toolbar = gui.Label(text="..")
+        self.toolbar.style['width'] = '100%'
+        self.toolbar.style['top'] = str(15)
+        self.toolbar.style['height'] = gui.to_pix(30)
+        self.toolbar.style['position'] = 'fixed'
+        self.toolbar.style['background-color'] = '#333333'
+
+        container.append(self.toolbar)
+
+        self.tool = toolUI.ToolUI(text="Toolbar")
+        self.toolbar.append(self.tool)
+        """

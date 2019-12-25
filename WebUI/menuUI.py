@@ -1,17 +1,15 @@
 import remi.gui as gui
 
 MenuCSS = {
-    'display' : 'table-cell',
     'text-align' : 'center',
     'background-color' : '#302d2d',
-    'padding' : '0px 9px',
+    'padding' : '0px 8px',
     'text-decoration' : 'none',
     'top' : str(0),
     'color': '#969393',
-    'height' : gui.to_pix(10),
     'position' : 'relative',
     'font-size' : gui.to_pix(13),
-    'font-family': gui.to_uri('my_resources:fa-regular-400.wooff')
+    # 'font-family': gui.to_uri('my_resources:fa-regular-400.wooff')
 }
 
 class MenuUI(gui.Label):
