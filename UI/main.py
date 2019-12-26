@@ -127,6 +127,12 @@ class CircuitizerUI(App):
         
         # """
         # """
+        lazy_load_http_equiv(self)
+        lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
+        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
+        lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
+        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
+        lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
 
     def status_logic(self):
         self.status.set_text('Ready')
@@ -327,13 +333,6 @@ class CircuitizerUI(App):
         threading.Thread(target=self.panel_logic, args=()).start()
         threading.Thread(target=self.status_logic(), args=()).start()
         threading.Thread(target=lazy_populate_project_files, args=(self, )).start()
-
-        lazy_load_http_equiv(self)
-        lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
-        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
-        lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
-        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
-        lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
 
         # returning the root widget
         return container
