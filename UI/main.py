@@ -73,7 +73,6 @@ event = print
 class w3_dropdown_hover(gui.Widget):
     def __init__(self, text=str(), stuffs=dict(), **kwargs):
         super(w3_dropdown_hover, self).__init__(text=str(), stuffs=dict(), **kwargs)
-        lazy_load_http_equiv(self)
         global items
         items = stuffs
         self.style['background-color'] = '#302d2d'
@@ -117,6 +116,7 @@ RES_PATH = './UI/res/'
 class CircuitizerUI(App):
     def __init__(self, *args):
         super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': RES_PATH})
+        lazy_load_http_equiv(self)
         #"""
         for js in glob.glob(RES_PATH + '*.js'):
             lazy_load_js(self, "my_resources:" + os.path.basename(js))
