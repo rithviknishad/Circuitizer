@@ -311,13 +311,13 @@ class CircuitizerUI(App):
 
 def do():
     # Desktop Application
-    start(CircuitizerUI, standalone=True, width=1000, height=600)
+    # start(CircuitizerUI, standalone=True, width=1000, height=600)
 
     # Repl.it Web Application
     # start(CircuitizerUI, address='0.0.0.0', port=0)
 
     # Heroku Application
-    # start(CircuitizerUI, address='0.0.0.0', port=int(os.environ['PORT']), start_browser=False)
+    start(CircuitizerUI, address='0.0.0.0', port=int(os.environ['PORT']), start_browser=False)
     
     # Browser Launch
     # start(CircuitizerUI)
