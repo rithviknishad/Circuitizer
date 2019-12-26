@@ -85,22 +85,26 @@ class w3_dropdown_hover(gui.Widget):
 
         self.append(w3_dropdown_content())
 
+RES_PATH = './UI/res/'
+
 
 class CircuitizerUI(App):
     def __init__(self, *args):
-        super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': './UI/res/'})
-        """
-        for js in glob.glob('res/*.js'):
+        super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': RES_PATH})
+        #"""
+        for js in glob.glob(RES_PATH + '*.js'):
             lazy_load_js(self, "my_resources:" + os.path.basename(js))
-        for css in glob.glob('res/*.css'):
+        for css in glob.glob(RES_PATH + '*.css'):
             lazy_load_css(self, "my_resources:" + os.path.basename(css))
-        """
+        #"""
         # Uncomment below and comment above for online version
         lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
+        """
         lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
         lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
         lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
         lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
+        """
 
     def status_logic(self):
         self.status.set_text('Ready')
@@ -307,18 +311,18 @@ class CircuitizerUI(App):
 
 def do():
     # Desktop Application
-    # start(CircuitizerUI, standalone=True, width=1000, height=600)
+    start(CircuitizerUI, standalone=True, width=1000, height=600)
 
     # Repl.it Web Application
     # start(CircuitizerUI, address='0.0.0.0', port=0)
 
     # Heroku Application
-    start(CircuitizerUI, address='0.0.0.0', port=int(os.environ['PORT']), start_browser=False)
+    # start(CircuitizerUI, address='0.0.0.0', port=int(os.environ['PORT']), start_browser=False)
     
     # Browser Launch
     # start(CircuitizerUI)
 
 # remi==2019.9 nuitka
 # starts the web server
-# if __name__ == "__main__":
-do()
+if __name__ == "__main__":
+    do()
