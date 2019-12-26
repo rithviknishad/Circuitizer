@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 # Circuitizer UI
 
-# https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css
-# https://www.w3schools.com/w3css/4/w3.css
-# https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css
-# https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js
 
 import sys
 sys.dont_write_bytecode = True
@@ -25,6 +21,10 @@ def lazy_populate_project_files(self_pointer):
     pass
 
 
+# https://www.w3schools.com/w3css/4/w3.css
+# https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css
+# https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css
+
 def lazy_load_css(self_pointer, url):
     self_pointer.execute_javascript("""
         var link = document.createElement('link')
@@ -33,6 +33,31 @@ def lazy_load_css(self_pointer, url):
         document.getElementsByTagName('HEAD')[0].appendChild(link)
     """)
 
+
+# <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+# <meta http-equiv="Pragma" content="no-cache" />
+# <meta http-equiv="Expires" content="0" />
+
+def lazy_load_http_equiv(self_pointer):
+    self_pointer.execute_javascript("""
+        var meta = document.createElement('meta')
+        meta.http-equiv = 'Cache-Control'
+        meta.content = 'no-cache, no-store, must-revalidate'
+        document.getElementsByTagName('HEAD')[0].appendChild(meta)
+
+        var meta2 = document.createElement('meta')
+        meta2.http-equiv = 'Pragma'
+        meta2.content = 'no-cache'
+        document.getElementsByTagName('HEAD')[0].appendChild(meta2)
+
+        var meta3 = document.createElement('meta')
+        meta3.http-equiv = 'Expires'
+        meta3.content = '0'
+        document.getElementsByTagName('HEAD')[0].appendChild(meta3)
+    """)
+
+
+# https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js
 
 def lazy_load_js(self_pointer, url):
     self_pointer.execute_javascript("""
@@ -48,6 +73,7 @@ event = print
 class w3_dropdown_hover(gui.Widget):
     def __init__(self, text=str(), stuffs=dict(), **kwargs):
         super(w3_dropdown_hover, self).__init__(text=str(), stuffs=dict(), **kwargs)
+        lazy_load_http_equiv(self)
         global items
         items = stuffs
         self.style['background-color'] = '#302d2d'
