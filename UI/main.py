@@ -116,7 +116,7 @@ RES_PATH = './UI/res/'
 class CircuitizerUI(App):
     def __init__(self, *args):
         super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': RES_PATH})
-        lazy_load_http_equiv(self)
+        
         #"""
         # for js in glob.glob(RES_PATH + '*.js'):
         #     lazy_load_js(self, "my_resources:" + os.path.basename(js))
@@ -124,12 +124,8 @@ class CircuitizerUI(App):
         #     lazy_load_css(self, "my_resources:" + os.path.basename(css))
         #"""
         # Uncomment below and comment above for online version
-        lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
+        
         # """
-        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
-        lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
-        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
-        lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
         # """
 
     def status_logic(self):
@@ -331,6 +327,13 @@ class CircuitizerUI(App):
         threading.Thread(target=self.panel_logic, args=()).start()
         threading.Thread(target=self.status_logic(), args=()).start()
         threading.Thread(target=lazy_populate_project_files, args=(self, )).start()
+
+        lazy_load_http_equiv(self)
+        lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
+        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
+        lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
+        lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
+        lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
 
         # returning the root widget
         return container
