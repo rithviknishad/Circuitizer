@@ -16,36 +16,36 @@ namespace math
 		// ==========  Operator Overloads  ==========
 
 		virtual Numeric& operator=(double);
-		virtual operator bool();
-		virtual operator int();
-		virtual operator float();
-		virtual operator double();
-		virtual bool		operator!	();
-		virtual Numeric		operator~	();
-		virtual Numeric		operator+	();
-		virtual Numeric		operator-	();
+		virtual operator bool() const;
+		virtual operator int() const;
+		virtual operator float() const;
+		virtual operator double() const;
+		virtual bool		operator!	() const;
+		virtual Numeric		operator~	() const;
+		virtual Numeric		operator+	() const;
+		virtual Numeric		operator-	() const;
 		virtual Numeric		operator++	();
 		virtual Numeric		operator++	(int);
 		virtual Numeric		operator--	();
 		virtual Numeric		operator--	(int);
-		virtual Numeric		operator%	(Numeric&);
+		virtual Numeric		operator%	(Numeric&) const;
 		virtual Numeric&	operator%=	(Numeric&);
-		virtual Numeric		operator*	(Numeric&);
+		virtual Numeric		operator*	(Numeric&) const;
 		virtual Numeric&	operator*=	(Numeric&);
-		virtual Numeric		operator+	(Numeric&);
+		virtual Numeric		operator+	(Numeric&) const;
 		virtual Numeric&	operator+=	(Numeric&);
-		virtual Numeric		operator-	(Numeric&);
+		virtual Numeric		operator-	(Numeric&) const;
 		virtual Numeric&	operator-=	(Numeric&);
-		virtual Numeric		operator/	(Numeric&);
+		virtual Numeric		operator/	(Numeric&) const;
 		virtual Numeric&	operator/=	(Numeric&);
-		virtual bool		operator!=	(Numeric&);
-		virtual bool		operator&&	(Numeric&);
-		virtual bool		operator||	(Numeric&);
-		virtual bool		operator<	(Numeric&);
-		virtual bool		operator<=	(Numeric&);
-		virtual bool		operator>	(Numeric&);
-		virtual bool		operator>=	(Numeric&);
-		virtual bool		operator==	(Numeric&);
+		virtual bool		operator!=	(Numeric&) const;
+		virtual bool		operator&&	(Numeric&) const;
+		virtual bool		operator||	(Numeric&) const;
+		virtual bool		operator<	(Numeric&) const;
+		virtual bool		operator<=	(Numeric&) const;
+		virtual bool		operator>	(Numeric&) const;
+		virtual bool		operator>=	(Numeric&) const;
+		virtual bool		operator==	(Numeric&) const;
 
 	} numeric;
 }

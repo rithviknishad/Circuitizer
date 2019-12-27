@@ -20,21 +20,21 @@ namespace math
 	
 	bool Angle::operator!() { return !bool(*this); }
 	
-	Angle Angle::operator+() { return Angle(m_value); }
-	Angle Angle::operator-() { return Angle(m_value + pi); }
+	Angle Angle::operator+() const { return Angle(m_value); }
+	Angle Angle::operator-() const { return Angle(m_value + pi); }
 
-	Angle Angle::operator++()		{ return Angle(++m_value); }
-	Angle Angle::operator++(int)	{ return Angle(m_value++); }
-	Angle Angle::operator--()		{ return Angle(--m_value); }
-	Angle Angle::operator--(int)	{ return Angle(m_value--); }
+	Angle Angle::operator++() { return Angle(++m_value); }
+	Angle Angle::operator++(int) { return Angle(m_value++); }
+	Angle Angle::operator--() { return Angle(--m_value); }
+	Angle Angle::operator--(int) { return Angle(m_value--); }
 
 	Angle Angle::operator%	(Angle& a) { return Angle(double(*this) - (int(double(*this) / double(a)) * double(a))); }
 	Angle& Angle::operator%=(Angle& a) { m_value = double(*this) - (int(double(*this) / double(a)) * double(a)); return *this; }
-	Angle Angle::operator+	(Angle& a) { return Angle(m_value + a.m_value); }
+	Angle Angle::operator+	(Angle& a) const { return Angle(m_value + a.m_value); }
 	Angle& Angle::operator+=(Angle& a) { m_value += a.m_value; return *this; }
-	Angle Angle::operator-	(Angle& a) { return Angle(m_value - a.m_value); }
+	Angle Angle::operator-	(Angle& a) const { return Angle(m_value - a.m_value); }
 	Angle& Angle::operator-=(Angle& a) { m_value -= a.m_value; return *this; }
-	
+
 	bool Angle::operator!=(Angle& a) { return float(*this) != float(a); }
 	bool Angle::operator&&(Angle& a) { return bool(*this) && bool(a); }
 	bool Angle::operator||(Angle& a) { return bool(*this) || bool(a); }
@@ -43,16 +43,16 @@ namespace math
 	bool Angle::operator> (Angle& a) { return float(*this) > float(a); }
 	bool Angle::operator>=(Angle& a) { return float(*this) >= float(a); }
 	bool Angle::operator==(Angle& a) { return float(*this) == float(a); }
-	
+
 	Angle Angle::operator%	(const double a) { return Angle(double(*this) - (int(double(*this) / __absangle(double(a))) * __absangle(double(a)))); }
 	Angle& Angle::operator%=(const double a) { m_value = double(*this) - (int(double(*this) / __absangle(double(a))) * __absangle(double(a))); return *this; }
-	Angle Angle::operator*	(const double a) { return Angle(m_value * a); }
+	Angle Angle::operator*	(const double a) const { return Angle(m_value * a); }
 	Angle& Angle::operator*=(const double a) { m_value *= a; return *this; }
-	Angle Angle::operator+	(const double a) { return Angle(m_value + a); }
+	Angle Angle::operator+	(const double a) const { return Angle(m_value + a); }
 	Angle& Angle::operator+=(const double a) { m_value += a; return *this; }
-	Angle Angle::operator-	(const double a) { return Angle(m_value - a); }
+	Angle Angle::operator-	(const double a) const { return Angle(m_value - a); }
 	Angle& Angle::operator-=(const double a) { m_value -= a; return *this; }
-	Angle Angle::operator/	(const double a)
+	Angle Angle::operator/	(const double a) const
 	{
 		if (a != 0.0)
 			return Angle(m_value / a);
@@ -68,11 +68,17 @@ namespace math
 			throw "Div by 0";
 		return *this;
 	}
-	
+
 	bool Angle::operator!=	(const double a) { return float(*this) != float(a); }
 	bool Angle::operator<	(const double a) { return float(*this) < float(a); }
 	bool Angle::operator<=	(const double a) { return float(*this) <= float(a); }
 	bool Angle::operator>	(const double a) { return float(*this) > float(a); }
 	bool Angle::operator>=	(const double a) { return float(*this) >= float(a); }
 	bool Angle::operator==	(const double a) { return float(*this) == float(a); }
+	std::string Angle::ToString() const
+	{ 
+		std::stringstream ss;
+		ss << PHI << " = " << float(m_value / pi) << PI << " rad";
+		return ss.str();
+	}
 }

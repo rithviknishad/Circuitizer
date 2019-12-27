@@ -43,7 +43,7 @@ namespace Electrical
 	/*
 	Voltage source
 	*/
-	class CIRCUITIZER_API VoltageSource : public Component
+	class VoltageSource : public Component
 	{
 	public:
 		

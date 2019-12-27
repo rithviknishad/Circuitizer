@@ -1,23 +1,16 @@
 #pragma once
 
-#include "crpch.h"
-#include "Circuitizer/Core.h"
-
+//#include "crpch.h"
+#include "Circuitizer/Generic/Generics.h"
 #include "Circuitizer/Terminal.h"
 
 namespace Electrical
 {
-	class CIRCUITIZER_API Component
+	class Component : public Name, public Position
 	{
 	public:
-		Component(std::string name = "") : m_Name(name) {}
+		Component(std::string name = "") : Name(name), Position(0, 0) {}
 		virtual ~Component() = 0;
-
-		/* Returns the name of the Component as a string */
-		std::string GetName() { return m_Name; }
-
-		/* Sets the name of the Component. */
-		virtual void SetName(std::string name) { m_Name = name; }
 
 		/*
 		Associates specified amount of terminals to the component.
@@ -45,8 +38,5 @@ namespace Electrical
 
 	protected:
 		std::vector<Terminal*> m_Terminals;
-
-	private:
-		std::string m_Name;
 	};
 }

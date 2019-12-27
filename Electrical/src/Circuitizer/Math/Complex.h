@@ -19,22 +19,22 @@ namespace math
 		virtual std::string ToString() const;
 
 	public:
-		friend double real(Complex& c);
-		friend double imaginary(Complex& c);
-		friend angle phase(Complex& c);
-		friend double magnitude(Complex& c);
-		friend Complex conjugate(Complex& c);
+		friend double real(const Complex& c);
+		friend double imaginary(const Complex& c);
+		friend angle phase(const Complex& c);
+		friend double magnitude(const Complex& c);
+		friend Complex conjugate(const Complex& c);
 
 	protected:
 		double m_real, m_imaginary;
 
 	} complex;
 
-	double real(Complex& c);
-	double imaginary(Complex& c);
-	angle phase(Complex& c);
-	double magnitude(Complex& c);
-	Complex conjugate(Complex& c);
+	double real(const Complex& c);
+	double imaginary(const Complex& c);
+	angle phase(const Complex& c);
+	double magnitude(const Complex& c);
+	Complex conjugate(const Complex& c);
 
 	inline std::ostream& operator<< (std::ostream& os, const Complex& c) { return os << c.ToString(); }
 }
