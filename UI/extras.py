@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # Steroids for REMI
+# Not python friendly !
 
 def lazy_populate_project_files(self_pointer):
     pass

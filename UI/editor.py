@@ -88,25 +88,69 @@ class CircuitizerUI(App):
         start_status_thread.start()
 
     def new_project_tab(self, event):
+        self.canvas.empty()
         f1 = gui.Widget()
-        f1.style['background-color'] = config["primary-background-color"]
+        f1.add_class('w3-container z-depth-5')
         f1.style['width'] = '100%'
-        l1 = gui.Label('Project Name ')
-        l1.style['color'] = 'black'
+        f1.style['padding'] = '10px 10px'
+        f1.style['background-color'] = config["primary-background-color"]
+        
+        foo = gui.Label('Project Name ')
+        foo.style['color'] = config["primary-foreground-color"]
+        foo.style['font-size'] = 'x-large'
+        foo.style['padding'] = '10px 10px 10px 10px'
+
         project_name = gui.TextInput(hint='Enter your project name here')
         project_name.style['background-color'] = config["primary-background-color"]
+        project_name.style['height'] = gui.to_pix(43)
+        project_name.add_class('input-field waves-light')
+        project_name.style['padding'] = gui.to_pix(10)
+
         ok_button = gui.Label(text='Create')
-        ok_button.add_class('waves-effect waves-light small-btn')
+        ok_button.add_class('w3-button')
+        ok_button.style['padding'] = gui.to_pix(10)
+
+        def project_startup_page():
+            self.canvas.empty()
+            foo = gui.Label(project_name.get_text() + '.cxproj Project')
+            foo.add_class('w3-jumbo')
+            foo.style['height'] = '60px'
+            foo.style['padding'] = '10px 10px 10px 10px'
+
+            create_schematic_button = gui.Label('Schematic')
+            foo = gui.Widget()
+            foo.add_class('material-icons')
+            foo.type = 'i'
+            create_schematic_button.append(foo)
+            create_schematic_button.add_class('w3-button')
+
+            create_component_button = gui.Label('Custom component definition')
+            create_component_button.add_class('w3-button')
+
+            create_cppscript_button = gui.Label('C++ Script')
+            create_cppscript_button.add_class('w3-button')
+
+            link_compiler_button = gui.Label('Link custom compiler suite')
+            link_compiler_button.add_class('w3-button')
+
+            for widget in [
+                    foo, create_schematic_button,
+                    create_component_button, create_cppscript_button,
+                    link_compiler_button
+                ]:
+                self.canvas.append(widget)
+
         
         def project_event(e):
             
             project_format_file_handler = open(project_name.get_text() + '.cxproj', 'w')
             project_format_file_handler.write('')
             project_format_file_handler.close()
+            project_startup_page()
 
         ok_button.onclick.do(project_event)
 
-        for widget in [l1, project_name, ok_button]:
+        for widget in [foo, project_name, ok_button]:
             f1.append(widget)
         
         for widget in [f1]:
@@ -303,12 +347,12 @@ class CircuitizerUI(App):
         container.append(self.actionbar)
 
         self.canvas = gui.Widget()
-        self.canvas.style['color'] = config["primary-foreground-color"]
-        self.canvas.style['left'] = gui.to_pix(45)
-        self.canvas.style['top'] = gui.to_pix(55)
-        self.canvas.style['right'] = gui.to_pix(int(config["panel-width"]))
-        self.canvas.style['bottom'] = gui.to_pix(28)
         self.canvas.style['position'] = 'fixed'
+        self.canvas.style['top'] = gui.to_pix(55)
+        self.canvas.style['left'] = gui.to_pix(45)
+        self.canvas.style['bottom'] = gui.to_pix(28)
+        self.canvas.style['right'] = gui.to_pix(int(config["panel-width"]))
+        self.canvas.style['color'] = config["primary-foreground-color"]
         self.canvas.style['background-color'] = config["canvas-background-color"]
         self.canvas.style['padding'] = ' '.join([gui.to_pix(10), gui.to_pix(10)])
         container.append(self.canvas)
@@ -329,11 +373,11 @@ def do():
         start(CircuitizerUI, standalone=True, width=1000, height=650)
 
     # Repl.it Web Application
-    elif config["windows-type"] == 'repl.it':
+    elif config["window-type"] == 'repl.it':
         start(CircuitizerUI, address='0.0.0.0', port=0)
 
     # Heroku Application
-    elif config["windows-type"] == 'heroku':
+    elif config["window-type"] == 'heroku':
         start(CircuitizerUI, address='0.0.0.0', port=int(os.environ['PORT']), start_browser=False)
     
     # Browser Launch
