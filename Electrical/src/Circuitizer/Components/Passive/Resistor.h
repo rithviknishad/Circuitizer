@@ -2,17 +2,15 @@
 
 #include "crpch.h"
 #include "Circuitizer/Components/Component.h"
+#include "Circuitizer/Circuit/Resistance.h"
 
-namespace Electrical
+namespace Circuitizer
 {
-	class CIRCUITIZER_API Resistor : public Component
+	class Resistor : public Component, public 
 	{
 	public:
-		Resistor(double resistance = 1.0, std::string name = "") 
-			: Component("Resistor"), m_Resistance(resistance)
-		{ 
-			AddTerminals(2);
-		}
+		Resistor(double resistance, std::string name = "Resistor", Position position = Origin) : Component(name, 2, position), m_Resistance(resistance) {}
+
 		~Resistor()
 		{
 			for (Terminal* terminal : m_Terminals)
@@ -30,11 +28,6 @@ namespace Electrical
 
 		/* Returns the current (unit: A) passing through the resistor. */
 		inline double Current() { return VoltageDrop() / m_Resistance; }
-	
-		virtual void OnUpdate(double time)
-		{
-			Component::OnUpdate(time);
-		}
 
 	protected:
 		/* Resistance (unit: Ohms) */

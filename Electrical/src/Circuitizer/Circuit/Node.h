@@ -1,18 +1,18 @@
 #pragma once
 
 #include "crpch.h"
-#include "Core.h"
 
-class Terminal;
-
-namespace Electrical
+namespace Circuitizer
 {
+
+	class Terminal;
+
 	/*
 	A node is any point on a circuit where the terminals of two or more circuit elements meet.
 	In circuit diagrams, connections are ideal wires with zero resistance, so a node may 
 	consist of the entire section of wire between elements, not just a single point.
 	*/
-	class CIRCUITIZER_API Node
+	class Node
 	{
 	public:
 		

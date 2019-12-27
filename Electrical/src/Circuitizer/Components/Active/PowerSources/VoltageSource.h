@@ -3,9 +3,10 @@
 #include "crpch.h"
 
 #include "Circuitizer/Components/Component.h"
+#include "Circuitizer/Circuit/Terminal.h"
 #include "Circuitizer/Components/Passive/Resistor.h"
 
-namespace Electrical
+namespace Circuitizer
 {
 	/*
 	==============================================================

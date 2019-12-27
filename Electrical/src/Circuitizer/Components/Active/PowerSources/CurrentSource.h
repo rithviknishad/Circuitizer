@@ -5,9 +5,9 @@
 #include "Circuitizer/Components/Passive/Resistor.h"
 #include "Circuitizer/Components/Active/PowerSources/VoltageSource.h"
 
-namespace Electrical
+namespace Circuitizer
 {
-	class CIRCUITIZER_API CurrentSource : protected VoltageSource
+	class CurrentSource : protected VoltageSource
 	{
 	public:
 		CurrentSource(double current = 0.0, std::string name = "", double internalResistance = INFINITY)

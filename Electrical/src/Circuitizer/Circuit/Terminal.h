@@ -1,27 +1,21 @@
 #pragma once
 
 #include "crpch.h"
-#include "Core.h"
 #include "Node.h"
+#include "Circuitizer/Generic/Generics.h"
 
-namespace Electrical
+namespace Circuitizer
 {
 	/*
 	A terminal is the point at which a conductor from a component, device or network comes to an end. 
 	Terminal may also refer to an electrical connector at this endpoint, acting as the reusable 
 	interface to a conductor and creating a point where external circuits can be connected.
 	*/
-	class CIRCUITIZER_API Terminal
+	class Terminal : public Name, public Position
 	{
 	public:
-		Terminal(std::string name = "") : m_Name(name) {}
+		Terminal(std::string name = "", Position position = { 0.0, 0.0 }) : Name(name), Position(position) {}
 		~Terminal() {}
-
-		/* Returns the name of the terminal as a string. */
-		inline std::string GetName() { return m_Name; }
-
-		/* Sets the name of the Terminal. */
-		inline void SetName(std::string name) { m_Name = name; }
 
 		/*
 		Connects two terminals and generates a node.
@@ -78,8 +72,7 @@ namespace Electrical
 		double Voltage = 0.0;
 		double Current = 0.0;
 
-	private:
-		std::string m_Name;
+	protected:
 		Node* m_Node = nullptr;
 	};
 }

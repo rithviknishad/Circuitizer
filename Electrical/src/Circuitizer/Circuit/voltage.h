@@ -4,7 +4,7 @@
 
 namespace Circuitizer
 {
-	using namespace math;
+	using namespace Math;
 
 	typedef class Voltage : public Numeric
 	{

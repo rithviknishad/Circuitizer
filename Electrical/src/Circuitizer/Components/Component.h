@@ -1,42 +1,33 @@
 #pragma once
 
-//#include "crpch.h"
+#include "crpch.h"
 #include "Circuitizer/Generic/Generics.h"
-#include "Circuitizer/Terminal.h"
+#include "Circuitizer/Circuit/Terminal.h"
 
 namespace Electrical
 {
+	typedef std::vector<Terminal*> Terminals;
+
 	class Component : public Name, public Position
 	{
 	public:
-		Component(std::string name = "") : Name(name), Position(0, 0) {}
+		Component(std::string name, int pinCount, Position position);
 		virtual ~Component() = 0;
 
-		/*
-		Associates specified amount of terminals to the component.
-		Naming convention: "<ComponentName>_PIN<TerminalIndex>"
-		*/
-		inline void AddTerminals(int count = 1)
-		{
-			for (int i = 0; i < count; ++i)
-				m_Terminals.push_back(new Terminal(m_Name + "_PIN" + std::to_string(m_Terminals.size())));
-		}
+		/* Associates specified amount of terminals to the component. */
+		void AddTerminals(int count = 1);
 
-		/* Assosciates the specified terminal to the component. */
-		inline void AddTerminal(Terminal* terminal) { m_Terminals.push_back(terminal); }
+		/* Binds the specified terminal to the component. */
+		void AddTerminal(Terminal* terminal);
 
-		/* Disassociates the specified terminal from component. */
-		inline void RemoveTerminal(Terminal* terminal, bool)
-		{
-			m_Terminals.erase(std::remove(m_Terminals.begin(), m_Terminals.end(), terminal), m_Terminals.end());
-		}
+		/* Unbinds the specified terminal from component. */
+		void RemoveTerminal(Terminal* terminal, bool deleteFlag = false);
 
-		/* Updates the component for time change */
-		virtual void OnUpdate(double time) = 0;
-
-		inline std::vector<Terminal*> GetTerminals() { return m_Terminals; }
+		/* Returns the terminals of the component. */
+		Terminals GetTerminals();
+		operator Terminals();
 
 	protected:
-		std::vector<Terminal*> m_Terminals;
+		Terminals m_Terminals;
 	};
 }
