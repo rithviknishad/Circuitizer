@@ -1,14 +1,10 @@
 #!/usr/bin/python3
 # Circuitizer UI
 
-import sys
-sys.dont_write_bytecode = True
-
 import os
 import glob
 import json
 import time
-import webview
 import threading
 
 import remi.gui as gui
@@ -355,6 +351,10 @@ class CircuitizerUI(App):
         self.canvas.style['color'] = config["primary-foreground-color"]
         self.canvas.style['background-color'] = config["canvas-background-color"]
         self.canvas.style['padding'] = ' '.join([gui.to_pix(10), gui.to_pix(10)])
+
+        import UI.theme as theme
+        self.canvas.append(theme.EditorButton(text='Hi', icon='edit'))
+
         container.append(self.canvas)
 
         self.status = statusUI.StatusUI(text='Please wait while background service is loading...')

@@ -13,6 +13,7 @@ config_template = {
     'panel-background-color': '#252526',
     'canvas-background-color': '#1E1E1E',
     'status-background-color': '#e3a42c',
+    'button-background-color': '#252526',
     
     'window-type': 'desktop',
     'cdn-or-local': 'local',
