@@ -28,7 +28,7 @@ class EditorButton(gui.Label):
 
 
 class EditorSelectionLink(gui.Widget):
-    def __init__(self, text, **kwargs):
+    def __init__(self, text, function=None, **kwargs):
         super(EditorSelectionLink, self).__init__(**kwargs)
         self.style['display'] = 'table-row'
         self.style['text-align'] = 'left'
@@ -55,4 +55,8 @@ class EditorSelectionLink(gui.Widget):
         if not os.path.isfile(os.path.abspath(text)):
             self.empty()
             self.append(MaterialIcon(text='folder'))
-        self.append(LinkText(text=text))
+
+        self.button = LinkText(text=text)
+        self.button.onclick.do(function)
+        self.append(self.button)
+

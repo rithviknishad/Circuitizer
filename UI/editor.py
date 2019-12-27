@@ -64,6 +64,12 @@ class w3_dropdown_hover(gui.Widget):
         self.append(w3_dropdown_content())
 
 
+def lazy_populate_project_files(self_pointer):
+    time.sleep(1)
+    self_pointer.project_list_canvas.empty()
+    for file in glob.glob('*'):
+        self_pointer.project_list_canvas.append(theme.EditorSelectionLink(text=file))
+
 class CircuitizerUI(App):
     def __init__(self, *args):
         super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': RES_PATH})
@@ -83,6 +89,7 @@ class CircuitizerUI(App):
         start_status_thread = threading.Thread(target=self.status_logic, args=())
         start_status_thread.daemon = True
         start_status_thread.start()
+        
 
     def new_project_tab(self, event):
         self.canvas.empty()
@@ -103,32 +110,19 @@ class CircuitizerUI(App):
         project_name.add_class('input-field waves-light')
         project_name.style['padding'] = gui.to_pix(10)
 
-        ok_button = gui.Label(text='Create')
-        ok_button.add_class('w3-button')
-        ok_button.style['padding'] = gui.to_pix(10)
+        ok_button = theme.EditorButton(text='Create', icon='add')
 
         def project_startup_page():
             self.canvas.empty()
             foo = gui.Label(project_name.get_text() + '.cxproj Project')
             foo.add_class('w3-jumbo')
-            foo.style['height'] = '60px'
-            foo.style['padding'] = '10px 10px 10px 10px'
+            foo.style['height'] = '200px'
+            foo.style['padding'] = '30px 30px 30px 30px'
 
-            create_schematic_button = gui.Label('Schematic')
-            foo = gui.Widget()
-            foo.add_class('material-icons')
-            foo.type = 'i'
-            create_schematic_button.append(foo)
-            create_schematic_button.add_class('w3-button')
-
-            create_component_button = gui.Label('Custom component definition')
-            create_component_button.add_class('w3-button')
-
-            create_cppscript_button = gui.Label('C++ Script')
-            create_cppscript_button.add_class('w3-button')
-
-            link_compiler_button = gui.Label('Link custom compiler suite')
-            link_compiler_button.add_class('w3-button')
+            create_schematic_button = theme.EditorButton(text='Schematic', icon='edit')
+            create_component_button = theme.EditorButton(text='Custom component definition', icon='edit')
+            create_cppscript_button = theme.EditorButton(text='C++ Script', icon='edit')
+            link_compiler_button = theme.EditorButton(text='Link custom compiler suite', icon='edit')
 
             for widget in [
                     foo, create_schematic_button,
@@ -163,6 +157,7 @@ class CircuitizerUI(App):
         self.properties_label.style['color'] = config["primary-foreground-color"]
         self.properties_label.style['display'] = 'table-row'
         self.properties_label.style['position'] = 'relative'
+        
         self.panel.append(self.properties_label)
 
         self.properties_list_canvas = gui.Widget()
@@ -192,9 +187,11 @@ class CircuitizerUI(App):
         self.project_list_canvas.style['background-color'] = config["panel-background-color"]
         self.panel.append(self.project_list_canvas)
 
-        def lazy_populate_project_files(self_pointer):
-            for file in glob.glob('*'):
-                self_pointer.project_list_canvas.append(theme.EditorSelectionLink(text=file))
+        time.sleep(0.5)
+        self.panel.style['width'] = gui.to_pix(int(config["panel-width"]))
+        self.panel.add_class('w3-animate-right')
+
+        
 
 
     def main(self):
@@ -302,13 +299,13 @@ class CircuitizerUI(App):
         self.panel = gui.Widget()
         self.panel.style['position'] = 'absolute'
         self.panel.style['top'] = gui.to_pix(54)
-        self.panel.style['width'] = gui.to_pix(int(config["panel-width"]))
+        # self.panel.style['width'] = gui.to_pix(int(config["panel-width"]))
+        self.panel.style['width'] = gui.to_pix(0)
         self.panel.style['right'] = str(0)
         self.panel.style['color'] = 'white'
         self.panel.style['height'] = '90%'
         self.panel.style['background-color'] = config["panel-background-color"]
         self.panel.style['padding'] = '10px 10px'
-
         container.append(self.panel)
 
         self.actionbar = gui.VBox()
@@ -339,8 +336,12 @@ class CircuitizerUI(App):
         self.status = statusUI.StatusUI(text='Please wait while background service is loading...')
         container.append(self.status)
 
-        threading.Thread(target=self.panel_logic, args=()).start()
-        threading.Thread(target=lazy_populate_project_files, args=(self, )).start()
+        panel_logic_thread = threading.Thread(target=self.panel_logic, args=())
+        panel_logic_thread.daemon = True
+        panel_logic_thread.start()
+        lazy_populate_project_files_thread = threading.Thread(target=lazy_populate_project_files, args=(self, ))
+        lazy_populate_project_files_thread.daemon = True
+        lazy_populate_project_files_thread.start()
 
         # returning the root widget
         return container

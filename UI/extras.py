@@ -2,10 +2,6 @@
 # Steroids for REMI
 # Not python friendly !
 
-def lazy_populate_project_files(self_pointer):
-    pass
-
-
 # https://www.w3schools.com/w3css/4/w3.css
 # https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css
 # https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css
