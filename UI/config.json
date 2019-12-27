@@ -9,8 +9,9 @@
     "canvas-background-color": "#1E1E1E",
     "status-background-color": "#e3a42c",
     "button-background-color": "#474747",
-    "window-type": "window",
+    "window-type": "browser",
     "cdn-or-local": "local",
     "font-size-dropbox-item": "small",
-    "panel-width": "300"
+    "panel-width": "300",
+    "dropbox-item-padding": "5"
 }

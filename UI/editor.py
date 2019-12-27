@@ -23,52 +23,11 @@ config = json.load(open('UI/config.json'))
 RES_PATH = './UI/res/'
 
 
-class w3_dropdown_hover(gui.Widget):
-    def __init__(self, text=str(), stuffs=dict(), **kwargs):
-        super(w3_dropdown_hover, self).__init__(text=str(), stuffs=dict(), **kwargs)
-        global items
-        items = stuffs
-        self.style['background-color'] = config["primary-background-color"]
-        self.add_class('w3-dropdown-hover')
-
-        class w3_dropdown_button(gui.Label):
-            def __init__(self, **kwargs):
-                super(w3_dropdown_button, self).__init__(**kwargs)
-
-                self.add_class('bounceIn w3-button')
-                self.set_style(menuUI.MenuCSS)
-
-        self.append(w3_dropdown_button(text=text))
-
-        class w3_dropdown_content(gui.Widget):
-            def __init__(self, **kwargs):
-                super(w3_dropdown_content, self).__init__(**kwargs)
-
-                self.style['color'] = config["primary-foreground-color"]
-                self.style['background-color'] = config["primary-background-color"]
-                self.add_class('w3-dropdown-content w3-bar-block w3-card-4')
-
-                class item(gui.Label):
-                    def __init__(self, **kwargs):
-                        super(item, self).__init__(**kwargs)
-
-                        self.style['font-size'] = config['font-size-dropbox-item']
-                        self.add_class('w3-bar-item w3-button w3-animate-left')
-                        self.onclick.do(event)
-
-                for key in items:
-                    global event
-                    event = items[key]
-                    self.append(item(text=key))
-
-        self.append(w3_dropdown_content())
-
-
-def lazy_populate_project_files(self_pointer):
+def lazy_populate_project_files(self_pointer, animate=True):
     time.sleep(1)
     self_pointer.project_list_canvas.empty()
     for file in glob.glob('*'):
-        self_pointer.project_list_canvas.append(theme.EditorSelectionLink(text=file))
+        self_pointer.project_list_canvas.append(theme.EditorSelectionLink(text=file, animate=animate))
 
 class CircuitizerUI(App):
     def __init__(self, *args):
@@ -89,7 +48,9 @@ class CircuitizerUI(App):
         start_status_thread = threading.Thread(target=self.status_logic, args=())
         start_status_thread.daemon = True
         start_status_thread.start()
-        
+
+    def new_tab(self, file):
+        print(file)
 
     def new_project_tab(self, event):
         self.canvas.empty()
@@ -123,6 +84,7 @@ class CircuitizerUI(App):
             create_component_button = theme.EditorButton(text='Custom component definition', icon='edit')
             create_cppscript_button = theme.EditorButton(text='C++ Script', icon='edit')
             link_compiler_button = theme.EditorButton(text='Link custom compiler suite', icon='edit')
+            lazy_populate_project_files(self, animate=False)
 
             for widget in [
                     foo, create_schematic_button,
@@ -190,9 +152,6 @@ class CircuitizerUI(App):
         time.sleep(0.5)
         self.panel.style['width'] = gui.to_pix(int(config["panel-width"]))
         self.panel.add_class('w3-animate-right')
-
-        
-
 
     def main(self):
         container = gui.Widget(width='100%', height='100%')       
@@ -273,7 +232,7 @@ class CircuitizerUI(App):
 
         }
         for menu in MENUS:
-            top.append(w3_dropdown_hover(text=menu, stuffs=MENUS[menu]))
+            top.append(theme.w3_dropdown_hover(text=menu, stuffs=MENUS[menu]))
 
         container.append(top)
 

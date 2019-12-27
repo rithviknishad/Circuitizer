@@ -19,7 +19,8 @@ config_template = {
     'cdn-or-local': 'local',
 
     'font-size-dropbox-item': 'small',
-    'panel-width': '300'
+    'panel-width': '300',
+    'dropbox-item-padding': '5'
 }
 
 

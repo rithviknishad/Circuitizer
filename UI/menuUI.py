@@ -9,7 +9,6 @@ MenuCSS = {
     'color': '#969393',
     'position' : 'relative',
     'font-size' : gui.to_pix(13),
-    # 'font-family': gui.to_uri('my_resources:fa-regular-400.wooff')
 }
 
 class MenuUI(gui.Label):
