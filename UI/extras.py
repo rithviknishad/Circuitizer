@@ -70,12 +70,5 @@ def inject_css_scrollbar(self_pointer):
 ::-webkit-scrollbar-thumb:hover { background: #555; } \
     """)
 
-
-def save_dialog():
-    from tkinter.filedialog import askopenfilename
-    return askopenfilename(filetypes=(("Template files", "*.tplate"),
-                                           ("HTML files", "*.html;*.htm"),
-                                           ("All files", "*.*") ))
-
 items = {}
 event = print

@@ -10,6 +10,7 @@ import threading
 import remi.gui as gui
 from remi import start, App
 
+import UI.theme as theme
 import UI.menuUI as menuUI
 import UI.statusUI as statusUI
 import UI.toolUI as toolUI
@@ -34,7 +35,7 @@ class w3_dropdown_hover(gui.Widget):
             def __init__(self, **kwargs):
                 super(w3_dropdown_button, self).__init__(**kwargs)
 
-                self.add_class('bounceIn')
+                self.add_class('bounceIn w3-button')
                 self.set_style(menuUI.MenuCSS)
 
         self.append(w3_dropdown_button(text=text))
@@ -52,7 +53,7 @@ class w3_dropdown_hover(gui.Widget):
                         super(item, self).__init__(**kwargs)
 
                         self.style['font-size'] = config['font-size-dropbox-item']
-                        self.add_class('w3-bar-item w3-button w3-animate-top')
+                        self.add_class('w3-bar-item w3-button w3-animate-left')
                         self.onclick.do(event)
 
                 for key in items:
@@ -193,28 +194,7 @@ class CircuitizerUI(App):
 
         def lazy_populate_project_files(self_pointer):
             for file in glob.glob('*'):
-                self_pointer.project_frame = gui.Widget()
-                self_pointer.project_frame.style['background-color'] = config["panel-background-color"]
-
-                if os.path.isfile(file):
-                    icon = gui.Label(text='description')
-                else:
-                    icon = gui.Label(text='folder')
-                icon.style['color'] = config["primary-foreground-color"]
-                icon.add_class('material-icons')
-                icon.style['display'] = 'table-cell'
-                self_pointer.project_frame.append(icon)
-
-                self_pointer.filename = gui.Label(text=file)
-                self_pointer.filename.style['color'] = config["primary-foreground-color"]
-                self_pointer.filename.style['display'] = 'table-cell'
-                self_pointer.filename.style['padding'] = '0px 20px'
-                self_pointer.project_frame.append(self_pointer.filename)
-
-                self_pointer.project_list_canvas.append(self_pointer.project_frame)
-
-                icon.add_class('bounceIn')
-                self_pointer.filename.add_class('bounceIn')
+                self_pointer.project_list_canvas.append(theme.EditorSelectionLink(text=file))
 
 
     def main(self):
@@ -352,7 +332,6 @@ class CircuitizerUI(App):
         self.canvas.style['background-color'] = config["canvas-background-color"]
         self.canvas.style['padding'] = ' '.join([gui.to_pix(10), gui.to_pix(10)])
 
-        import UI.theme as theme
         self.canvas.append(theme.EditorButton(text='Hi', icon='edit'))
 
         container.append(self.canvas)
