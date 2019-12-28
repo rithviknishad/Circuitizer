@@ -111,5 +111,6 @@ class w3_dropdown_hover(gui.Widget):
 
 
 class SchematicEditor(gui.Widget):
-    pass
-
+    def __init__(self, self_pointer, **kwargs):
+        super(SchematicEditor, self).__init__(**kwargs)
+        self_pointer.canvas.empty()

@@ -289,6 +289,7 @@ class CircuitizerUI(App):
         self.canvas.style['padding'] = ' '.join([gui.to_pix(10), gui.to_pix(10)])
 
         self.canvas.append(theme.EditorButton(text='Hi', icon='edit'))
+        self.canvas.append(theme.SchematicEditor(self_pointer=self))
 
         container.append(self.canvas)
 
