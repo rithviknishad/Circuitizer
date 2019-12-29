@@ -10,7 +10,8 @@ StatusCSS = {
     'height' : gui.to_pix(22),
     'position' : 'fixed',
     'font-size' : 'small',
-    'overflow' : 'hidden'
+    'overflow' : 'hidden',
+    'z-index': str(3)
 }
 
 class StatusUI(gui.Label):

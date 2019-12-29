@@ -1,0 +1,20 @@
+
+items = {}
+event = print
+        self.x = gui.Widget()
+        self.x.add_class('resizer top-right')
+        self.x.style['height'] = '5px'
+        self.x.style['width'] = '5px'
+        self.panel.append(self.x)
+
+        self.x = gui.Widget()
+        self.x.add_class('resizer bottom-left')
+        self.x.style['height'] = '5px'
+        self.x.style['width'] = '5px'
+        self.panel.append(self.x)
+        
+        self.x = gui.Widget()
+        self.x.add_class('resizer bottom-right')
+        self.x.style['height'] = '5px'
+        self.x.style['width'] = '5px'
+        self.panel.append(self.x)

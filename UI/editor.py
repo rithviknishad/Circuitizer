@@ -29,25 +29,46 @@ def lazy_populate_project_files(self_pointer, animate=True):
     for file in glob.glob('*'):
         self_pointer.project_list_canvas.append(theme.EditorSelectionLink(text=file, animate=animate))
 
+
 class CircuitizerUI(App):
     def __init__(self, *args):
         super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': RES_PATH})
-        lazy_load_http_equiv(self)
-        inject_css_scrollbar(self)
-        lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
-        if config["cdn-or-local"] == 'cdn':
-            lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
-            lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
-            lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
-            lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
-        else:
-            for js in glob.glob(RES_PATH + '*.js'):
-                lazy_load_js(self, "my_resources:" + os.path.basename(js))
-            for css in glob.glob(RES_PATH + '*.css'):
-                lazy_load_css(self, "my_resources:" + os.path.basename(css))
+        # inject_drag_property_to_widget(self, 'DeployedWidget')
+        # if config["cdn-or-local"] == 'cdn':
+        #     lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
+        #     lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
+        #     lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
+        #     lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
+        # else:
+        #     for js in glob.glob(RES_PATH + '*.js'):
+        #         lazy_load_js(self, "my_resources:" + os.path.basename(js))
+        #     for css in glob.glob(RES_PATH + '*.css'):
+        #         lazy_load_css(self, "my_resources:" + os.path.basename(css))
         start_status_thread = threading.Thread(target=self.status_logic, args=())
         start_status_thread.daemon = True
         start_status_thread.start()
+        self.load_stuff()
+
+    def load_stuff(self):
+        # Load no cache property to application
+        lazy_load_http_equiv(self)
+        # Add custom scrollbar
+        inject_css_scrollbar(self)
+        # Enable drag property
+        enable_drag_property(self)
+        enable_drag_property_x(self)
+        # Inject drag property to widgets
+        inject_drag_property_to_widget(self, 'DragWidgetEditorProperty')
+        inject_drag_property_to_widget_x_only(self, 'DragWidgetEditorPanel')
+        # Load the resizeable widget css code
+        lazy_load_css(self, "my_resources:resizable.css")
+        # Load the material icons font
+        lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
+        # Load some local files
+        for js in glob.glob(RES_PATH + '*.js'):
+            lazy_load_js(self, "my_resources:" + os.path.basename(js))
+        for css in glob.glob(RES_PATH + '*.css'):
+            lazy_load_css(self, "my_resources:" + os.path.basename(css))
 
     def new_tab(self, file):
         print(file)
@@ -95,7 +116,6 @@ class CircuitizerUI(App):
 
         
         def project_event(e):
-            
             project_format_file_handler = open(project_name.get_text() + '.cxproj', 'w')
             project_format_file_handler.write('')
             project_format_file_handler.close()
@@ -114,11 +134,12 @@ class CircuitizerUI(App):
         self.status.set_text('Ready')
 
     def panel_logic(self):
-        global lazy_populate_project_files
         self.properties_label = gui.Label(text="Properties Panel")
+        self.properties_label.set_identifier('DragWidgetEditorPanelheader')
         self.properties_label.style['color'] = config["primary-foreground-color"]
         self.properties_label.style['display'] = 'table-row'
         self.properties_label.style['position'] = 'relative'
+        self.properties_label.style['cursor'] = 'move'
         
         self.panel.append(self.properties_label)
 
@@ -256,18 +277,30 @@ class CircuitizerUI(App):
         container.append(toolbar(text='..'))
 
         self.panel = gui.Widget()
+        self.panel.set_identifier('DragWidgetEditorPanel')
         self.panel.style['position'] = 'absolute'
         self.panel.style['top'] = gui.to_pix(54)
-        # self.panel.style['width'] = gui.to_pix(int(config["panel-width"]))
+        self.panel.style['z-index'] = str(2)
         self.panel.style['width'] = gui.to_pix(0)
         self.panel.style['right'] = str(0)
         self.panel.style['color'] = 'white'
         self.panel.style['height'] = '90%'
         self.panel.style['background-color'] = config["panel-background-color"]
         self.panel.style['padding'] = '10px 10px'
+
+        # Enable resize property and resizer object
+        self.panel.add_class('resizable resizers')
+        self.panel_resizer = gui.Widget()
+        self.panel_resizer.add_class('resizer top-left')
+        self.panel_resizer.style['height'] = '5px'
+        self.panel_resizer.style['width'] = '5px'
+        self.panel_resizer.style['background-color'] = config["button-background-color"]
+        self.panel_resizer.style['cursor'] = 'w-resize'
+        self.panel.append(self.panel_resizer)
+
         container.append(self.panel)
 
-        self.actionbar = gui.VBox()
+        self.actionbar = gui.Widget()
         self.actionbar.style['position'] = 'fixed'
         self.actionbar.style['top'] = gui.to_pix(54)
         self.actionbar.style['width'] = gui.to_pix(40)
