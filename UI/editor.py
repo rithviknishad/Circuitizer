@@ -20,7 +20,7 @@ from UI.extras import *
 # Load the configuration file for Circuitizer
 config = json.load(open('UI/config.json'))
 # Locate the resource folder
-RES_PATH = './UI/res/'
+RES_PATH = './UI/resources/'
 
 
 def lazy_populate_project_files(self_pointer, animate=True):
@@ -32,10 +32,13 @@ def lazy_populate_project_files(self_pointer, animate=True):
 
 class CircuitizerUI(App):
     def __init__(self, *args):
-        super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': RES_PATH, 'my_lib': RES_PATH + 'lib/'})
+        res_path = os.path.join(os.path.dirname(__file__), 'resources/remi')
+        super(CircuitizerUI, self).__init__(*args, static_file_path = {'res':res_path, 'my_resources': RES_PATH, 'my_lib': RES_PATH + 'lib/'})
         """
         The Circuitizer Main UI
         """
+        global pointer
+        pointer = self
         self.load_stuff()
         # Load the status thread
         status_thread = threading.Thread(target=self.status_logic, args=())
@@ -269,10 +272,6 @@ class CircuitizerUI(App):
         
         container.append(toolbar(text='..'))
 
-        # Inject drag property to widgets
-        inject_drag_property_to_widget(self, 'DragWidgetEditorProperty')
-        inject_drag_property_to_widget_x_only(self, 'DragWidgetEditorPanel')
-
         self.panel = gui.Widget()
         self.panel.set_identifier('DragWidgetEditorPanel')
         self.panel.style['position'] = 'absolute'
@@ -329,6 +328,7 @@ class CircuitizerUI(App):
         panel_logic_thread = threading.Thread(target=self.panel_logic, args=())
         panel_logic_thread.daemon = True
         panel_logic_thread.start()
+
         lazy_populate_project_files_thread = threading.Thread(target=lazy_populate_project_files, args=(self, ))
         lazy_populate_project_files_thread.daemon = True
         lazy_populate_project_files_thread.start()
@@ -336,6 +336,18 @@ class CircuitizerUI(App):
         # returning the root widget
         return container
 
+# Inject drag property to widgets
+def inject_drag_property_to_widget_thread():
+    global pointer
+    # The property should exist when if the page is reloaded
+    while True:
+        time.sleep(3)
+        inject_drag_property_to_widget(pointer, 'DragWidgetEditorProperty')
+        inject_drag_property_to_widget_x_only(pointer, 'DragWidgetEditorPanel')
+
+inject_drag_property_to_widget_threader = threading.Thread(target=inject_drag_property_to_widget_thread, args=())
+inject_drag_property_to_widget_threader.daemon = True
+inject_drag_property_to_widget_threader.start()
 
 def do():
     # Desktop Application

@@ -1,2 +1,3 @@
 remi==2019.9
-nuitka
+pywebview==3.0.2
+nuitka==0.6.5
