@@ -56,12 +56,6 @@ def lazy_load_js_from_data(self_pointer, data):
     """)
 
 
-def enable_drag_property(self_pointer):
-  lazy_load_js_from_data(self_pointer, """function dragElement(e){var n=0,t=0,o=0,u=0;function l(e){(e=e||window.event).preventDefault(),o=e.clientX,u=e.clientY,document.onmouseup=m,document.onmousemove=d}function d(l){(l=l||window.event).preventDefault(),n=o-l.clientX,t=u-l.clientY,o=l.clientX,u=l.clientY,e.style.top=e.offsetTop-t+"px",e.style.left=e.offsetLeft-n+"px"}function m(){document.onmouseup=null,document.onmousemove=null}document.getElementById(e.id+"header")?document.getElementById(e.id+"header").onmousedown=l:e.onmousedown=l}""")
-
-def enable_drag_property_x(self_pointer):
-  lazy_load_js_from_data(self_pointer, """function dragElementX(e){var n=0,t=0;function o(e){(e=e||window.event).preventDefault(),t=e.clientX,document.onmouseup=d,document.onmousemove=u}function u(o){(o=o||window.event).preventDefault(),n=t-o.clientX,t=o.clientX,e.style.left=e.offsetLeft-n+"px"}function d(){document.onmouseup=null,document.onmousemove=null}document.getElementById(e.id+"header")?document.getElementById(e.id+"header").onmousedown=o:e.onmousedown=o}""")
-
 def inject_drag_property_to_widget(self_pointer, ID):
   self_pointer.execute_javascript("dragElement(document.getElementById(\"" + ID + "\"));")
   
@@ -75,14 +69,6 @@ def inject_css(self_pointer, css):
         document.getElementsByTagName('HEAD')[0].appendChild(css)
     """)
 
-
-def inject_css_scrollbar(self_pointer):
-    inject_css(self_pointer, css=""" \
-::-webkit-scrollbar { width: 10px; height: 10px; } \
-::-webkit-scrollbar-track { background: #969393; } \
-::-webkit-scrollbar-thumb { background: white; } \
-::-webkit-scrollbar-thumb:hover { background: #555; } \
-    """)
 
 def run_once(f):
     def wrapper(*args, **kwargs):

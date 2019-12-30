@@ -155,12 +155,13 @@ class ComponentImporter(gui.Widget):
         component_widget.append(inside)
 
         self_pointer.canvas.append(component_widget)
-
+        
 
 class SchematicEditor(gui.Widget):
     def __init__(self, self_pointer, **kwargs):
         super(SchematicEditor, self).__init__(**kwargs)
         self_pointer.canvas.empty()
+        inject_drag_property_to_widget(self_pointer, 'DeployedWidget')
 
         def add_component_button_event(event):
             return ComponentImporter(self_pointer=self_pointer)

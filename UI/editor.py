@@ -32,43 +32,32 @@ def lazy_populate_project_files(self_pointer, animate=True):
 
 class CircuitizerUI(App):
     def __init__(self, *args):
-        super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': RES_PATH})
-        # inject_drag_property_to_widget(self, 'DeployedWidget')
-        # if config["cdn-or-local"] == 'cdn':
-        #     lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
-        #     lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
-        #     lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
-        #     lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
-        # else:
-        #     for js in glob.glob(RES_PATH + '*.js'):
-        #         lazy_load_js(self, "my_resources:" + os.path.basename(js))
-        #     for css in glob.glob(RES_PATH + '*.css'):
-        #         lazy_load_css(self, "my_resources:" + os.path.basename(css))
-        start_status_thread = threading.Thread(target=self.status_logic, args=())
-        start_status_thread.daemon = True
-        start_status_thread.start()
+        super(CircuitizerUI, self).__init__(*args, static_file_path = {'my_resources': RES_PATH, 'my_lib': RES_PATH + 'lib/'})
+        """
+        The Circuitizer Main UI
+        """
         self.load_stuff()
+        # Load the status thread
+        status_thread = threading.Thread(target=self.status_logic, args=())
+        status_thread.daemon = True
+        status_thread.start()
 
     def load_stuff(self):
         # Load no cache property to application
-        lazy_load_http_equiv(self)
-        # Add custom scrollbar
-        inject_css_scrollbar(self)
-        # Enable drag property
-        enable_drag_property(self)
-        enable_drag_property_x(self)
-        # Inject drag property to widgets
-        inject_drag_property_to_widget(self, 'DragWidgetEditorProperty')
-        inject_drag_property_to_widget_x_only(self, 'DragWidgetEditorPanel')
-        # Load the resizeable widget css code
-        lazy_load_css(self, "my_resources:resizable.css")
-        # Load the material icons font
-        lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
+        # lazy_load_http_equiv(self)
+        # Load library files
+        for js in glob.glob(RES_PATH + 'lib/*.js'):
+            lazy_load_js(self, "my_lib:" + os.path.basename(js))
+        for css in glob.glob(RES_PATH + 'lib/*.css'):
+            lazy_load_css(self, "my_lib:" + os.path.basename(css))
         # Load some local files
         for js in glob.glob(RES_PATH + '*.js'):
             lazy_load_js(self, "my_resources:" + os.path.basename(js))
         for css in glob.glob(RES_PATH + '*.css'):
             lazy_load_css(self, "my_resources:" + os.path.basename(css))
+        # Load the material icons font
+        lazy_load_css(self, "https://fonts.googleapis.com/icon?family=Material+Icons")
+        
 
     def new_tab(self, file):
         print(file)
@@ -131,7 +120,11 @@ class CircuitizerUI(App):
 
     def status_logic(self):
         time.sleep(3)
-        self.status.set_text('Ready')
+        try:
+            self.status.set_text('Ready')
+        except:
+            print()
+            # raise NotImplementedError('Waiting for Status bar to init')
 
     def panel_logic(self):
         self.properties_label = gui.Label(text="Properties Panel")
@@ -275,6 +268,10 @@ class CircuitizerUI(App):
                 self.append(place_holder_text(text='Toolbar'))
         
         container.append(toolbar(text='..'))
+
+        # Inject drag property to widgets
+        inject_drag_property_to_widget(self, 'DragWidgetEditorProperty')
+        inject_drag_property_to_widget_x_only(self, 'DragWidgetEditorPanel')
 
         self.panel = gui.Widget()
         self.panel.set_identifier('DragWidgetEditorPanel')

@@ -18,3 +18,25 @@ event = print
         self.x.style['height'] = '5px'
         self.x.style['width'] = '5px'
         self.panel.append(self.x)
+                # inject_drag_property_to_widget(self, 'DeployedWidget')
+        # if config["cdn-or-local"] == 'cdn':
+        #     lazy_load_css(self, "https://www.w3schools.com/w3css/4/w3.css")
+        #     lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css")
+        #     lazy_load_css(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
+        #     lazy_load_js(self, "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
+        # else:
+        #     for js in glob.glob(RES_PATH + '*.js'):
+        #         lazy_load_js(self, "my_resources:" + os.path.basename(js))
+        #     for css in glob.glob(RES_PATH + '*.css'):
+        #         lazy_load_css(self, "my_resources:" + os.path.basename(css))
+
+
+
+        # Add custom scrollbar
+        # inject_css_scrollbar(self)
+        # Enable drag property
+        enable_drag_property(self)
+        enable_drag_property_x(self)
+
+                # Load the resizeable widget css code
+        # lazy_load_css(self, "my_resources:resizable.css")

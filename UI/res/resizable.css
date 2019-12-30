@@ -1,40 +1,40 @@
 .resizable {
-  position: absolute;
+    position: absolute;
 }
 
-.resizable .resizers{
-  width: 100%;
-  height: 100%;
-  border: 3px solid #4286f4;
-  box-sizing: border-box;
+.resizable .resizers {
+    width: 100%;
+    height: 100%;
+    border: 3px solid #4286f4;
+    box-sizing: border-box;
 }
 
-.resizable .resizers .resizer{
-  width: 5px;
-  height: 5px;
-  position: absolute;
+.resizable .resizers .resizer {
+    width: 5px;
+    height: 5px;
+    position: absolute;
 }
 
 .resizable .resizers .resizer.top-left {
-  left: 5px;
-  top: 5px;
-  cursor: nwse-resize;
+    left: 5px;
+    top: 5px;
+    cursor: nwse-resize;
 }
 
 .resizable .resizers .resizer.top-right {
-  right: 5px;
-  top: 5px;
-  cursor: nesw-resize;
+    right: 5px;
+    top: 5px;
+    cursor: nesw-resize;
 }
 
 .resizable .resizers .resizer.bottom-left {
-  left: 5px;
-  bottom: 5px;
-  cursor: nesw-resize;
+    left: 5px;
+    bottom: 5px;
+    cursor: nesw-resize;
 }
 
 .resizable .resizers .resizer.bottom-right {
-  right: 5px;
-  bottom: 5px;
-  cursor: nwse-resize;
+    right: 5px;
+    bottom: 5px;
+    cursor: nwse-resize;
 }
