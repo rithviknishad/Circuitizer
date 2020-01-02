@@ -2,32 +2,17 @@
 
 #include "crpch.h"
 #include "Circuitizer/Generic/Generics.h"
-#include "Circuitizer/Circuit/Terminal.h"
+#include "Circuitizer/Circuit/TerminalContainer.h"
 
-namespace Electrical
+namespace Circuitizer
 {
-	typedef std::vector<Terminal*> Terminals;
-
-	class Component : public Name, public Position
+	class Component : public Name, public Position, public TerminalContainer
 	{
 	public:
-		Component(std::string name, int pinCount, Position position);
-		virtual ~Component() = 0;
-
-		/* Associates specified amount of terminals to the component. */
-		void AddTerminals(int count = 1);
-
-		/* Binds the specified terminal to the component. */
-		void AddTerminal(Terminal* terminal);
-
-		/* Unbinds the specified terminal from component. */
-		void RemoveTerminal(Terminal* terminal, bool deleteFlag = false);
-
-		/* Returns the terminals of the component. */
-		Terminals GetTerminals();
-		operator Terminals();
-
-	protected:
-		Terminals m_Terminals;
+		Component(std::string name, int pinCount, Position position)
+			: Name(name), Position(position)
+		{
+			AddTerminals(pinCount, name);
+		}
 	};
 }

@@ -19,3 +19,7 @@ bin/
 
 # Others
 *.ini
+*.idb
+*.log
+*.pdb
+*.obj

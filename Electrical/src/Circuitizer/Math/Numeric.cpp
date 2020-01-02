@@ -16,10 +16,10 @@ namespace Circuitizer
 		Numeric Numeric::operator+() const { return Numeric(*this); }
 		Numeric Numeric::operator-() const { return Numeric(-m_real, -m_imaginary); }
 
-		Numeric Numeric::operator++() { return Numeric(++m_real, ++m_imaginary); }
-		Numeric Numeric::operator++(int) { return Numeric(m_real++, m_imaginary++); }
-		Numeric Numeric::operator--() { return Numeric(--m_real, --m_imaginary); }
-		Numeric Numeric::operator--(int) { return Numeric(m_real--, m_imaginary--); }
+		Numeric Numeric::operator++() { return Numeric(++m_real, m_imaginary); }
+		Numeric Numeric::operator++(int) { return Numeric(m_real++, m_imaginary); }
+		Numeric Numeric::operator--() { return Numeric(--m_real, m_imaginary); }
+		Numeric Numeric::operator--(int) { return Numeric(m_real--, m_imaginary); }
 		// TODO
 		Numeric Numeric::operator%(Numeric& n) const
 		{
