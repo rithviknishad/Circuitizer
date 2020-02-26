@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import glob
+import time
 import json
 import threading
 import remi.gui as gui
@@ -143,7 +144,13 @@ class ComponentImporter(gui.Widget):
         self_pointer.canvas.empty()
         component_widget = gui.Widget()
         
-        component_widget.set_identifier('DeployedWidget')
+        def inject_drag_property_to_widget_thread():
+            while True:
+                time.sleep(1)
+                print(dir(component_widget))
+                inject_drag_property_to_widget(self_pointer, component_widget.identifier)
+        
+        threading.Thread(target=inject_drag_property_to_widget_thread, args=()).start()
         component_widget.style['width'] = gui.to_pix(40)
         component_widget.style['height'] = gui.to_pix(40)
         component_widget.style['position'] = 'absolute'
@@ -161,7 +168,7 @@ class SchematicEditor(gui.Widget):
     def __init__(self, self_pointer, **kwargs):
         super(SchematicEditor, self).__init__(**kwargs)
         self_pointer.canvas.empty()
-        inject_drag_property_to_widget(self_pointer, 'DeployedWidget')
+        
 
         def add_component_button_event(event):
             return ComponentImporter(self_pointer=self_pointer)
